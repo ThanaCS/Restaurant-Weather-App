@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'androidx.navigation.safeargs'
     id 'kotlin-kapt'
+
 }
 
 android {
@@ -88,4 +89,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    //coil
+    implementation("io.coil-kt:coil:1.1.0")
+
 }

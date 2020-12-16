@@ -18,8 +18,15 @@ class YelpViewModelTest {
     }
 
     @Test
-    fun `insert food and a place , should return a result `() {
+    fun `insert a valid food and a valid location , should return a result `() {
         viewModel.getBusinesses("toast", "France")
+        val value = viewModel.businessesLiveData.getOrAwaitValue()
+        print(value)
+    }
+
+    @Test
+    fun `insert null food and a valid location , should return a result `() {
+        viewModel.getBusinesses("", "France")
         val value = viewModel.businessesLiveData.getOrAwaitValue()
         print(value)
     }
