@@ -1,7 +1,6 @@
 package com.thanaa.restaurantweatherapp.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -19,10 +18,9 @@ class YelpViewModelTest {
     }
 
     @Test
-    fun `insert valid lan and long , returns result `() {
+    fun `insert food and a place , should return a result `() {
         viewModel.getBusinesses("toast", "France")
         val value = viewModel.businessesLiveData.getOrAwaitValue()
         print(value)
-
     }
 }

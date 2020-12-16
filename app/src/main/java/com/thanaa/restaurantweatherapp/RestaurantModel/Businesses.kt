@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Businesse(
+data class Businesses(
     val alias: String,
     val categories: List<Category>,
     val coordinates: Coordinates,
