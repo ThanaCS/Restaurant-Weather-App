@@ -17,8 +17,8 @@ import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.RestaurantModel.Businesses
 import com.thanaa.restaurantweatherapp.viewmodel.YelpViewModel
 
-class RestaurantAdapter(private val food: List<Businesses>) :
-        RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
+class RestaurantAdapter(private val food: List<Businesses>, private val weather: String) :
+    RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
     lateinit var viewModel: YelpViewModel
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -31,8 +31,9 @@ class RestaurantAdapter(private val food: List<Businesses>) :
         private val ratingBar: RatingBar = view.findViewById(R.id.ratingBar)
         private val imageView: ImageView = view.findViewById(R.id.imageView)
         private val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
+        private val weatherText: TextView = view.findViewById(R.id.weather)
 
-        fun bind(foodItem: Businesses) {
+        fun bind(foodItem: Businesses, weather: String) {
             progressBar.visibility = View.VISIBLE
             nameText.text = foodItem.name
             addressText.text = foodItem.location.address1
@@ -41,6 +42,7 @@ class RestaurantAdapter(private val food: List<Businesses>) :
             categoryText.text = foodItem.categories[0].title
             ratingBar.rating = foodItem.rating.toFloat()
             reviewsText.text = "${foodItem.review_count} reviews"
+            weatherText.text = weather
 
             Glide.with(imageView)
                 .load(foodItem.image_url)
@@ -65,8 +67,7 @@ class RestaurantAdapter(private val food: List<Businesses>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         viewModel = YelpViewModel()
         val foodItem: Businesses = food[position]
-
-        holder.bind(foodItem)
+        holder.bind(foodItem, weather)
     }
 
 
