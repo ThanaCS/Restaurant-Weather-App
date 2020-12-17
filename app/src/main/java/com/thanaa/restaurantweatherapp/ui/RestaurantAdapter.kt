@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.thanaa.restaurantweatherapp.R
-import com.thanaa.restaurantweatherapp.RestaurantModel.Businesses
+import com.thanaa.restaurantweatherapp.model.Businesses
 import com.thanaa.restaurantweatherapp.viewmodel.YelpViewModel
 
 class RestaurantAdapter(private val food: List<Businesses>, private val weather: String) :

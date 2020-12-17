@@ -1,24 +1,30 @@
 package com.thanaa.restaurantweatherapp.weatherModel
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class WeatherResponse(
     val current: Current,
     val forecast: Forecast,
     val location: Location
-)
+) : Parcelable
 
+@Parcelize
 data class Current(
     val condition: Condition,
     val is_day: Int,
     val last_updated: String,
     val temp_c: Double,
     val temp_f: Double
-)
+) : Parcelable
 
+@Parcelize
 data class Forecast(
     val forecastday: List<Forecastday>
-)
+) : Parcelable
 
+@Parcelize
 data class Location(
     val country: String,
     val lat: Double,
@@ -27,24 +33,28 @@ data class Location(
     val name: String,
     val region: String,
     val tz_id: String
-)
+) : Parcelable
 
+@Parcelize
 data class Condition(
     val code: Int,
     val icon: String,
     val text: String
-)
+) : Parcelable
 
+@Parcelize
 data class Forecastday(
     val date: String,
     val day: Day,
     val hour: List<Hour>
-)
+) : Parcelable
 
+@Parcelize
 data class Day(
     val condition: Condition
-)
+) : Parcelable
 
+@Parcelize
 data class Hour(
     val chance_of_rain: String,
     val chance_of_snow: String,
@@ -53,4 +63,4 @@ data class Hour(
     val temp_c: Double,
     val temp_f: Double,
     val time: String,
-)
+) : Parcelable
