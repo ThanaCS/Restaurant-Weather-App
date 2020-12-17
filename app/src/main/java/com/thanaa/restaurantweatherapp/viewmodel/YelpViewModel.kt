@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 class YelpViewModel: ViewModel() {
 
     val businessesLiveData: MutableLiveData<List<Businesses>> = MutableLiveData()
+    val businessesLanLonLiveData: MutableLiveData<List<Businesses>> = MutableLiveData()
     private val yelpService = YelpService()
 
 
@@ -26,5 +27,20 @@ class YelpViewModel: ViewModel() {
 
 
     }
+
+    fun getBusinessesFromLanLon(term: String, lat: String, lon: String) {
+        try {
+            viewModelScope.launch {
+                val response = yelpService.getBusinessesFromLanLon(term, lat, lon)
+                if (response.isSuccessful)
+                    businessesLanLonLiveData.postValue(response.body()?.businesses)
+            }
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+        }
+
+
+    }
+
 
 }

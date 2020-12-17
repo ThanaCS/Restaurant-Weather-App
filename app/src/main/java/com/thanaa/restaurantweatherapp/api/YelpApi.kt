@@ -13,4 +13,12 @@ interface YelpApi {
         @Query("term") term: String,
         @Query("location") location: String
     ): Response<RestaurantResponse>
+
+    @GET("businesses/search")
+    suspend fun getBusinessesFromLanLon(
+        @Header("Authorization") authHeader: String,
+        @Query("term") term: String,
+        @Query("latitude") latitude: String,
+        @Query("longitude") longitude: String
+    ): Response<RestaurantResponse>
 }
