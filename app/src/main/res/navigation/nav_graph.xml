@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.thanaa.restaurantweatherapp.MapsFragment"
+        android:name="com.thanaa.restaurantweatherapp.ui.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps">
         <action

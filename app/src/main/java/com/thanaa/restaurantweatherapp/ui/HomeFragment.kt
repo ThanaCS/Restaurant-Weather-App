@@ -6,25 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thanaa.restaurantweatherapp.databinding.FragmentHomeBinding
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.YelpViewModel
-import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
-
 
 class HomeFragment : Fragment() {
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var yelpViewModel: YelpViewModel
     private lateinit var weatherViewModel: WeatherViewModel
 
-    //    private  var weather: WeatherResponse? = null
-    var weather: MutableLiveData<WeatherResponse>? = MutableLiveData()
     private val args by navArgs<HomeFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,12 +29,10 @@ class HomeFragment : Fragment() {
         yelpViewModel = ViewModelProvider(this).get(YelpViewModel::class.java)
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         setData()
-
         return binding.root
     }
 
     private fun setData() {
-
         binding.progressbar.visibility = View.VISIBLE
         Toast.makeText(context, "${args.country}", Toast.LENGTH_SHORT).show()
         yelpViewModel.getBusinesses(term = args.food, location = args.country)
@@ -49,7 +41,6 @@ class HomeFragment : Fragment() {
             binding.recyclerview.adapter = RestaurantAdapter(it, args.weather)
             binding.progressbar.visibility = View.GONE
         })
-
 
     }
 

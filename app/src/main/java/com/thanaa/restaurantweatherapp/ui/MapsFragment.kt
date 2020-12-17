@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp
+package com.thanaa.restaurantweatherapp.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -25,9 +25,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
+import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.databinding.FragmentMapsBinding
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
-
 class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
     private var PERMISSION_ID: Int = 1
     private var latValue: Double = 0.0
