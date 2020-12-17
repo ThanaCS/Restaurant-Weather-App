@@ -1,4 +1,5 @@
 package com.thanaa.restaurantweatherapp.viewmodel
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,7 +8,7 @@ import com.thanaa.restaurantweatherapp.api.YelpService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class YelpViewModel: ViewModel() {
+class YelpViewModel : ViewModel() {
 
     val businessesLiveData: MutableLiveData<List<Businesses>> = MutableLiveData()
     val businessesLanLonLiveData: MutableLiveData<List<Businesses>> = MutableLiveData()
@@ -24,7 +25,6 @@ class YelpViewModel: ViewModel() {
         } catch (exception: Exception) {
             exception.printStackTrace()
         }
-
 
     }
 

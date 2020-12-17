@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -25,27 +24,25 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(YelpViewModel::class.java)
+        setData()
 
+        return binding.root
+    }
+
+    private fun setData() {
         binding.progressbar.visibility = View.VISIBLE
-        val lat = args.lat
-        val lon = args.lon
-        val food = args.food
-
-        Toast.makeText(context, "$lat $lon $food", Toast.LENGTH_SHORT).show()
-        viewModel.getBusinessesFromLanLon("pizza", args.lat, args.lon)
+        viewModel.getBusinessesFromLanLon(args.food, args.lon, args.lat)
         viewModel.businessesLanLonLiveData.observe(viewLifecycleOwner, {
             binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
             binding.recyclerview.adapter = RestaurantAdapter(it)
             binding.progressbar.visibility = View.GONE
-
         })
-        return binding.root
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 
 
 }

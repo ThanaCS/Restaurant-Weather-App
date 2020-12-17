@@ -2,13 +2,12 @@ package com.thanaa.restaurantweatherapp
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -19,15 +18,17 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.thanaa.restaurantweatherapp.databinding.FragmentMapsBinding
 
-class MapsFragment : Fragment() {
+class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
     private var PERMISSION_ID: Int = 1
     private var latValue: Double = 0.0
     private var lonValue: Double = 0.0
+    private var food: String? = ""
     lateinit var fusedLocationClient: FusedLocationProviderClient
     private val TAG = "MapsFragment"
     private var _binding: FragmentMapsBinding? = null
@@ -39,6 +40,7 @@ class MapsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -69,19 +71,16 @@ class MapsFragment : Fragment() {
                 onMapReady(googleMap, it.latitude, it.longitude)
             }
             mapFragment?.getMapAsync(callback)
-
         }
-
         //Pass data to home fragment
         binding.ok.setOnClickListener {
             val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment(
-                binding.search.toString(),
+                food!!,
                 latValue.toString(),
                 lonValue.toString()
             )
             findNavController().navigate(action)
         }
-
     }
 
     private fun getUserLocation() {
@@ -97,48 +96,77 @@ class MapsFragment : Fragment() {
                 PERMISSION_ID
             )
         }
-
-
     }
 
     @SuppressLint("PotentialBehaviorOverride", "MissingPermission")
     private fun onMapReady(googleMap: GoogleMap, lan: Double, lon: Double) {
         googleMap.addMarker(
-            MarkerOptions().position(
-                LatLng(lan, lon)
-            )
+            MarkerOptions().position(LatLng(lan, lon))
                 .draggable(true)
+                .icon(
+                    BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)
+                )
         )
 
         googleMap.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
             override fun onMarkerDragStart(arg0: Marker) {
-
             }
 
             override fun onMarkerDragEnd(arg0: Marker) {
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(arg0.position, 1.0f))
-                val message =
-                    arg0.position.latitude.toString() + "" + arg0.position.longitude.toString()
-                Toast.makeText(
-                    context,
-                    "$message   ${LatLng(arg0.position.latitude, arg0.position.longitude)}",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.d(TAG, "${arg0.position.latitude} ,${arg0.position.longitude} ")
                 latValue = arg0.position.latitude
                 lonValue = arg0.position.longitude
-
             }
 
             override fun onMarkerDrag(arg0: Marker?) {
-                val message =
-                    arg0!!.position.latitude.toString() + "" + arg0.position.longitude.toString()
-                Toast.makeText(context, "$message", Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "${arg0.position.latitude} ,${arg0.position.longitude} ")
-                latValue = arg0.position.latitude
-                lonValue = arg0.position.longitude
+                if (arg0 != null) {
+                    latValue = arg0.position.latitude
+                }
+                if (arg0 != null) {
+                    lonValue = arg0.position.longitude
+                }
             }
         })
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            food = query
+            //Hide soft keys
+            hideKeyBoard()
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if (newText != null) {
+            food = newText
+        }
+        return true
+    }
+
+    private fun hideKeyBoard() {
+        activity?.let {
+            val inputManager =
+                it.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val view = it.currentFocus
+            if (view != null) {
+                inputManager.hideSoftInputFromWindow(
+                    view.windowToken,
+                    InputMethodManager.HIDE_NOT_ALWAYS
+                )
+            }
+        }
+
+    }
 }
