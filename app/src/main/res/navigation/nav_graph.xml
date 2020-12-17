@@ -20,11 +20,8 @@
             android:name="lon"
             app:argType="string" />
         <argument
-            android:name="country"
-            app:argType="string" />
-        <argument
             android:name="weather"
-            app:argType="string" />
+            app:argType="com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"

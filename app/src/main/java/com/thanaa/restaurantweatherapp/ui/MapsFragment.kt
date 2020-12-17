@@ -28,13 +28,14 @@ import com.google.android.material.snackbar.Snackbar
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.databinding.FragmentMapsBinding
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
+import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
+
 class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
     private var PERMISSION_ID: Int = 1
     private var latValue: Double = 0.0
     private var lonValue: Double = 0.0
     private var food: String? = ""
-    private var weather = ""
-    private var country: String = ""
+    private lateinit var weather: WeatherResponse
     private lateinit var weatherViewModel: WeatherViewModel
     lateinit var fusedLocationClient: FusedLocationProviderClient
     private val TAG = "MapsFragment"
@@ -69,7 +70,6 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
             } != PackageManager.PERMISSION_GRANTED
         ) {
 
-
             return
         }
         fusedLocationClient.lastLocation.addOnSuccessListener {
@@ -82,12 +82,14 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
         }
         //Pass data to home fragment
         binding.submitButton.setOnClickListener {
+
             val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment(
                 food!!,
                 latValue.toString(),
-                lonValue.toString(), country, weather
+                lonValue.toString(), weather
             )
             findNavController().navigate(action)
+
         }
     }
 
@@ -137,8 +139,7 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
                         Snackbar.LENGTH_LONG
                     ).setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.black))
                         .show()
-                    country = it.location.country
-                    weather = it.current.condition.text
+                    weather = it
                 })
             }
 
