@@ -1,6 +1,6 @@
 package com.thanaa.restaurantweatherapp.api
 
-import com.thanaa.restaurantweatherapp.RestaurantModel.RestaurantResponse
+import com.thanaa.restaurantweatherapp.model.RestaurantResponse
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

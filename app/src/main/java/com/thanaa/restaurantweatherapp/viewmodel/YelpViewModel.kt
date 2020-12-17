@@ -3,8 +3,8 @@ package com.thanaa.restaurantweatherapp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thanaa.restaurantweatherapp.RestaurantModel.Businesses
 import com.thanaa.restaurantweatherapp.api.YelpService
+import com.thanaa.restaurantweatherapp.model.Businesses
 import kotlinx.coroutines.launch
 
 class YelpViewModel : ViewModel() {
