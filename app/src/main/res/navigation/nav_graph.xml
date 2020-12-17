@@ -19,6 +19,12 @@
         <argument
             android:name="lon"
             app:argType="string" />
+        <argument
+            android:name="country"
+            app:argType="string" />
+        <argument
+            android:name="weather"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
