@@ -55,9 +55,7 @@ class RestaurantAdapter(private val food: List<Businesses>, private val weather:
                 .load("https:${weather.current.condition.icon}")
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
-                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(10)))
                 .into(weatherIcon)
-
 
             progressBar.visibility = View.GONE
 
@@ -66,12 +64,11 @@ class RestaurantAdapter(private val food: List<Businesses>, private val weather:
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.row_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.row_item, parent, false)
         )
     }
 
     override fun getItemCount(): Int = food.size
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         viewModel = YelpViewModel()

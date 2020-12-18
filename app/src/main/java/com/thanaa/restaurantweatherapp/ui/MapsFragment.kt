@@ -67,9 +67,7 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
                     it,
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
-            } != PackageManager.PERMISSION_GRANTED
-        ) {
-
+            } != PackageManager.PERMISSION_GRANTED) {
             return
         }
         fusedLocationClient.lastLocation.addOnSuccessListener {
@@ -86,7 +84,8 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
             val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment(
                 food!!,
                 latValue.toString(),
-                lonValue.toString(), weather
+                lonValue.toString(),
+                weather
             )
             findNavController().navigate(action)
 
@@ -155,7 +154,6 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
         })
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
         val search = menu.findItem(R.id.menu_search)
@@ -192,6 +190,5 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
                 )
             }
         }
-
     }
 }
