@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.thanaa.restaurantweatherapp.databinding.FragmentInfoBinding
+import com.thanaa.restaurantweatherapp.ui.WeatherAdapter
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import kotlin.time.ExperimentalTime
 import kotlin.time.hours
@@ -66,9 +67,10 @@ class InfoFragment : Fragment() {
         weatherViewModel.getWeather("$lat,$lon")
         weatherViewModel.weatherLiveData.observe(viewLifecycleOwner, {
             Toast.makeText(context, "${it.forecast.forecastday[0]}", Toast.LENGTH_SHORT).show()
-//            binding.weatherRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
-//            binding.weatherRecyclerView.adapter = WeatherAdapter(it)
-//            binding.weatherRecyclerView.visibility = View.GONE
+            binding.weatherRecyclerView.layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+            binding.weatherRecyclerView.adapter = WeatherAdapter(it.forecast.forecastday[0].hour)
+            binding.weatherRecyclerView.visibility = View.GONE
         })
 
 
