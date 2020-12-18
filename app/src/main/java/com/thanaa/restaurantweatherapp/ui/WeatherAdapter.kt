@@ -20,7 +20,6 @@ class WeatherAdapter(private val hours: List<Hour>) :
         private val weatherIcon: ImageView = view.findViewById(R.id.weatherIcon)
         fun bind(hours: Hour) {
             timeText.text = hours.time.split(' ')[1] + " "
-
             Glide.with(weatherIcon)
                 .load("https:${hours.condition.icon}")
                 .into(weatherIcon)
