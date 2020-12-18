@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/displayFragment">
+    app:startDestination="@id/mapsFragment">
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.thanaa.restaurantweatherapp.ui.HomeFragment"
+        android:name="com.thanaa.restaurantweatherapp.ui.homeFragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <argument
@@ -23,8 +23,8 @@
             android:name="weather"
             app:argType="com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse" />
         <action
-            android:id="@+id/action_homeFragment_to_displayFragment"
-            app:destination="@id/displayFragment" />
+            android:id="@+id/action_homeFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
@@ -40,8 +40,12 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
-        android:id="@+id/displayFragment"
-        android:name="com.thanaa.restaurantweatherapp.DisplayFragment"
-        android:label="fragment_display"
-        tools:layout="@layout/fragment_display" />
+        android:id="@+id/infoFragment"
+        android:name="com.thanaa.restaurantweatherapp.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info">
+        <argument
+            android:name="business"
+            app:argType="com.thanaa.restaurantweatherapp.model.Businesses" />
+    </fragment>
 </navigation>

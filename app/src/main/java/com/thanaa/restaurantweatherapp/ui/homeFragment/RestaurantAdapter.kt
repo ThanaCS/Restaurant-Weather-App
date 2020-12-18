@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp.ui
+package com.thanaa.restaurantweatherapp.ui.homeFragment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -17,6 +18,7 @@ import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.model.Businesses
 import com.thanaa.restaurantweatherapp.viewmodel.YelpViewModel
 import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
+import kotlinx.android.synthetic.main.row_item.view.*
 
 class RestaurantAdapter(private val food: List<Businesses>, private val weather: WeatherResponse) :
     RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
@@ -56,7 +58,6 @@ class RestaurantAdapter(private val food: List<Businesses>, private val weather:
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
                 .into(weatherIcon)
-
             progressBar.visibility = View.GONE
 
         }
@@ -74,6 +75,12 @@ class RestaurantAdapter(private val food: List<Businesses>, private val weather:
         viewModel = YelpViewModel()
         val foodItem: Businesses = food[position]
         holder.bind(foodItem, weather)
+
+        //passing a restaurant to InfoFragment and navigating
+        holder.itemView.restaurant_row.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToInfoFragment(foodItem)
+            holder.itemView.imageView.findNavController().navigate(action)
+        }
     }
 
 
