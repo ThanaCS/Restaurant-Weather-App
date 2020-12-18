@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
 
-class WeatherAdapter(private val weather: List<WeatherResponse>) :
+class WeatherAdapter(private val weather: WeatherResponse) :
+
     RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
 
@@ -26,11 +27,10 @@ class WeatherAdapter(private val weather: List<WeatherResponse>) :
         )
     }
 
-    override fun getItemCount(): Int = weather.size
+    override fun getItemCount(): Int = 0
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val weatherItem = weather[position]
 
     }
 
