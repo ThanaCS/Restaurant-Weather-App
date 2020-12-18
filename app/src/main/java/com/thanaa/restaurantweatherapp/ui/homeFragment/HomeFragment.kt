@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp.ui
+package com.thanaa.restaurantweatherapp.ui.homeFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
