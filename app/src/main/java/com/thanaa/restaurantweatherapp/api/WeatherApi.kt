@@ -9,6 +9,7 @@ interface WeatherApi {
     @GET("forecast.json")
     suspend fun getWeather(
         @Query("key") key: String,
-        @Query("q") latlon: String
+        @Query("q") latlon: String,
+        @Query("days") days: String
     ): Response<WeatherResponse>
 }

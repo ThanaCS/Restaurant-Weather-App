@@ -15,6 +15,6 @@ class WeatherService {
         ).build().create(WeatherApi::class.java)
 
     suspend fun getWeather(latlon: String): Response<WeatherResponse> {
-        return retrofit.getWeather(Weather_API_KEY, latlon)
+        return retrofit.getWeather(Weather_API_KEY, latlon, "7")
     }
 }
