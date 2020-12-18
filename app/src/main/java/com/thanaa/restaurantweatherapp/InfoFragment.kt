@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -25,6 +24,7 @@ class InfoFragment : Fragment() {
     private val binding get() = _binding!!
     private val args by navArgs<InfoFragmentArgs>()
     private lateinit var weatherViewModel: WeatherViewModel
+    private var TAG = "InfoFragment"
     @ExperimentalTime
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,13 +66,11 @@ class InfoFragment : Fragment() {
         val lon = args.business.coordinates.longitude
         weatherViewModel.getWeather("$lat,$lon")
         weatherViewModel.weatherLiveData.observe(viewLifecycleOwner, {
-            Toast.makeText(context, "${it.forecast.forecastday[0]}", Toast.LENGTH_SHORT).show()
             binding.weatherRecyclerView.layoutManager =
                 LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
             binding.weatherRecyclerView.adapter = WeatherAdapter(it.forecast.forecastday[0].hour)
             binding.weatherRecyclerView.visibility = View.GONE
         })
-
 
         binding.progressBar.visibility = View.GONE
 
