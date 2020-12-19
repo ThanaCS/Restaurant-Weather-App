@@ -4,7 +4,7 @@ import com.thanaa.restaurantweatherapp.model.RestaurantResponse
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+private const val BEARER = "Bearer"
 private const val YELP_BASE_URL = "https://api.yelp.com/v3/"
 private const val YELP_API_KEY = "6U7509sPDxJrdiHmTcyxAU_yL4JDqyajyuluBvMRKV6qVlJxbjF850A8j_vbPPLotAYQyqFrDAUOcc7V_xyN_g_oI34dCKXe8s5OJi-wGiqj7NOijSC5eFjA-DbZX3Yx"
 class YelpService {
@@ -13,7 +13,7 @@ class YelpService {
     ).build().create(YelpApi::class.java)
 
     suspend fun getBusinesses(term: String, Location: String): Response<RestaurantResponse> {
-        return retrofit.getBusinesses("Bearer $YELP_API_KEY", term, Location)
+        return retrofit.getBusinesses("$BEARER $YELP_API_KEY", term, Location)
     }
 
     suspend fun getBusinessesFromLanLon(
@@ -21,7 +21,7 @@ class YelpService {
         lat: String,
         lon: String
     ): Response<RestaurantResponse> {
-        return retrofit.getBusinessesFromLanLon("Bearer $YELP_API_KEY", term, lat, lon)
+        return retrofit.getBusinessesFromLanLon("$BEARER $YELP_API_KEY", term, lat, lon)
     }
 
 }
