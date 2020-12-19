@@ -1,6 +1,8 @@
 package com.thanaa.restaurantweatherapp.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 data class RestaurantResponse(
@@ -9,8 +11,11 @@ data class RestaurantResponse(
     val total: Int
 )
 
+@Entity(tableName = "businesses_table")
 @Parcelize
 data class Businesses(
+    @PrimaryKey(autoGenerate = true)
+    var BusinessesId: Int? = null,
     val alias: String,
     val categories: List<Category>,
     val coordinates: Coordinates,

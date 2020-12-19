@@ -55,5 +55,9 @@
         android:id="@+id/historyFragment"
         android:name="com.thanaa.restaurantweatherapp.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history">
+        <argument
+            android:name="business"
+            app:argType="com.thanaa.restaurantweatherapp.model.Businesses" />
+    </fragment>
 </navigation>

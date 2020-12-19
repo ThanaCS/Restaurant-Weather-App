@@ -7,6 +7,7 @@ import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
 import retrofit2.Response
 
 class Repository {
+
     private val weatherService = WeatherService()
     private val yelpService = YelpService()
 

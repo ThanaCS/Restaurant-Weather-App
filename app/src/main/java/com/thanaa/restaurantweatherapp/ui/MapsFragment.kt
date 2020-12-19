@@ -49,7 +49,12 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
     ): View? {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
+
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
+        weatherViewModel.getWeather("${latValue},${lonValue}")
+        weatherViewModel.weatherLiveData.observe(viewLifecycleOwner, {
+            weather = it
+        })
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

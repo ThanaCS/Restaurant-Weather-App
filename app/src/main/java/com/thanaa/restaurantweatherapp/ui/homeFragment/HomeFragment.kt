@@ -18,7 +18,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var yelpViewModel: YelpViewModel
     private lateinit var weatherViewModel: WeatherViewModel
-
     private val args by navArgs<HomeFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -16,13 +16,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.model.Businesses
-import com.thanaa.restaurantweatherapp.viewmodel.YelpViewModel
 import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
 import kotlinx.android.synthetic.main.row_item.view.*
 
 class RestaurantAdapter(private val food: List<Businesses>, private val weather: WeatherResponse) :
     RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
-    lateinit var viewModel: YelpViewModel
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val nameText: TextView = view.findViewById(R.id.name)
@@ -72,7 +71,7 @@ class RestaurantAdapter(private val food: List<Businesses>, private val weather:
     override fun getItemCount(): Int = food.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        viewModel = YelpViewModel()
+
         val foodItem: Businesses = food[position]
         holder.bind(foodItem, weather)
 
