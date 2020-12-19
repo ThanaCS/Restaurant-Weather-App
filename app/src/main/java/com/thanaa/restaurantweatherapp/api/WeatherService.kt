@@ -1,13 +1,13 @@
 package com.thanaa.restaurantweatherapp.api
 
+import com.thanaa.restaurantweatherapp.utils.Constants.Companion.Weather_API_KEY
+import com.thanaa.restaurantweatherapp.utils.Constants.Companion.Weather_BASE_URL
+import com.thanaa.restaurantweatherapp.utils.Constants.Companion.days
 import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val days = "7"
-private const val Weather_BASE_URL = "https://api.weatherapi.com/v1/"
-private const val Weather_API_KEY = "47c22353a761496ebc523928201712"
 
 class WeatherService {
 
