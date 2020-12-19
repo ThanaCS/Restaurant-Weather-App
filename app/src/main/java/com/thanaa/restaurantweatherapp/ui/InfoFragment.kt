@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp
+package com.thanaa.restaurantweatherapp.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.thanaa.restaurantweatherapp.databinding.FragmentInfoBinding
-import com.thanaa.restaurantweatherapp.ui.WeatherAdapter
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import kotlin.time.ExperimentalTime
 import kotlin.time.hours

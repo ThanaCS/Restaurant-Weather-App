@@ -89,6 +89,7 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
             )
             findNavController().navigate(action)
 
+
         }
     }
 
@@ -155,7 +156,7 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu, menu)
+        inflater.inflate(R.menu.search_menu, menu)
         val search = menu.findItem(R.id.menu_search)
         val searchView = search.actionView as? SearchView
         searchView?.isSubmitButtonEnabled = true
