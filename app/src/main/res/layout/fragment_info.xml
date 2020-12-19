@@ -8,9 +8,8 @@
     app:layoutDescription="@xml/fragment_info_scene"
     tools:context=".InfoFragment">
 
-
     <TextView
-        android:id="@+id/rating_number"
+        android:id="@+id/ratingNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -274,7 +273,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
 

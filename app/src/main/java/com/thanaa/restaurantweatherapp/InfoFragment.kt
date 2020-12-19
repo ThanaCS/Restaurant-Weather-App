@@ -53,8 +53,6 @@ class InfoFragment : Fragment() {
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL, false
             )
-
-
             progressBar.visibility = View.VISIBLE
             isOpen.text = if (args.business.is_closed) "Closed" else "Open"
             name.text = args.business.name
@@ -79,39 +77,36 @@ class InfoFragment : Fragment() {
             weatherViewModel.getWeather("$lat,$lon")
             weatherViewModel.weatherLiveData.observe(viewLifecycleOwner, {
                 binding.apply {
-                    for (i in 0..2) {
-                        weatherRecyclerView1.layoutManager = LinearLayoutManager(
-                            requireActivity(),
-                            LinearLayoutManager.HORIZONTAL,
-                            false
-                        )
-                        weatherRecyclerView1.adapter =
-                            WeatherAdapter(it.forecast.forecastday[i].hour)
+                    weatherRecyclerView1.layoutManager = LinearLayoutManager(
+                        requireActivity(),
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
+                    weatherRecyclerView1.adapter =
+                        WeatherAdapter(it.forecast.forecastday[0].hour)
 
-                        weatherRecyclerView2.layoutManager = LinearLayoutManager(
-                            requireActivity(),
-                            LinearLayoutManager.HORIZONTAL,
-                            false
-                        )
-                        weatherRecyclerView2.adapter =
-                            WeatherAdapter(it.forecast.forecastday[i].hour)
+                    weatherRecyclerView2.layoutManager = LinearLayoutManager(
+                        requireActivity(),
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
+                    weatherRecyclerView2.adapter =
+                        WeatherAdapter(it.forecast.forecastday[1].hour)
 
-                        weatherRecyclerView3.layoutManager = LinearLayoutManager(
-                            requireActivity(),
-                            LinearLayoutManager.HORIZONTAL,
-                            false
-                        )
-                        weatherRecyclerView3.adapter =
-                            WeatherAdapter(it.forecast.forecastday[i].hour)
-                        val date1 = it.forecast.forecastday[i].hour[0].time.substringBefore(" ")
-                        val date2 = it.forecast.forecastday[i].hour[0].time.substringBefore(" ")
-                        val date3 = it.forecast.forecastday[i].hour[0].time.substringBefore(" ")
-                        binding.date1.text = date1
-                        binding.date2.text = date2
-                        binding.date3.text = date3
+                    weatherRecyclerView3.layoutManager = LinearLayoutManager(
+                        requireActivity(),
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                    )
 
-                    }
-
+                    weatherRecyclerView3.adapter =
+                        WeatherAdapter(it.forecast.forecastday[2].hour)
+                    val date1 = it.forecast.forecastday[0].hour[0].time.substringBefore(" ")
+                    val date2 = it.forecast.forecastday[1].hour[0].time.substringBefore(" ")
+                    val date3 = it.forecast.forecastday[2].hour[0].time.substringBefore(" ")
+                    binding.date1.text = date1
+                    binding.date2.text = date2
+                    binding.date3.text = date3
 
                 }
 
