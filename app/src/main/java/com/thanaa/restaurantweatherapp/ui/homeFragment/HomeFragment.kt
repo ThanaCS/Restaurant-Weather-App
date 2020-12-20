@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thanaa.restaurantweatherapp.databinding.FragmentHomeBinding
+import com.thanaa.restaurantweatherapp.viewmodel.DatabaseViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.YelpViewModel
 
@@ -18,6 +20,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var yelpViewModel: YelpViewModel
     private lateinit var weatherViewModel: WeatherViewModel
+    private val viewModelDB: DatabaseViewModel by viewModels()
     private val args by navArgs<HomeFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,15 +35,21 @@ class HomeFragment : Fragment() {
     }
 
     private fun setData() {
+
         binding.progressbar.visibility = View.VISIBLE
         Toast.makeText(context, "${args.weather.location.region}", Toast.LENGTH_SHORT).show()
         yelpViewModel.getBusinesses(term = args.food, location = args.weather.location.country)
         yelpViewModel.businessesLiveData.observe(viewLifecycleOwner, {
             binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
-            binding.recyclerview.adapter = RestaurantAdapter(it, args.weather)
-            binding.progressbar.visibility = View.GONE
+            binding.recyclerview.adapter = RestaurantAdapter(it)
+            it.forEach { businesses ->
+                viewModelDB.insertBusiness(businesses)
+            }
+
+
         })
 
+        binding.progressbar.visibility = View.GONE
     }
 
 

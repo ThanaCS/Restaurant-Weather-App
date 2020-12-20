@@ -16,10 +16,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.model.Businesses
-import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
 import kotlinx.android.synthetic.main.row_item.view.*
 
-class RestaurantAdapter(private val food: List<Businesses>, private val weather: WeatherResponse) :
+class RestaurantAdapter(private val food: List<Businesses>) :
     RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
 
 
@@ -33,9 +32,8 @@ class RestaurantAdapter(private val food: List<Businesses>, private val weather:
         private val ratingBar: RatingBar = view.findViewById(R.id.ratingBar)
         private val imageView: ImageView = view.findViewById(R.id.imageView)
         private val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
-        private val weatherIcon: ImageView = view.findViewById(R.id.weather)
 
-        fun bind(foodItem: Businesses, weather: WeatherResponse) {
+        fun bind(foodItem: Businesses) {
             progressBar.visibility = View.VISIBLE
             nameText.text = foodItem.name
             addressText.text = foodItem.location.address1
@@ -51,12 +49,6 @@ class RestaurantAdapter(private val food: List<Businesses>, private val weather:
                 .centerCrop()
                 .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(10)))
                 .into(imageView)
-
-            Glide.with(weatherIcon)
-                .load("https:${weather.current.condition.icon}")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .into(weatherIcon)
             progressBar.visibility = View.GONE
 
         }
@@ -73,13 +65,16 @@ class RestaurantAdapter(private val food: List<Businesses>, private val weather:
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val foodItem: Businesses = food[position]
-        holder.bind(foodItem, weather)
+        holder.bind(foodItem)
 
-        //passing a restaurant to InfoFragment and navigating
+        //passing a restaurant to InfoFragment and navigating & passing data to history
         holder.itemView.restaurant_row.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToInfoFragment(foodItem)
-            holder.itemView.imageView.findNavController().navigate(action)
+            val actionPassToInfo = HomeFragmentDirections.actionHomeFragmentToInfoFragment(foodItem)
+            holder.itemView.imageView.findNavController().navigate(actionPassToInfo)
+
+
         }
+
     }
 
 

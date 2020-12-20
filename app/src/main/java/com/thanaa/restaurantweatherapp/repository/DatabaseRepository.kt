@@ -1,5 +1,14 @@
 package com.thanaa.restaurantweatherapp.repository
 
-import com.thanaa.restaurantweatherapp.database.BusinessDatabase
+import androidx.lifecycle.LiveData
+import com.thanaa.restaurantweatherapp.database.BusinessDao
+import com.thanaa.restaurantweatherapp.model.Businesses
 
-class DatabaseRepository(private val db: BusinessDatabase)
+class DatabaseRepository(private val businessDao: BusinessDao) {
+
+    val getAllData: LiveData<List<Businesses>> = businessDao.getBusiness()
+
+    suspend fun insertData(businesses: Businesses) {
+        businessDao.insertBusiness(businesses)
+    }
+}
