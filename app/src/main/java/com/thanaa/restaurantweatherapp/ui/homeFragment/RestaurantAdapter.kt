@@ -18,6 +18,7 @@ import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.model.Businesses
 import kotlinx.android.synthetic.main.row_item.view.*
 
+const val TAG = "RestaurantAdapter"
 class RestaurantAdapter(private val food: List<Businesses>) :
     RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
 
@@ -33,7 +34,7 @@ class RestaurantAdapter(private val food: List<Businesses>) :
         private val imageView: ImageView = view.findViewById(R.id.imageView)
         private val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
 
-        fun bind(foodItem: Businesses) {
+        fun bind(foodItem: Businesses, holder: ViewHolder) {
             progressBar.visibility = View.VISIBLE
             nameText.text = foodItem.name
             addressText.text = foodItem.location.address1
@@ -51,6 +52,15 @@ class RestaurantAdapter(private val food: List<Businesses>) :
                 .into(imageView)
             progressBar.visibility = View.GONE
 
+            //passing a restaurant to InfoFragment and navigating & passing data to history
+            holder.itemView.restaurant_row.setOnClickListener {
+
+                val actionPassToInfo =
+                    HomeFragmentDirections.actionHomeFragmentToInfoFragment(foodItem)
+                holder.itemView.imageView.findNavController().navigate(actionPassToInfo)
+
+
+            }
         }
     }
 
@@ -65,15 +75,8 @@ class RestaurantAdapter(private val food: List<Businesses>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val foodItem: Businesses = food[position]
-        holder.bind(foodItem)
+        holder.bind(foodItem, holder)
 
-        //passing a restaurant to InfoFragment and navigating & passing data to history
-        holder.itemView.restaurant_row.setOnClickListener {
-            val actionPassToInfo = HomeFragmentDirections.actionHomeFragmentToInfoFragment(foodItem)
-            holder.itemView.imageView.findNavController().navigate(actionPassToInfo)
-
-
-        }
 
     }
 

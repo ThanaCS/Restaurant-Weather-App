@@ -1,10 +1,12 @@
 package com.thanaa.restaurantweatherapp.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@ExperimentalCoroutinesApi
 class WeatherViewModelTest {
     private lateinit var viewModel: WeatherViewModel
 
@@ -22,5 +24,7 @@ class WeatherViewModelTest {
         val value = viewModel.weatherLiveData.getOrAwaitValue()
         print(value)
     }
+    //
+
 
 }

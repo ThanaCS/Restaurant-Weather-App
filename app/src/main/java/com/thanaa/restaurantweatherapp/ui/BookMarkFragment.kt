@@ -32,9 +32,6 @@ class BookMarkFragment : Fragment() {
         return binding.root
     }
 
-    private fun setData() {
-
-    }
 
 
     override fun onDestroyView() {

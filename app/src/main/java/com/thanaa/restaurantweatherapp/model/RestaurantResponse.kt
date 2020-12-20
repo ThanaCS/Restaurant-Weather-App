@@ -14,14 +14,14 @@ data class RestaurantResponse(
 @Entity(tableName = "businesses_table")
 @Parcelize
 data class Businesses(
-    @PrimaryKey(autoGenerate = true)
-    var BusinessesId: Int? = null,
+//    @PrimaryKey(autoGenerate = true)
+//    var BusinessesId: Int? = null,
     val alias: String,
     val categories: List<Category>,
     val coordinates: Coordinates,
     val display_phone: String,
     val distance: Double,
-    val id: String,
+    @PrimaryKey val id: String,
     val image_url: String,
     val is_closed: Boolean,
     val location: Location,

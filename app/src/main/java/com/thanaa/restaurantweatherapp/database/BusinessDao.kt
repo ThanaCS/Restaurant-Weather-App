@@ -6,7 +6,7 @@ import com.thanaa.restaurantweatherapp.model.Businesses
 
 @Dao
 interface BusinessDao {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBusiness(businesses: Businesses)
 
     @Query("SELECT * FROM businesses_table ORDER BY id ASC")

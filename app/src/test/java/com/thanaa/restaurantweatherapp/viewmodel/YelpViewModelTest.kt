@@ -1,33 +1,46 @@
 package com.thanaa.restaurantweatherapp.viewmodel
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 class YelpViewModelTest {
-
-    private lateinit var viewModel: YelpViewModel
-
-    @get:Rule
-    var rule = InstantTaskExecutorRule()
+    lateinit var viewModel: YelpViewModel
+    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
     @Before
     fun setUp() {
+        Dispatchers.setMain(mainThreadSurrogate)
         viewModel = YelpViewModel()
     }
 
-    @Test
-    fun `insert a valid food and a valid location , should return a result `() {
-        viewModel.getBusinesses("toast", "France")
-        val value = viewModel.businessesLiveData.getOrAwaitValue()
-        print(value)
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
+        mainThreadSurrogate.close()
     }
 
     @Test
-    fun `insert null food and a valid location , should return a result `() {
-        viewModel.getBusinesses("", "France")
-        val value = viewModel.businessesLiveData.getOrAwaitValue()
-        print(value)
+    fun testFooWithLaunch() = runBlockingTest {
+        foo()
+
     }
+
+    fun CoroutineScope.foo() {
+        viewModel.getBusinesses("CAKE", "UK")
+        launch {
+            val value = viewModel.businessesLiveData.getOrAwaitValue()
+            print(value)
+
+
+        }
+    }
+
 }
