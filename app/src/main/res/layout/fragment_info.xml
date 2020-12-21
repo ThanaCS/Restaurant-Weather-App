@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/infoGroup"
     app:layoutDescription="@xml/fragment_info_scene"
     tools:context=".ui.InfoFragment">
 

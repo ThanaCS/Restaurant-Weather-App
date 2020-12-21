@@ -46,7 +46,6 @@ class HomeFragment : Fragment() {
                 viewModelDB.insertBusiness(businesses)
             }
 
-
         })
 
         binding.progressbar.visibility = View.GONE

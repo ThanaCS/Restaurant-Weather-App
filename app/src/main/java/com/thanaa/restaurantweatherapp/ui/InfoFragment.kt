@@ -10,9 +10,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.thanaa.restaurantweatherapp.databinding.FragmentInfoBinding
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import kotlin.time.ExperimentalTime
@@ -38,8 +35,11 @@ class InfoFragment : Fragment() {
 
     @ExperimentalTime
     private fun setData() {
+
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         binding.apply {
+            progressBar.visibility = View.VISIBLE
+            infoGroup.visibility = View.GONE
             weatherRecyclerView1.layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL, false
@@ -67,10 +67,9 @@ class InfoFragment : Fragment() {
                 .load(args.business.image_url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
-                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(10)))
                 .into(binding.imageView)
 
-            progressBar.visibility = View.VISIBLE
+
             val lat = args.business.coordinates.latitude
             val lon = args.business.coordinates.longitude
             weatherViewModel.getWeather("$lat,$lon")
@@ -112,7 +111,7 @@ class InfoFragment : Fragment() {
             })
 
             progressBar.visibility = View.GONE
-
+            infoGroup.visibility = View.VISIBLE
         }
     }
 
