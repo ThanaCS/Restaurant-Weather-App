@@ -1,9 +1,19 @@
 <resources>
-    <string name="app_name">Restaurant App</string>
+    <string name="app_name">Travel Food</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="yes">yes</string>
     <string name="no">No</string>
     <string name="clear_history">Clear History</string>
     <string name="are_you_sure">Are you sure you want to clear history?</string>
     <string name="history_successfully_deleted">History Successfully Deleted</string>
+    <string name="search_for_food_restaurant">Search for Food, Restaurant...</string>
+    <string-array name="food">
+        <item>Pizza</item>
+        <item>Cake</item>
+        <item>Starbucks</item>
+        <item>Burger</item>
+        <item>Meat</item>
+        <item>Chicken</item>
+        <item>Dessert</item>
+    </string-array>
 </resources>

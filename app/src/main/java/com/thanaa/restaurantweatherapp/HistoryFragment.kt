@@ -5,13 +5,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidadvance.topsnackbar.TSnackbar
-import com.google.android.material.snackbar.Snackbar
 import com.thanaa.restaurantweatherapp.databinding.FragmentHistoryBinding
 import com.thanaa.restaurantweatherapp.ui.homeFragment.RestaurantAdapter
 import com.thanaa.restaurantweatherapp.viewmodel.DatabaseViewModel
@@ -52,13 +50,6 @@ class HistoryFragment : Fragment() {
                 snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
             textView.setTextColor(Color.WHITE)
             snackbar.show()
-
-            Snackbar.make(
-                requireView(),
-                getString(R.string.history_successfully_deleted),
-                Snackbar.LENGTH_LONG
-            ).setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.black))
-                .show()
         }
         builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
         builder.setTitle(getString(R.string.clear_history))
