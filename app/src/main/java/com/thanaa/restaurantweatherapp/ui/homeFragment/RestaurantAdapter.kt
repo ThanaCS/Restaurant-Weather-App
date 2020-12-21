@@ -9,20 +9,19 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
+import com.thanaa.restaurantweatherapp.HistoryFragmentDirections
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.model.Businesses
-import com.thanaa.restaurantweatherapp.viewmodel.YelpViewModel
-import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
+import com.thanaa.restaurantweatherapp.utils.getProgressDrawable
+import com.thanaa.restaurantweatherapp.utils.loadImage
 import kotlinx.android.synthetic.main.row_item.view.*
 
-class RestaurantAdapter(private val food: List<Businesses>, private val weather: WeatherResponse) :
+
+const val TAG = "RestaurantAdapter"
+
+class RestaurantAdapter(private val food: List<Businesses>, private val FragmentID: Int) :
     RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
-    lateinit var viewModel: YelpViewModel
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val nameText: TextView = view.findViewById(R.id.name)
@@ -34,10 +33,10 @@ class RestaurantAdapter(private val food: List<Businesses>, private val weather:
         private val ratingBar: RatingBar = view.findViewById(R.id.ratingBar)
         private val imageView: ImageView = view.findViewById(R.id.imageView)
         private val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
-        private val weatherIcon: ImageView = view.findViewById(R.id.weather)
-
-        fun bind(foodItem: Businesses, weather: WeatherResponse) {
+        private val progressDrawable = getProgressDrawable(view.context)
+        fun bind(foodItem: Businesses, holder: ViewHolder, FragmentID: Int) {
             progressBar.visibility = View.VISIBLE
+            holder.itemView.restaurant_row.visibility = View.GONE
             nameText.text = foodItem.name
             addressText.text = foodItem.location.address1
             priceText.text = foodItem.price
@@ -45,20 +44,27 @@ class RestaurantAdapter(private val food: List<Businesses>, private val weather:
             categoryText.text = foodItem.categories[0].title
             ratingBar.rating = foodItem.rating.toFloat()
             reviewsText.text = "${foodItem.review_count} reviews"
-
-            Glide.with(imageView)
-                .load(foodItem.image_url)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(10)))
-                .into(imageView)
-
-            Glide.with(weatherIcon)
-                .load("https:${weather.current.condition.icon}")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .into(weatherIcon)
+            imageView.loadImage(imageView, progressDrawable, foodItem.image_url)
             progressBar.visibility = View.GONE
+            holder.itemView.restaurant_row.visibility = View.VISIBLE
+
+            if (FragmentID == 1)
+            //passing a restaurant to InfoFragment and navigating & passing data to history
+                holder.itemView.restaurant_row.setOnClickListener {
+                    val action =
+                        HomeFragmentDirections.actionHomeFragmentToInfoFragment(foodItem)
+                    holder.itemView.imageView.findNavController().navigate(action)
+
+                }
+            if (FragmentID == 2)
+            //passing a restaurant to InfoFragment and navigating & passing data to history
+                holder.itemView.restaurant_row.setOnClickListener {
+                    val action =
+                        HistoryFragmentDirections.actionHistoryFragmentToInfoFragment(foodItem)
+                    holder.itemView.imageView.findNavController().navigate(action)
+
+                }
+
 
         }
     }
@@ -72,15 +78,10 @@ class RestaurantAdapter(private val food: List<Businesses>, private val weather:
     override fun getItemCount(): Int = food.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        viewModel = YelpViewModel()
-        val foodItem: Businesses = food[position]
-        holder.bind(foodItem, weather)
 
-        //passing a restaurant to InfoFragment and navigating
-        holder.itemView.restaurant_row.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToInfoFragment(foodItem)
-            holder.itemView.imageView.findNavController().navigate(action)
-        }
+        val foodItem: Businesses = food[position]
+        holder.bind(foodItem, holder, FragmentID)
+
     }
 
 

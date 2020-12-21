@@ -5,6 +5,7 @@ plugins {
     id 'androidx.navigation.safeargs'
     id 'kotlin-kapt'
 
+
 }
 
 android {
@@ -37,6 +38,10 @@ android {
     buildFeatures{
         viewBinding = true
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
 }
 
 dependencies {
@@ -93,5 +98,15 @@ dependencies {
     implementation("io.coil-kt:coil:1.1.0")
     // Material Design
     implementation 'com.google.android.material:material:1.2.0-alpha06'
+    // Room components
+    implementation "androidx.room:room-runtime:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
+    implementation "androidx.room:room-ktx:2.2.5"
+    androidTestImplementation "androidx.room:room-testing:2.2.5"
+    //testing coroutines
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
+    //snackbar top
+    implementation "com.androidadvance:topsnackbar:1.0.0"
+
 
 }

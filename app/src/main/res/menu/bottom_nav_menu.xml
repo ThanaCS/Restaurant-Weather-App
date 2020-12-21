@@ -11,6 +11,11 @@
         android:icon="@drawable/ic_history"
         android:title="History" />
     <item
+        android:id="@+id/placeholder"
+        android:title="             \n " />
+
+    <item
+        android:id="@+id/bookMarkFragment"
         android:icon="@drawable/ic_bookmark"
         android:title="BookMark" />
 

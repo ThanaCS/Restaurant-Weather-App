@@ -24,10 +24,17 @@
             app:argType="com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse" />
         <action
             android:id="@+id/action_homeFragment_to_infoFragment"
-            app:destination="@id/infoFragment" />
+            app:destination="@id/infoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_homeFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bookMarkFragment"
+            app:destination="@id/bookMarkFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
@@ -55,5 +62,21 @@
         android:id="@+id/historyFragment"
         android:name="com.thanaa.restaurantweatherapp.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history">
+        <argument
+            android:name="business"
+            app:argType="com.thanaa.restaurantweatherapp.model.Businesses" />
+        <action
+            android:id="@+id/action_historyFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookMarkFragment"
+        android:name="com.thanaa.restaurantweatherapp.ui.BookMarkFragment"
+        android:label="fragment_book_mark"
+        tools:layout="@layout/fragment_book_mark">
+        <argument
+            android:name="business"
+            app:argType="com.thanaa.restaurantweatherapp.model.Businesses" />
+    </fragment>
 </navigation>
