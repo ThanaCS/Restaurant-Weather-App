@@ -6,10 +6,12 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -33,12 +35,12 @@ import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
 
 
-class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
+class MapsFragment : Fragment(), View.OnClickListener {
     private var PERMISSION_ID: Int = 1
     private var latValue: Double = 0.0
     private var lonValue: Double = 0.0
     private var food: String? = ""
-    private lateinit var weather: WeatherResponse
+    private var weather: WeatherResponse? = null
     private lateinit var weatherViewModel: WeatherViewModel
     lateinit var fusedLocationClient: FusedLocationProviderClient
     private val TAG = "MapsFragment"
@@ -46,13 +48,21 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
     lateinit var fab: FloatingActionButton
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
-        setHasOptionsMenu(true)
+        val foodAutoComplete = resources.getStringArray(R.array.food)
+        val arrayAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            foodAutoComplete
+        )
+        binding.autoCompleteTextView.setAdapter(arrayAdapter)
+        binding.autoCompleteTextView.setOnClickListener(this)
 
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         weatherViewModel.getWeather("${latValue},${lonValue}")
@@ -61,6 +71,7 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
         })
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getUserLocation()
@@ -88,19 +99,9 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
             mapFragment?.getMapAsync(callback)
         }
 
-//        fab = (activity as MainActivity).fab
-//        fab.setOnClickListener {
-//            //Pass data to home fragment
-//            val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment(
-//                food!!,
-//                latValue.toString(),
-//                lonValue.toString(),
-//                weather
-//            )
-//            findNavController().navigate(action)
-//        }
 
     }
+
 
     private fun getUserLocation() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -114,7 +115,13 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
                 arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                 PERMISSION_ID
             )
-
+        }
+        fusedLocationClient.lastLocation.addOnSuccessListener {
+            if (it != null) {
+                weatherViewModel.getWeather("${it.longitude},${it.latitude}")
+                latValue = it.latitude
+                lonValue = it.longitude
+            }
         }
     }
 
@@ -140,9 +147,10 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
 
                 weatherViewModel.getWeather("${latValue},${lonValue}")
                 weatherViewModel.weatherLiveData.observe(viewLifecycleOwner, {
+                    //snackbar to show the country, region, and forecast
                     val snackbar = TSnackbar.make(
                         requireView(),
-                        "${it.location.country},${it.location.region}\n~${it.current.condition.text}~",
+                        " ${it.location.country}, ${it.location.region}\n ~${it.current.condition.text}~",
                         TSnackbar.LENGTH_LONG
                     )
                     snackbar.setActionTextColor(Color.WHITE)
@@ -153,9 +161,18 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
                         snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
                     textView.setTextColor(Color.WHITE)
                     snackbar.show()
-
+                    //zoom in animation
+                    googleMap.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            LatLng(
+                                it.location.lat,
+                                it.location.lon
+                            ), 7.0f
+                        )
+                    )
                     weather = it
                 })
+
             }
 
             override fun onMarkerDrag(arg0: Marker?) {
@@ -170,36 +187,24 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
         })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.search_menu, menu)
-        val search = menu.findItem(R.id.menu_search)
-        val searchView = search.actionView as? SearchView
-        searchView?.isSubmitButtonEnabled = true
-        searchView?.setOnQueryTextListener(this)
-    }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        if (query != null) {
+    override fun onClick(v: View?) {
+        val query = binding.autoCompleteTextView.text.toString()
+
+        if (query != "") {
             food = query
             //Pass data to home fragment
             val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment(
                 food!!,
                 latValue.toString(),
                 lonValue.toString(),
-                weather
+                weather!!
             )
             findNavController().navigate(action)
             //Hide soft keys
             hideKeyBoard()
         }
-        return true
-    }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
-        if (newText != null) {
-            food = newText
-        }
-        return true
     }
 
     private fun hideKeyBoard() {
