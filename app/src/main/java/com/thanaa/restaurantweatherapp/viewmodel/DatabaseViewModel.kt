@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.thanaa.restaurantweatherapp.database.BusinessDatabase
 import com.thanaa.restaurantweatherapp.model.Businesses
 import com.thanaa.restaurantweatherapp.repository.DatabaseRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DatabaseViewModel(application: Application) : AndroidViewModel(application) {
@@ -24,6 +25,12 @@ class DatabaseViewModel(application: Application) : AndroidViewModel(application
     fun insertBusiness(businesses: Businesses) {
         viewModelScope.launch {
             repository.insertData(businesses)
+        }
+    }
+
+    fun deleteAll() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteAll()
         }
     }
 

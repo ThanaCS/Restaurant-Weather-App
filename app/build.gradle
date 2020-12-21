@@ -105,6 +105,8 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:2.2.5"
     //testing coroutines
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
+    //snackbar top
+    implementation "com.androidadvance:topsnackbar:1.0.0"
 
 
 }

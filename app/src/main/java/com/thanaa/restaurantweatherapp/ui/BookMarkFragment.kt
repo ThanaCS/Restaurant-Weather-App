@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.thanaa.restaurantweatherapp.databinding.FragmentBookMarkBinding
-import com.thanaa.restaurantweatherapp.ui.homeFragment.RestaurantAdapter
 import com.thanaa.restaurantweatherapp.viewmodel.DatabaseViewModel
 
 
@@ -25,10 +23,7 @@ class BookMarkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentBookMarkBinding.inflate(inflater, container, false)
-        viewModelDB.getAllData.observe(viewLifecycleOwner, {
-            binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
-            binding.recyclerview.adapter = RestaurantAdapter(it)
-        })
+
         return binding.root
     }
 

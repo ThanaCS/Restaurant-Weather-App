@@ -4,16 +4,18 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.androidadvance.topsnackbar.TSnackbar
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,11 +26,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.databinding.FragmentMapsBinding
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
+
 
 class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
     private var PERMISSION_ID: Int = 1
@@ -40,6 +43,7 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
     lateinit var fusedLocationClient: FusedLocationProviderClient
     private val TAG = "MapsFragment"
     private var _binding: FragmentMapsBinding? = null
+    lateinit var fab: FloatingActionButton
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -83,19 +87,19 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
             }
             mapFragment?.getMapAsync(callback)
         }
-        //Pass data to home fragment
-        binding.submitButton.setOnClickListener {
 
-            val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment(
-                food!!,
-                latValue.toString(),
-                lonValue.toString(),
-                weather
-            )
-            findNavController().navigate(action)
+//        fab = (activity as MainActivity).fab
+//        fab.setOnClickListener {
+//            //Pass data to home fragment
+//            val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment(
+//                food!!,
+//                latValue.toString(),
+//                lonValue.toString(),
+//                weather
+//            )
+//            findNavController().navigate(action)
+//        }
 
-
-        }
     }
 
     private fun getUserLocation() {
@@ -121,7 +125,7 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
                 .draggable(true)
                 .icon(
                     BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)
+                        .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
                 )
         )
 
@@ -136,14 +140,20 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
 
                 weatherViewModel.getWeather("${latValue},${lonValue}")
                 weatherViewModel.weatherLiveData.observe(viewLifecycleOwner, {
-                    Toast.makeText(context, "~${it.current.condition.text}~", Toast.LENGTH_SHORT)
-                        .show()
-                    Snackbar.make(
+                    val snackbar = TSnackbar.make(
                         requireView(),
-                        "${it.location.country},${it.location.region}",
-                        Snackbar.LENGTH_LONG
-                    ).setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.black))
-                        .show()
+                        "${it.location.country},${it.location.region}\n~${it.current.condition.text}~",
+                        TSnackbar.LENGTH_LONG
+                    )
+                    snackbar.setActionTextColor(Color.WHITE)
+                    val snackbarView = snackbar.view
+                    snackbarView.setBackgroundColor(Color.parseColor("#5B9787DC"))
+                    snackbar.setIconLeft(R.drawable.weathericon, 23F)
+                    val textView =
+                        snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
+                    textView.setTextColor(Color.WHITE)
+                    snackbar.show()
+
                     weather = it
                 })
             }
@@ -171,6 +181,14 @@ class MapsFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (query != null) {
             food = query
+            //Pass data to home fragment
+            val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment(
+                food!!,
+                latValue.toString(),
+                lonValue.toString(),
+                weather
+            )
+            findNavController().navigate(action)
             //Hide soft keys
             hideKeyBoard()
         }

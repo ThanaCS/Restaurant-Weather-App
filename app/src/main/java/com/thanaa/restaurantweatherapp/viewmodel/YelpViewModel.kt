@@ -32,8 +32,10 @@ class YelpViewModel : ViewModel() {
         try {
             viewModelScope.launch {
                 val response = repository.getBusinesses(term, location)
-                if (response.isSuccessful)
+                if (response.isSuccessful) {
                     businessesLiveData.postValue(response.body()?.businesses)
+                }
+
             }
         } catch (exception: Exception) {
             exception.printStackTrace()

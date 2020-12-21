@@ -11,4 +11,10 @@ class DatabaseRepository(private val businessDao: BusinessDao) {
     suspend fun insertData(businesses: Businesses) {
         businessDao.insertBusiness(businesses)
     }
+
+    suspend fun deleteAll() {
+        businessDao.deleteAll()
+    }
+
+
 }

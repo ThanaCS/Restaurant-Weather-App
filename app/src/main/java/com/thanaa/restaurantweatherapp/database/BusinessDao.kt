@@ -15,5 +15,7 @@ interface BusinessDao {
     @Delete
     suspend fun deleteBusiness(businesses: Businesses)
 
+    @Query("DELETE FROM businesses_table")
+    suspend fun deleteAll()
 
 }

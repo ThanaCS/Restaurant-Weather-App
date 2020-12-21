@@ -34,6 +34,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+
     private fun setData() {
 
         binding.progressbar.visibility = View.VISIBLE
@@ -41,7 +42,7 @@ class HomeFragment : Fragment() {
         yelpViewModel.getBusinesses(term = args.food, location = args.weather.location.country)
         yelpViewModel.businessesLiveData.observe(viewLifecycleOwner, {
             binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
-            binding.recyclerview.adapter = RestaurantAdapter(it)
+            binding.recyclerview.adapter = RestaurantAdapter(it, 1)
             it.forEach { businesses ->
                 viewModelDB.insertBusiness(businesses)
             }
