@@ -28,6 +28,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.databinding.FragmentMapsBinding
@@ -40,12 +42,15 @@ class MapsFragment : Fragment(), View.OnClickListener {
     private var latValue: Double = 0.0
     private var lonValue: Double = 0.0
     private var food: String? = ""
+
     private var weather: WeatherResponse? = null
     private lateinit var weatherViewModel: WeatherViewModel
     lateinit var fusedLocationClient: FusedLocationProviderClient
     private val TAG = "MapsFragment"
     private var _binding: FragmentMapsBinding? = null
     lateinit var fab: FloatingActionButton
+    lateinit var bottomNavigationView: BottomNavigationView
+    lateinit var bottomAppBar: BottomAppBar
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -54,51 +59,20 @@ class MapsFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
-        val foodAutoComplete = resources.getStringArray(R.array.food)
-        val arrayAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            foodAutoComplete
-        )
-        binding.autoCompleteTextView.setAdapter(arrayAdapter)
-        binding.autoCompleteTextView.setOnClickListener(this)
+        getUserLocation()
+        ShowNavigation()
+        autoCompleteSearch()
+        setData()
 
+        return binding.root
+    }
+
+    private fun setData() {
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         weatherViewModel.getWeather("${latValue},${lonValue}")
         weatherViewModel.weatherLiveData.observe(viewLifecycleOwner, {
             weather = it
         })
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        getUserLocation()
-
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        if (context?.let {
-                ActivityCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            } != PackageManager.PERMISSION_GRANTED && context?.let {
-                ActivityCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            } != PackageManager.PERMISSION_GRANTED) {
-            return
-        }
-        fusedLocationClient.lastLocation.addOnSuccessListener {
-            val callback = OnMapReadyCallback { googleMap ->
-                latValue = it.latitude
-                lonValue = it.longitude
-                onMapReady(googleMap, it.latitude, it.longitude)
-            }
-            mapFragment?.getMapAsync(callback)
-        }
-
-
     }
 
 
@@ -121,6 +95,29 @@ class MapsFragment : Fragment(), View.OnClickListener {
                 latValue = it.latitude
                 lonValue = it.longitude
             }
+        }
+
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        if (context?.let {
+                ActivityCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            } != PackageManager.PERMISSION_GRANTED && context?.let {
+                ActivityCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            } != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+        fusedLocationClient.lastLocation.addOnSuccessListener {
+            val callback = OnMapReadyCallback { googleMap ->
+                latValue = it.latitude
+                lonValue = it.longitude
+                onMapReady(googleMap, it.latitude, it.longitude)
+            }
+            mapFragment?.getMapAsync(callback)
         }
     }
 
@@ -206,6 +203,17 @@ class MapsFragment : Fragment(), View.OnClickListener {
 
     }
 
+    private fun autoCompleteSearch() {
+        val foodAutoComplete = resources.getStringArray(R.array.food)
+        val arrayAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            foodAutoComplete
+        )
+        binding.autoCompleteTextView.setAdapter(arrayAdapter)
+        binding.autoCompleteTextView.setOnClickListener(this)
+    }
+
     private fun hideKeyBoard() {
         activity?.let {
             val inputManager =
@@ -218,5 +226,14 @@ class MapsFragment : Fragment(), View.OnClickListener {
                 )
             }
         }
+    }
+
+    private fun ShowNavigation() {
+        bottomNavigationView = (activity as MainActivity).bottomNavigationView
+        fab = (activity as MainActivity).fab
+        bottomAppBar = (activity as MainActivity).bottomAppBar
+        bottomNavigationView.visibility = View.VISIBLE
+        bottomAppBar.visibility = View.VISIBLE
+        fab.visibility = View.VISIBLE
     }
 }

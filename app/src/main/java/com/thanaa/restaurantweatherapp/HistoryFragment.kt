@@ -7,6 +7,7 @@ import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidadvance.topsnackbar.TSnackbar
@@ -27,11 +28,18 @@ class HistoryFragment : Fragment() {
     ): View? {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         viewModelDB.getAllData.observe(viewLifecycleOwner, {
+
             binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
-//            binding.recyclerview.adapter = RestaurantAdapter(it, 2)
             adapter = RestaurantAdapter(it, 2)
             binding.recyclerview.adapter = adapter
+            viewModelDB.checkIfDatabaseEmpty(it)
+
         })
+        //check if the database is empty to show empty view
+        viewModelDB.emptyDatabase.observe(viewLifecycleOwner, Observer {
+            showEmptyView(it)
+        })
+
         //Menu of Deletion and Sorting
         setHasOptionsMenu(true)
         return binding.root
@@ -71,6 +79,17 @@ class HistoryFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.options_menu, menu)
+    }
+
+    private fun showEmptyView(emptyBusinesses: Boolean) {
+        if (emptyBusinesses) {
+            binding.sadCatEmpty.visibility = View.VISIBLE
+            binding.emptyText.visibility = View.VISIBLE
+        } else {
+            binding.sadCatEmpty.visibility = View.INVISIBLE
+            binding.emptyText.visibility = View.INVISIBLE
+
+        }
     }
 
 

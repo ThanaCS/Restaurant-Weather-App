@@ -3,6 +3,7 @@ package com.thanaa.restaurantweatherapp.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.thanaa.restaurantweatherapp.database.BusinessDatabase
 import com.thanaa.restaurantweatherapp.model.Businesses
@@ -14,6 +15,7 @@ class DatabaseViewModel(application: Application) : AndroidViewModel(application
 
     private val businessDao = BusinessDatabase.getDatabase(application).BusinessDao()
     private val repository: DatabaseRepository
+    val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(true)
     val getAllData: LiveData<List<Businesses>>
     val sortByPrice: LiveData<List<Businesses>>
     init {
@@ -33,6 +35,11 @@ class DatabaseViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteAll()
         }
+    }
+
+
+    fun checkIfDatabaseEmpty(businesses: List<Businesses>) {
+        emptyDatabase.value = businesses.isEmpty()
     }
 
 }

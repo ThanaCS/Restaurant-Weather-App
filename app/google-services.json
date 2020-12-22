@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1078268793158",
+    "project_id": "restaurant-weather-app-243ba",
+    "storage_bucket": "restaurant-weather-app-243ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078268793158:android:ab6249b8ea39a885edd547",
+        "android_client_info": {
+          "package_name": "com.thanaa.restaurantweatherapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078268793158-cq7j9dcahcmndjjv1ai91quq6ar396bf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYcc1qzNz9RVnoeTgEaxr9mNc8H1HSOlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078268793158-cq7j9dcahcmndjjv1ai91quq6ar396bf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

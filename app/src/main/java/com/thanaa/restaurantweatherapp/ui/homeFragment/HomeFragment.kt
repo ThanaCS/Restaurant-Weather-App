@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thanaa.restaurantweatherapp.databinding.FragmentHomeBinding
+import com.thanaa.restaurantweatherapp.ui.MainActivity
 import com.thanaa.restaurantweatherapp.viewmodel.DatabaseViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.YelpViewModel
@@ -19,6 +24,9 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var yelpViewModel: YelpViewModel
     private lateinit var weatherViewModel: WeatherViewModel
+    lateinit var bottomNavigationView: BottomNavigationView
+    lateinit var bottomAppBar: BottomAppBar
+    lateinit var fab: FloatingActionButton
     private val viewModelDB: DatabaseViewModel by viewModels()
     private val args by navArgs<HomeFragmentArgs>()
     override fun onCreateView(
@@ -26,10 +34,15 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        ShowNavigation()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         yelpViewModel = ViewModelProvider(this).get(YelpViewModel::class.java)
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         setData()
+        //check if the Businesses is empty to show empty view
+        yelpViewModel.emptyBusinesses.observe(viewLifecycleOwner, Observer {
+            showEmptyView(it)
+        })
         return binding.root
     }
 
@@ -38,6 +51,7 @@ class HomeFragment : Fragment() {
 
         binding.progressbar.visibility = View.VISIBLE
         yelpViewModel.getBusinesses(term = args.food, location = args.weather.location.country)
+
         yelpViewModel.businessesLiveData.observe(viewLifecycleOwner, {
             binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
             binding.recyclerview.adapter = RestaurantAdapter(it, 1)
@@ -45,11 +59,32 @@ class HomeFragment : Fragment() {
                 viewModelDB.insertBusiness(businesses)
             }
             binding.progressbar.visibility = View.GONE
+
+
         })
 
 
     }
 
+    private fun showEmptyView(emptyBusinesses: Boolean) {
+        if (emptyBusinesses) {
+            binding.emptyFood.visibility = View.VISIBLE
+            binding.emptyText.visibility = View.VISIBLE
+        } else {
+            binding.emptyFood.visibility = View.INVISIBLE
+            binding.emptyText.visibility = View.INVISIBLE
+
+        }
+    }
+
+    private fun ShowNavigation() {
+        bottomNavigationView = (activity as MainActivity).bottomNavigationView
+        fab = (activity as MainActivity).fab
+        bottomAppBar = (activity as MainActivity).bottomAppBar
+        bottomNavigationView.visibility = View.VISIBLE
+        bottomAppBar.visibility = View.VISIBLE
+        fab.visibility = View.VISIBLE
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

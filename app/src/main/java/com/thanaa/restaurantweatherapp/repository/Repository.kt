@@ -29,4 +29,5 @@ class Repository {
         return yelpService.getBusinessesFromLanLon(term, lat, lon)
     }
 
+
 }
