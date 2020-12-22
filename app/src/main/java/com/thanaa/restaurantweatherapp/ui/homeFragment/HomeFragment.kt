@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,10 @@ class HomeFragment : Fragment() {
         yelpViewModel = ViewModelProvider(this).get(YelpViewModel::class.java)
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         setData()
+        //check if the Businesses is empty to show empty view
+        yelpViewModel.emptyBusinesses.observe(viewLifecycleOwner, Observer {
+            showEmptyView(it)
+        })
         return binding.root
     }
 
@@ -38,6 +43,7 @@ class HomeFragment : Fragment() {
 
         binding.progressbar.visibility = View.VISIBLE
         yelpViewModel.getBusinesses(term = args.food, location = args.weather.location.country)
+
         yelpViewModel.businessesLiveData.observe(viewLifecycleOwner, {
             binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
             binding.recyclerview.adapter = RestaurantAdapter(it, 1)
@@ -45,9 +51,22 @@ class HomeFragment : Fragment() {
                 viewModelDB.insertBusiness(businesses)
             }
             binding.progressbar.visibility = View.GONE
+
+
         })
 
 
+    }
+
+    private fun showEmptyView(emptyBusinesses: Boolean) {
+        if (emptyBusinesses) {
+            binding.sadCatEmpty.visibility = View.VISIBLE
+            binding.emptyText.visibility = View.VISIBLE
+        } else {
+            binding.sadCatEmpty.visibility = View.INVISIBLE
+            binding.emptyText.visibility = View.INVISIBLE
+
+        }
     }
 
 

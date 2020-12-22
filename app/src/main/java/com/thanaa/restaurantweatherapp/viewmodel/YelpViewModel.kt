@@ -8,25 +8,11 @@ import com.thanaa.restaurantweatherapp.repository.Repository
 import kotlinx.coroutines.launch
 
 class YelpViewModel : ViewModel() {
-
-    val businessesLiveData: MutableLiveData<List<Businesses>> = MutableLiveData()
-    val businessesLanLonLiveData: MutableLiveData<List<Businesses>> = MutableLiveData()
     private val repository = Repository()
+    val businessesLiveData: MutableLiveData<List<Businesses>> = MutableLiveData()
+    var emptyBusinesses: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
-    fun getBusinessesFromLanLon(term: String, lat: String, lon: String) {
-        try {
-            viewModelScope.launch {
-                val response = repository.getBusinessesFromLanLon(term, lat, lon)
-                if (response.isSuccessful)
-                    businessesLanLonLiveData.postValue(response.body()?.businesses)
-            }
-        } catch (exception: Exception) {
-            exception.printStackTrace()
-        }
-
-
-    }
 
     fun getBusinesses(term: String, location: String) {
         try {
@@ -34,7 +20,10 @@ class YelpViewModel : ViewModel() {
                 val response = repository.getBusinesses(term, location)
                 if (response.isSuccessful) {
                     businessesLiveData.postValue(response.body()?.businesses)
+                } else {
+                    emptyBusinesses.postValue(true)
                 }
+
 
             }
         } catch (exception: Exception) {

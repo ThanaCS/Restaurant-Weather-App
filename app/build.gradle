@@ -56,6 +56,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference:1.1.1'
+    implementation 'com.google.firebase:firebase-auth:20.0.1'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -114,9 +115,8 @@ dependencies {
     //firebase ML
     implementation 'com.google.firebase:firebase-ml-vision:24.0.3'
     implementation 'com.google.firebase:firebase-ml-vision-image-label-model:20.0.1'
-    //picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
-
+    //lottie
+    implementation "com.airbnb.android:lottie:3.5.0"
 
 
 }
