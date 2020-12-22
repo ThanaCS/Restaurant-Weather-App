@@ -9,5 +9,6 @@ class Constants {
         const val days = "7"
         const val Weather_BASE_URL = "https://api.weatherapi.com/v1/"
         const val Weather_API_KEY = "47c22353a761496ebc523928201712"
+        const val USERS: String = "users"
     }
 }

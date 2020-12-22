@@ -39,4 +39,6 @@
     <string name="price">Price</string>
     <string name="no_search_history_available">No search history available</string>
     <string name="nothing_here_to_eat">Nothing here to eat..</string>
+    <string name="welcome">WELCOME</string>
+    <string name="login_with_google">Login with Google</string>
 </resources>

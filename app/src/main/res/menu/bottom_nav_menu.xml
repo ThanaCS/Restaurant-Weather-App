@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/loginFragment"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/ic_profile"
         android:title="Profile" />
 
@@ -13,7 +13,6 @@
     <item
         android:id="@+id/placeholder"
         android:title="      " />
-
 
     <item
         android:id="@+id/bookMarkFragment"
