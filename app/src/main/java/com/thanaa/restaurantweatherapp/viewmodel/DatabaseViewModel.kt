@@ -15,11 +15,12 @@ class DatabaseViewModel(application: Application) : AndroidViewModel(application
     private val businessDao = BusinessDatabase.getDatabase(application).BusinessDao()
     private val repository: DatabaseRepository
     val getAllData: LiveData<List<Businesses>>
-
-
+    val sortByPrice: LiveData<List<Businesses>>
     init {
         repository = DatabaseRepository(businessDao)
         getAllData = repository.getAllData
+        sortByPrice = repository.sortByPrice
+
     }
 
     fun insertBusiness(businesses: Businesses) {

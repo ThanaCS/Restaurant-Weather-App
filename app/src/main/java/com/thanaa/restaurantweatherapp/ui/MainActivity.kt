@@ -9,16 +9,15 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thanaa.restaurantweatherapp.R
-import com.thanaa.restaurantweatherapp.viewmodel.DatabaseViewModel
 
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
     lateinit var fab: FloatingActionButton
-    lateinit var viewModel: DatabaseViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         fab = findViewById(R.id.fab)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 

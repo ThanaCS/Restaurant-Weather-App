@@ -44,10 +44,10 @@ class HomeFragment : Fragment() {
             it.forEach { businesses ->
                 viewModelDB.insertBusiness(businesses)
             }
-
+            binding.progressbar.visibility = View.GONE
         })
 
-        binding.progressbar.visibility = View.GONE
+
     }
 
 
