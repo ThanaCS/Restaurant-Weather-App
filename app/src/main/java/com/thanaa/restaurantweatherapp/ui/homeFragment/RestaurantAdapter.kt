@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.thanaa.restaurantweatherapp.HistoryFragmentDirections
@@ -14,14 +15,12 @@ import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.model.Businesses
 import com.thanaa.restaurantweatherapp.utils.getProgressDrawable
 import com.thanaa.restaurantweatherapp.utils.loadImage
-import kotlinx.android.synthetic.main.row_item.view.*
 
 
 const val TAG = "RestaurantAdapter"
 
-class RestaurantAdapter(private val food: List<Businesses>, private val FragmentID: Int) :
+class RestaurantAdapter(private var food: List<Businesses>, private val FragmentID: Int) :
     RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
-
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val nameText: TextView = view.findViewById(R.id.name)
@@ -34,9 +33,10 @@ class RestaurantAdapter(private val food: List<Businesses>, private val Fragment
         private val imageView: ImageView = view.findViewById(R.id.imageView)
         private val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
         private val progressDrawable = getProgressDrawable(view.context)
+        private val restaurant_row: ConstraintLayout = view.findViewById(R.id.restaurant_row)
         fun bind(foodItem: Businesses, holder: ViewHolder, FragmentID: Int) {
-            progressBar.visibility = View.VISIBLE
-            holder.itemView.restaurant_row.visibility = View.GONE
+
+            restaurant_row.visibility = View.GONE
             nameText.text = foodItem.name
             addressText.text = foodItem.location.address1
             priceText.text = foodItem.price
@@ -46,24 +46,25 @@ class RestaurantAdapter(private val food: List<Businesses>, private val Fragment
             reviewsText.text = "${foodItem.review_count} reviews"
             imageView.loadImage(imageView, progressDrawable, foodItem.image_url)
             progressBar.visibility = View.GONE
-            holder.itemView.restaurant_row.visibility = View.VISIBLE
+            restaurant_row.visibility = View.VISIBLE
 
             if (FragmentID == 1)
             //passing a restaurant to InfoFragment and navigating & passing data to history
-                holder.itemView.restaurant_row.setOnClickListener {
+                restaurant_row.setOnClickListener {
                     val action =
                         HomeFragmentDirections.actionHomeFragmentToInfoFragment(foodItem)
-                    holder.itemView.imageView.findNavController().navigate(action)
+                    imageView.findNavController().navigate(action)
 
                 }
             if (FragmentID == 2)
             //passing a restaurant to InfoFragment and navigating & passing data to history
-                holder.itemView.restaurant_row.setOnClickListener {
+                restaurant_row.setOnClickListener {
                     val action =
                         HistoryFragmentDirections.actionHistoryFragmentToInfoFragment(foodItem)
-                    holder.itemView.imageView.findNavController().navigate(action)
+                    imageView.findNavController().navigate(action)
 
                 }
+
 
 
         }
@@ -82,6 +83,12 @@ class RestaurantAdapter(private val food: List<Businesses>, private val Fragment
         val foodItem: Businesses = food[position]
         holder.bind(foodItem, holder, FragmentID)
 
+    }
+
+    //notify the recycler view about these changes
+    fun setData(food: List<Businesses>) {
+        this.food = food
+        notifyDataSetChanged()
     }
 
 

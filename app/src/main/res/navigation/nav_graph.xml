@@ -79,4 +79,13 @@
             android:name="business"
             app:argType="com.thanaa.restaurantweatherapp.model.Businesses" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.thanaa.restaurantweatherapp.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
 </navigation>

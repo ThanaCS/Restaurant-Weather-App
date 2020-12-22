@@ -1,19 +1,34 @@
 package com.thanaa.restaurantweatherapp.ui
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.thanaa.restaurantweatherapp.databinding.FragmentInfoBinding
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
+import java.io.BufferedInputStream
+import java.io.IOException
+import java.io.InputStream
+import java.net.URL
+import java.net.URLConnection
 import kotlin.time.ExperimentalTime
 import kotlin.time.hours
+
 
 class InfoFragment : Fragment() {
     private var _binding: FragmentInfoBinding? = null
@@ -21,6 +36,10 @@ class InfoFragment : Fragment() {
     private val args by navArgs<InfoFragmentArgs>()
     private lateinit var weatherViewModel: WeatherViewModel
     private var TAG = "InfoFragment"
+    override fun onCreate(savedInstanceState: Bundle?) {
+        FirebaseApp.initializeApp(requireContext())
+        super.onCreate(savedInstanceState)
+    }
 
     @ExperimentalTime
     override fun onCreateView(
@@ -35,7 +54,6 @@ class InfoFragment : Fragment() {
 
     @ExperimentalTime
     private fun setData() {
-
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         binding.apply {
             progressBar.visibility = View.VISIBLE
@@ -68,7 +86,6 @@ class InfoFragment : Fragment() {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
                 .into(binding.imageView)
-
 
             val lat = args.business.coordinates.latitude
             val lon = args.business.coordinates.longitude
@@ -109,16 +126,80 @@ class InfoFragment : Fragment() {
                 }
 
             })
-
             progressBar.visibility = View.GONE
             infoGroup.visibility = View.VISIBLE
+
+
+            binding.imageView.setOnClickListener {
+                firebaseLabelPhotos()
+            }
+
+        }
+
+    }
+
+    //ML for labeling photos
+    private fun firebaseLabelPhotos() {
+        val SDK_INT = Build.VERSION.SDK_INT
+        if (SDK_INT > 8) {
+            val policy = StrictMode.ThreadPolicy.Builder()
+                .permitAll().build()
+            StrictMode.setThreadPolicy(policy)
+            //firebase
+            val image: FirebaseVisionImage
+            try {
+                image =
+                    FirebaseVisionImage.fromBitmap(getImageBitmap(args.business.image_url)!!)
+                val labeler = FirebaseVision.getInstance().cloudImageLabeler
+
+                labeler.processImage(image)
+                    .addOnSuccessListener { labels ->
+                        for (label in labels) {
+                            val text = label.text
+                            val entityId = label.entityId
+                            val confidence = label.confidence
+                            Toast.makeText(
+                                context,
+                                "$text \n $entityId \n $confidence",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(context, "No result found", Toast.LENGTH_SHORT)
+                            .show()
+                        print(e)
+
+                    }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
         }
     }
+
+    //converting url to bitmap
+    private fun getImageBitmap(url: String): Bitmap? {
+        var bm: Bitmap? = null
+        try {
+            val aURL = URL(url)
+            val conn: URLConnection = aURL.openConnection()
+            conn.connect()
+            val `is`: InputStream = conn.getInputStream()
+            val bis = BufferedInputStream(`is`)
+            bm = BitmapFactory.decodeStream(bis)
+            bis.close()
+            `is`.close()
+        } catch (e: IOException) {
+            Log.e(TAG, "Error getting bitmap", e)
+        }
+        return bm
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 
 }

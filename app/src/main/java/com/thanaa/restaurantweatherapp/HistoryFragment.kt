@@ -18,6 +18,7 @@ class HistoryFragment : Fragment() {
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
     private val viewModelDB: DatabaseViewModel by viewModels()
+    lateinit var adapter: RestaurantAdapter
     private val args by navArgs<HistoryFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +28,9 @@ class HistoryFragment : Fragment() {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         viewModelDB.getAllData.observe(viewLifecycleOwner, {
             binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
-            binding.recyclerview.adapter = RestaurantAdapter(it, 2)
+//            binding.recyclerview.adapter = RestaurantAdapter(it, 2)
+            adapter = RestaurantAdapter(it, 2)
+            binding.recyclerview.adapter = adapter
         })
         //Menu of Deletion and Sorting
         setHasOptionsMenu(true)
@@ -60,6 +63,8 @@ class HistoryFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delete_all -> confirmRemoval()
+            R.id.price -> viewModelDB.sortByPrice.observe(this, { adapter.setData(it) })
+
         }
         return super.onOptionsItemSelected(item)
     }
@@ -67,6 +72,7 @@ class HistoryFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.options_menu, menu)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

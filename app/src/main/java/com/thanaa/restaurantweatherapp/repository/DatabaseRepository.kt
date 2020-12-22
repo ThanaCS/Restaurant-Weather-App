@@ -7,7 +7,7 @@ import com.thanaa.restaurantweatherapp.model.Businesses
 class DatabaseRepository(private val businessDao: BusinessDao) {
 
     val getAllData: LiveData<List<Businesses>> = businessDao.getBusiness()
-
+    val sortByPrice: LiveData<List<Businesses>> = businessDao.sortByHighestPrice()
     suspend fun insertData(businesses: Businesses) {
         businessDao.insertBusiness(businesses)
     }

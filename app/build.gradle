@@ -1,10 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'androidx.navigation.safeargs'
     id 'kotlin-kapt'
-
+    id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
+//    id 'com.google.gms.google-services'
 
 }
 
@@ -27,6 +28,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -42,6 +44,7 @@ android {
         unitTests.returnDefaultValues = true
     }
 
+
 }
 
 dependencies {
@@ -52,6 +55,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.preference:preference:1.1.1'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -83,7 +87,7 @@ dependencies {
     //mockito
     testImplementation 'junit:junit:4.12'
     testImplementation 'android.arch.core:core-testing:1.1.1'
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
     testImplementation "org.mockito:mockito-inline:2.8.9"
     //dagger
     implementation 'com.google.dagger:dagger:2.25.2'
@@ -107,6 +111,12 @@ dependencies {
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.2'
     //snackbar top
     implementation "com.androidadvance:topsnackbar:1.0.0"
+    //firebase ML
+    implementation 'com.google.firebase:firebase-ml-vision:24.0.3'
+    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:20.0.1'
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 
 
 }

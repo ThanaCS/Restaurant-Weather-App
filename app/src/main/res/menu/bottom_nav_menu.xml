@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mapsFragment"
-        android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:id="@+id/loginFragment"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile" />
 
     <item
         android:id="@+id/historyFragment"
@@ -12,7 +12,8 @@
         android:title="History" />
     <item
         android:id="@+id/placeholder"
-        android:title="             \n " />
+        android:title="      " />
+
 
     <item
         android:id="@+id/bookMarkFragment"
