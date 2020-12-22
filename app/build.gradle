@@ -118,6 +118,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-ml-vision-image-label-model:20.0.1'
     implementation 'com.google.firebase:firebase-auth:20.0.1'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.google.mlkit:image-labeling:17.0.1'
     //lottie
     implementation "com.airbnb.android:lottie:3.5.0"
     //Circle Image view

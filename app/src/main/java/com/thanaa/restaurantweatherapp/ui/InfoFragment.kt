@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.FirebaseApp
-import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.label.ImageLabeling
+import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import com.thanaa.restaurantweatherapp.databinding.FragmentInfoBinding
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import java.io.BufferedInputStream
@@ -148,19 +150,21 @@ class InfoFragment : Fragment() {
             //firebase
             val image: FirebaseVisionImage
             try {
-                image =
-                    FirebaseVisionImage.fromBitmap(getImageBitmap(args.business.image_url)!!)
-                val labeler = FirebaseVision.getInstance().cloudImageLabeler
-
-                labeler.processImage(image)
+//                image =
+//                    FirebaseVisionImage.fromBitmap(getImageBitmap(args.business.image_url)!!)
+                val image = InputImage.fromBitmap(getImageBitmap(args.business.image_url)!!, 0)
+//                val labeler = FirebaseVision.getInstance().cloudImageLabeler
+                val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
+                labeler.process(image)
                     .addOnSuccessListener { labels ->
                         for (label in labels) {
                             val text = label.text
-                            val entityId = label.entityId
                             val confidence = label.confidence
+                            val index = label.index
+
                             Toast.makeText(
                                 context,
-                                "$text \n $entityId \n $confidence",
+                                "$text $confidence",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

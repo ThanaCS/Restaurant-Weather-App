@@ -1,7 +1,6 @@
 package com.thanaa.restaurantweatherapp.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -24,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         fab = findViewById(R.id.fab)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomAppBar = findViewById(R.id.bottomAppBar)
-        showNavigation()
         val navController: NavController =
             Navigation.findNavController(this, R.id.fragment_container)
         bottomNavigationView.background = null
@@ -33,12 +31,6 @@ class MainActivity : AppCompatActivity() {
         }
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
         findNavController(R.id.fragment_container)
-    }
-
-    private fun showNavigation() {
-        bottomNavigationView.visibility = View.VISIBLE
-        bottomAppBar.visibility = View.VISIBLE
-        fab.visibility = View.VISIBLE
     }
 
 }

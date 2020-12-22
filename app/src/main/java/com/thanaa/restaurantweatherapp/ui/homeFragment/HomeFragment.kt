@@ -10,11 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.thanaa.restaurantweatherapp.databinding.FragmentHomeBinding
-import com.thanaa.restaurantweatherapp.ui.MainActivity
 import com.thanaa.restaurantweatherapp.viewmodel.DatabaseViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.YelpViewModel
@@ -24,9 +20,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var yelpViewModel: YelpViewModel
     private lateinit var weatherViewModel: WeatherViewModel
-    lateinit var bottomNavigationView: BottomNavigationView
-    lateinit var bottomAppBar: BottomAppBar
-    lateinit var fab: FloatingActionButton
     private val viewModelDB: DatabaseViewModel by viewModels()
     private val args by navArgs<HomeFragmentArgs>()
     override fun onCreateView(
@@ -34,7 +27,6 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        ShowNavigation()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         yelpViewModel = ViewModelProvider(this).get(YelpViewModel::class.java)
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
@@ -77,14 +69,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun ShowNavigation() {
-        bottomNavigationView = (activity as MainActivity).bottomNavigationView
-        fab = (activity as MainActivity).fab
-        bottomAppBar = (activity as MainActivity).bottomAppBar
-        bottomNavigationView.visibility = View.VISIBLE
-        bottomAppBar.visibility = View.VISIBLE
-        fab.visibility = View.VISIBLE
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
