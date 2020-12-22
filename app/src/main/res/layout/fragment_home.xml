@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="@+id/recyclerview" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/sadCatEmpty"
+        android:id="@+id/emptyFood"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:visibility="gone"
@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="sad_cat.json"
+        app:lottie_fileName="pizza.json"
         app:lottie_loop="true" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sadCatEmpty" />
+        app:layout_constraintTop_toBottomOf="@+id/emptyFood" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

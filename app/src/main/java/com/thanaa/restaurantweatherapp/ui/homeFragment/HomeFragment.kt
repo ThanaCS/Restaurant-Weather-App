@@ -60,10 +60,10 @@ class HomeFragment : Fragment() {
 
     private fun showEmptyView(emptyBusinesses: Boolean) {
         if (emptyBusinesses) {
-            binding.sadCatEmpty.visibility = View.VISIBLE
+            binding.emptyFood.visibility = View.VISIBLE
             binding.emptyText.visibility = View.VISIBLE
         } else {
-            binding.sadCatEmpty.visibility = View.INVISIBLE
+            binding.emptyFood.visibility = View.INVISIBLE
             binding.emptyText.visibility = View.INVISIBLE
 
         }
