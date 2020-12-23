@@ -14,7 +14,7 @@ data class Plan(
     var title: String,
     var description: String,
     var date: Date = Date(),
-    var color: Color,
+    var color: Int?,
     var location: String,
     var icon: Int?
 ) : Parcelable

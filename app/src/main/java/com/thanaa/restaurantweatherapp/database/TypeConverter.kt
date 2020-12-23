@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.thanaa.restaurantweatherapp.model.Category
-import com.thanaa.restaurantweatherapp.model.Color
 import com.thanaa.restaurantweatherapp.model.Coordinates
 import com.thanaa.restaurantweatherapp.model.Location
 import java.util.*
@@ -68,15 +67,6 @@ class TypeConverter {
         }
     }
 
-    @TypeConverter
-    fun fromColor(color: Color): String {
-        return color.name
-    }
-
-    @TypeConverter
-    fun toColor(color: String): Color {
-        return Color.valueOf(color)
-    }
 
 
 }
