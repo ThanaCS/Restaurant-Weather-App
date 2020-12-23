@@ -88,7 +88,6 @@ class HistoryFragment : Fragment() {
         } else {
             binding.sadCatEmpty.visibility = View.INVISIBLE
             binding.emptyText.visibility = View.INVISIBLE
-
         }
     }
 

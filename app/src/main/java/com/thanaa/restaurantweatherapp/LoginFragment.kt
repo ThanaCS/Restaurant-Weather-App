@@ -15,7 +15,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -90,16 +89,11 @@ class LoginFragment : Fragment() {
                 try {
                     // Google Sign In was successful, authenticate with Firebase
                     val account = task.getResult(ApiException::class.java)!!
-                    Snackbar.make(
-                        requireView(),
-                        "Google Sign In was successful with id ${account.id}",
-                        Snackbar.LENGTH_LONG
-                    ).show()
+
                     firebaseAuthWithGoogle(account.idToken!!)
                     getUserDetails()
                 } catch (e: ApiException) {
-                    Snackbar.make(requireView(), "Google sign in failed", Snackbar.LENGTH_LONG)
-                        .show()
+                    print(e)
                 }
             }
 
@@ -128,31 +122,13 @@ class LoginFragment : Fragment() {
                             .set(user, SetOptions.merge())
                             .addOnSuccessListener {
 
-                                view?.let {
-                                    Snackbar.make(
-                                        it,
-                                        "add On Success Listener",
-                                        Snackbar.LENGTH_SHORT
-                                    ).show()
-                                }
 
                             }.addOnFailureListener {
-                                view?.let {
-                                    Snackbar.make(
-                                        it,
-                                        "add On Failure Listener",
-                                        Snackbar.LENGTH_SHORT
-                                    ).show()
-                                }
 
                             }
                     }
                     findNavController().navigate(R.id.mapsFragment)
                 } else {
-
-                    view?.let {
-                        Snackbar.make(it, "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
-                    }
 
                 }
 
@@ -164,13 +140,6 @@ class LoginFragment : Fragment() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    view?.let {
-                        Snackbar.make(
-                            it,
-                            "${document.id} => ${document.data}",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                    }
                     Log.d(TAG, "${document.id} => ${document.data}")
                 }
             }

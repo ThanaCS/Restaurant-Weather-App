@@ -60,7 +60,7 @@ class MapsFragment : Fragment(), View.OnClickListener {
     ): View? {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
         getUserLocation()
-        ShowNavigation()
+        showNavigation()
         autoCompleteSearch()
         setData()
 
@@ -228,7 +228,7 @@ class MapsFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun ShowNavigation() {
+    private fun showNavigation() {
         bottomNavigationView = (activity as MainActivity).bottomNavigationView
         fab = (activity as MainActivity).fab
         bottomAppBar = (activity as MainActivity).bottomAppBar
