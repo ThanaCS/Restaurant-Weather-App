@@ -14,8 +14,6 @@ data class RestaurantResponse(
 @Entity(tableName = "businesses_table")
 @Parcelize
 data class Businesses(
-//    @PrimaryKey(autoGenerate = true)
-//    var BusinessesId: Int? = null,
     val alias: String,
     val categories: List<Category>,
     val coordinates: Coordinates,

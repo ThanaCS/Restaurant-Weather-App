@@ -5,21 +5,22 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.thanaa.restaurantweatherapp.database.BusinessDatabase
+import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.model.Businesses
-import com.thanaa.restaurantweatherapp.repository.DatabaseRepository
+import com.thanaa.restaurantweatherapp.repository.BusinessRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DatabaseViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val businessDao = BusinessDatabase.getDatabase(application).BusinessDao()
-    private val repository: DatabaseRepository
+    private val businessDao = AppDatabase.getDatabase(application).BusinessDao()
+    private val repository: BusinessRepository
     val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(true)
     val getAllData: LiveData<List<Businesses>>
     val sortByPrice: LiveData<List<Businesses>>
+
     init {
-        repository = DatabaseRepository(businessDao)
+        repository = BusinessRepository(businessDao)
         getAllData = repository.getAllData
         sortByPrice = repository.sortByPrice
 

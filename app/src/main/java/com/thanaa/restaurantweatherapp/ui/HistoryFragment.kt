@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp
+package com.thanaa.restaurantweatherapp.ui
 
 import android.app.AlertDialog
 import android.graphics.Color
@@ -11,8 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidadvance.topsnackbar.TSnackbar
+import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.databinding.FragmentHistoryBinding
-import com.thanaa.restaurantweatherapp.ui.homeFragment.RestaurantAdapter
 import com.thanaa.restaurantweatherapp.viewmodel.DatabaseViewModel
 
 class HistoryFragment : Fragment() {

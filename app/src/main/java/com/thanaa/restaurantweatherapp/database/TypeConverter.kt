@@ -4,10 +4,12 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.thanaa.restaurantweatherapp.model.Category
+import com.thanaa.restaurantweatherapp.model.Color
 import com.thanaa.restaurantweatherapp.model.Coordinates
 import com.thanaa.restaurantweatherapp.model.Location
+import java.util.*
 
-class BusinessTypeConverter {
+class TypeConverter {
     var gson = Gson()
 
     @TypeConverter
@@ -52,6 +54,28 @@ class BusinessTypeConverter {
     fun stringToTransactions(data: String): List<String> {
         val listType = object : TypeToken<List<String>>() {}.type //token
         return gson.fromJson(data, listType)
+    }
+
+    @TypeConverter
+    fun fromDate(date: Date?): Long? {
+        return date?.time
+    }
+
+    @TypeConverter
+    fun toDate(millisSinceEpoch: Long?): Date? {
+        return millisSinceEpoch?.let {
+            Date(it)
+        }
+    }
+
+    @TypeConverter
+    fun fromColor(color: Color): String {
+        return color.name
+    }
+
+    @TypeConverter
+    fun toColor(color: String): Color {
+        return Color.valueOf(color)
     }
 
 

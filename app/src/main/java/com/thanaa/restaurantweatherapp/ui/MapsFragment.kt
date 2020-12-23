@@ -42,7 +42,6 @@ class MapsFragment : Fragment(), View.OnClickListener {
     private var latValue: Double = 0.0
     private var lonValue: Double = 0.0
     private var food: String? = ""
-
     private var weather: WeatherResponse? = null
     private lateinit var weatherViewModel: WeatherViewModel
     lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -123,6 +122,7 @@ class MapsFragment : Fragment(), View.OnClickListener {
 
     @SuppressLint("PotentialBehaviorOverride", "MissingPermission")
     private fun onMapReady(googleMap: GoogleMap, lan: Double, lon: Double) {
+
         googleMap.addMarker(
             MarkerOptions().position(LatLng(lan, lon))
                 .draggable(true)
@@ -200,7 +200,6 @@ class MapsFragment : Fragment(), View.OnClickListener {
             //Hide soft keys
             hideKeyBoard()
         }
-
     }
 
     private fun autoCompleteSearch() {
