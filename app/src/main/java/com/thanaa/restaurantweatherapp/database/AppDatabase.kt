@@ -6,18 +6,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.thanaa.restaurantweatherapp.model.Businesses
+import com.thanaa.restaurantweatherapp.model.Plan
 
-@Database(entities = [Businesses::class], version = 1)
-@TypeConverters(BusinessTypeConverter::class)
-abstract class BusinessDatabase : RoomDatabase() {
+@Database(entities = [Businesses::class, Plan::class], version = 1)
+@TypeConverters(TypeConverter::class)
+abstract class AppDatabase : RoomDatabase() {
     abstract fun BusinessDao(): BusinessDao
+    abstract fun PlanDao(): PlanDao
 
     companion object {
-
         @Volatile
-        private var INSTANCE: BusinessDatabase? = null
+        private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context): BusinessDatabase {
+        fun getDatabase(context: Context): AppDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {//to not create another instance
                 return tempInstance
@@ -25,7 +26,7 @@ abstract class BusinessDatabase : RoomDatabase() {
             synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    BusinessDatabase::class.java,
+                    AppDatabase::class.java,
                     "BusinessDatabase.db"
                 ).build()
                 INSTANCE = instance

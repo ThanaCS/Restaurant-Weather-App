@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/addFragment">
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.thanaa.restaurantweatherapp.ui.homeFragment.HomeFragment"
+        android:name="com.thanaa.restaurantweatherapp.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <argument
@@ -32,9 +32,6 @@
         <action
             android:id="@+id/action_homeFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_bookMarkFragment"
-            app:destination="@id/bookMarkFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
@@ -48,6 +45,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mapsFragment_to_planFragment"
+            app:destination="@id/planFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.thanaa.restaurantweatherapp.HistoryFragment"
+        android:name="com.thanaa.restaurantweatherapp.ui.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history">
         <argument
@@ -71,26 +71,45 @@
             app:destination="@id/infoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/bookMarkFragment"
-        android:name="com.thanaa.restaurantweatherapp.ui.BookMarkFragment"
-        android:label="fragment_book_mark"
-        tools:layout="@layout/fragment_book_mark">
-        <argument
-            android:name="business"
-            app:argType="com.thanaa.restaurantweatherapp.model.Businesses" />
-    </fragment>
-    <fragment
         android:id="@+id/loginFragment"
-        android:name="com.thanaa.restaurantweatherapp.LoginFragment"
+        android:name="com.thanaa.restaurantweatherapp.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
+            app:destination="@id/mapsFragment"
+            app:enterAnim="@anim/top_in"
+            app:exitAnim="@anim/top_out" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.thanaa.restaurantweatherapp.ProfileFragment"
+        android:name="com.thanaa.restaurantweatherapp.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/planFragment"
+        android:name="com.thanaa.restaurantweatherapp.PlanFragment"
+        android:label="fragment_plan"
+        tools:layout="@layout/fragment_plan">
+        <action
+            android:id="@+id/action_planFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.thanaa.restaurantweatherapp.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update">
+        <action
+            android:id="@+id/action_updateFragment_to_planFragment"
+            app:destination="@id/planFragment" />
+        <argument
+            android:name="plan"
+            app:argType="com.thanaa.restaurantweatherapp.model.Plan" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.thanaa.restaurantweatherapp.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" />
 </navigation>

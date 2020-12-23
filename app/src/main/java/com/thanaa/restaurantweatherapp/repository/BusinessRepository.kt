@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.thanaa.restaurantweatherapp.database.BusinessDao
 import com.thanaa.restaurantweatherapp.model.Businesses
 
-class DatabaseRepository(private val businessDao: BusinessDao) {
+class BusinessRepository(private val businessDao: BusinessDao) {
 
     val getAllData: LiveData<List<Businesses>> = businessDao.getBusiness()
     val sortByPrice: LiveData<List<Businesses>> = businessDao.sortByHighestPrice()

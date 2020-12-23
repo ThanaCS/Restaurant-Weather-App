@@ -17,8 +17,14 @@
         <item>Chicken</item>
         <item>Dessert</item>
         <item>Rice</item>
-
     </string-array>
+
+    <string-array name="country">
+        <item>UK</item>
+        <item>US</item>
+        <item>Germany</item>
+    </string-array>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
@@ -41,4 +47,6 @@
     <string name="nothing_here_to_eat">Nothing here to eat..</string>
     <string name="welcome">WELCOME</string>
     <string name="login_with_google">Login with Google</string>
+    <string name="double_tap_to_read_the_label_photo">Double tap to read the label photo</string>
+    <string name="add_plan">Add Plan</string>
 </resources>

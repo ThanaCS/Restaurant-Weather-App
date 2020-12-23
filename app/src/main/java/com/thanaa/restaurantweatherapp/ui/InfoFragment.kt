@@ -2,6 +2,7 @@ package com.thanaa.restaurantweatherapp.ui
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
@@ -9,15 +10,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androidadvance.topsnackbar.TSnackbar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.FirebaseApp
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
@@ -147,13 +149,11 @@ class InfoFragment : Fragment() {
             val policy = StrictMode.ThreadPolicy.Builder()
                 .permitAll().build()
             StrictMode.setThreadPolicy(policy)
+
             //firebase
-            val image: FirebaseVisionImage
             try {
-//                image =
-//                    FirebaseVisionImage.fromBitmap(getImageBitmap(args.business.image_url)!!)
+
                 val image = InputImage.fromBitmap(getImageBitmap(args.business.image_url)!!, 0)
-//                val labeler = FirebaseVision.getInstance().cloudImageLabeler
                 val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
                 labeler.process(image)
                     .addOnSuccessListener { labels ->
@@ -161,12 +161,19 @@ class InfoFragment : Fragment() {
                             val text = label.text
                             val confidence = label.confidence
                             val index = label.index
-
-                            Toast.makeText(
-                                context,
-                                "$text $confidence",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            //snackbar to show the label of the photo
+                            val snackbar = TSnackbar.make(
+                                requireView(),
+                                " $text",
+                                TSnackbar.LENGTH_LONG
+                            )
+                            snackbar.setActionTextColor(Color.WHITE)
+                            val snackbarView = snackbar.view
+                            snackbarView.setBackgroundColor(Color.parseColor("#BA134939"))
+                            val textView =
+                                snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
+                            textView.setTextColor(Color.WHITE)
+                            snackbar.show()
                         }
 
                     }

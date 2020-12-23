@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:src="@color/purple_200"
+        android:contentDescription="@string/double_tap_to_read_the_label_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
