@@ -123,6 +123,8 @@ dependencies {
     implementation "com.airbnb.android:lottie:3.5.0"
     //Circle Image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //button library
+    implementation 'com.github.markushi:circlebutton:1.1'
 
 
 }
