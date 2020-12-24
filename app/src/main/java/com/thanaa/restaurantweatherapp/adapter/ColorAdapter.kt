@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp
+package com.thanaa.restaurantweatherapp.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

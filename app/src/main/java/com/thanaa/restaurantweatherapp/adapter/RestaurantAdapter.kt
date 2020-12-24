@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp.ui
+package com.thanaa.restaurantweatherapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +12,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.model.Businesses
+import com.thanaa.restaurantweatherapp.ui.HistoryFragmentDirections
+import com.thanaa.restaurantweatherapp.ui.HomeFragmentDirections
 import com.thanaa.restaurantweatherapp.utils.getProgressDrawable
 import com.thanaa.restaurantweatherapp.utils.loadImage
 

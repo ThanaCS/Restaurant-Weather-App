@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp
+package com.thanaa.restaurantweatherapp.utils
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

@@ -24,6 +24,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import com.thanaa.restaurantweatherapp.R
+import com.thanaa.restaurantweatherapp.adapter.WeatherAdapter
 import com.thanaa.restaurantweatherapp.databinding.FragmentInfoBinding
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import java.io.BufferedInputStream

@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp
+package com.thanaa.restaurantweatherapp.ui
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -9,10 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.thanaa.restaurantweatherapp.R
+import com.thanaa.restaurantweatherapp.adapter.ColorAdapter
+import com.thanaa.restaurantweatherapp.adapter.CountryAdapter
 import com.thanaa.restaurantweatherapp.databinding.FragmentAddBinding
 import com.thanaa.restaurantweatherapp.model.CountryItem
+import com.thanaa.restaurantweatherapp.model.DatePickerFragment
 import com.thanaa.restaurantweatherapp.model.Plan
-import com.thanaa.restaurantweatherapp.ui.MainActivity
 import com.thanaa.restaurantweatherapp.viewmodel.PlanViewModel
 import java.util.*
 

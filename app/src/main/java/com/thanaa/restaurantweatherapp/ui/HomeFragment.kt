@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thanaa.restaurantweatherapp.R
+import com.thanaa.restaurantweatherapp.adapter.RestaurantAdapter
 import com.thanaa.restaurantweatherapp.databinding.FragmentHomeBinding
 import com.thanaa.restaurantweatherapp.viewmodel.DatabaseViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel

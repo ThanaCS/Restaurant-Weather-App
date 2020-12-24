@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp
+package com.thanaa.restaurantweatherapp.adapter
 
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -10,7 +10,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+
+import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.model.Plan
+import com.thanaa.restaurantweatherapp.ui.PlanFragmentDirections
 
 class PlanAdapter : RecyclerView.Adapter<PlanAdapter.MyViewHolder>() {
 
