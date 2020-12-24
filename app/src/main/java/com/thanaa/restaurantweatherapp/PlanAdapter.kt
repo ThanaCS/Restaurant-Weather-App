@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.thanaa.restaurantweatherapp.model.Plan
 
@@ -21,6 +23,7 @@ class PlanAdapter : RecyclerView.Adapter<PlanAdapter.MyViewHolder>() {
         private val location: TextView = view.findViewById(R.id.location)
         private val flag: ImageView = view.findViewById(R.id.flag)
         private val color: ImageView = view.findViewById(R.id.image_view_color)
+        private val rowBackground: ConstraintLayout = view.findViewById(R.id.row_background)
         fun bind(plan: Plan, holder: MyViewHolder) {
 
             title.text = plan.title
@@ -30,6 +33,12 @@ class PlanAdapter : RecyclerView.Adapter<PlanAdapter.MyViewHolder>() {
             color.setImageDrawable(ContextCompat.getDrawable(holder.color.context, plan.color!!))
             val dateFormat = DateFormat.format("EEE, MMM, dd", plan.date).toString()
             date.text = dateFormat
+
+            //when user clicks on item it navigate to update of the data position
+            rowBackground.setOnClickListener {
+                val action = PlanFragmentDirections.actionPlanFragmentToUpdateFragment(plan)
+                holder.itemView.findNavController().navigate(action)
+            }
 
         }
     }

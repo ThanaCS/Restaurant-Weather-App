@@ -14,7 +14,6 @@ import com.thanaa.restaurantweatherapp.model.CountryItem
 import com.thanaa.restaurantweatherapp.model.Plan
 import com.thanaa.restaurantweatherapp.ui.MainActivity
 import com.thanaa.restaurantweatherapp.viewmodel.PlanViewModel
-import com.thanaa.restaurantweatherapp.viewmodel.SharedViewModel
 import java.util.*
 
 const val REQUEST_DATE = 0
@@ -28,7 +27,6 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
     private var color: Int = 0
     private var location = ""
     private val planViewModel: PlanViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as MainActivity).supportActionBar?.title = getString(R.string.add_plan)

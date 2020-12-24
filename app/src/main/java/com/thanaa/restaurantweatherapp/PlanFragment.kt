@@ -105,7 +105,6 @@ class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
             showEmptyView(it)
         })
 
-
     }
 
 

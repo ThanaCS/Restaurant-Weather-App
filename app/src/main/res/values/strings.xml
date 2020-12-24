@@ -62,4 +62,8 @@
     <string name="delete_all_plans">Delete Plans</string>
     <string name="are_you_sure_plans">Are you sure you want to delete all plans?</string>
     <string name="plans_successfully_deleted">Plans are successfully deleted</string>
+    <string name="what_is_your_plan">What is your plan ?</string>
+    <string name="Plan_Description">Plan Description...</string>
+    <string name="save">Save</string>
+    <string name="delete">delete</string>
 </resources>

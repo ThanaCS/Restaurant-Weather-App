@@ -1,31 +1,94 @@
 package com.thanaa.restaurantweatherapp.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Toast
+import android.text.TextUtils
+import android.text.format.DateFormat
+import android.view.*
+import android.widget.*
 import androidx.fragment.app.Fragment
-import com.thanaa.restaurantweatherapp.ColorAdapter
-import com.thanaa.restaurantweatherapp.CountryAdapter
-import com.thanaa.restaurantweatherapp.R
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.thanaa.restaurantweatherapp.*
 import com.thanaa.restaurantweatherapp.databinding.FragmentUpdateBinding
 import com.thanaa.restaurantweatherapp.model.CountryItem
+import com.thanaa.restaurantweatherapp.model.Plan
+import com.thanaa.restaurantweatherapp.viewmodel.PlanViewModel
+import java.util.*
 
 
-class UpdateFragment : Fragment() {
+class UpdateFragment : Fragment(), DatePickerFragment.Callbacks {
+    private val args by navArgs<UpdateFragmentArgs>()
+    private val planViewModel: PlanViewModel by viewModels()
     private var _binding: FragmentUpdateBinding? = null
     private val binding get() = _binding!!
+    private var flag: Int = 0
+    private var color: Int = 0
+    private var location = ""
+    var date = Date()
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
+
         setCountries()
         setColors()
+        binding.date.setOnClickListener {
+            DatePickerFragment.newInstance(args.plan.date).apply {
+                setTargetFragment(this@UpdateFragment, REQUEST_DATE)
+                show(this@UpdateFragment.requireFragmentManager(), DIALOG_DATE)
+            }
+        }
+
+        flag = args.plan.icon!!
+        color = args.plan.color!!
+        location = args.plan.location
+        //Set menu
+        setHasOptionsMenu(true)
+        binding.title.setText(args.plan.title)
+        binding.description.setText(args.plan.description)
+        val dateForamtted = DateFormat.format("EEE, MMM, dd", args.plan.date).toString()
+        binding.dateText.text = dateForamtted
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.update_fragment_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.menu_save -> updateItem()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun updateItem() {
+
+        val title = binding.title.text.toString()
+        val description = binding.description.text.toString()
+        if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(description)) {
+            val updatedItem = Plan(
+                args.plan.id,
+                title,
+                description,
+                args.plan.date,
+                color,
+                location,
+                flag
+            )
+            planViewModel.updateData(updatedItem)
+            Toast.makeText(requireContext(), "Successfully Added", Toast.LENGTH_SHORT).show()
+            findNavController().navigate((R.id.planFragment))
+        } else {
+            Toast.makeText(requireContext(), "Empty Fields", Toast.LENGTH_SHORT).show()
+        }
+
+
     }
 
     private fun setCountries() {
@@ -39,7 +102,8 @@ class UpdateFragment : Fragment() {
                 id: Long
             ) {
                 val country = parent.getItemAtPosition(position) as CountryItem
-
+                flag = country.flagImage
+                location = country.countryName
                 Toast.makeText(
                     requireContext(),
                     "selected, ${country.flagImage} ${country.countryName}",
@@ -62,7 +126,9 @@ class UpdateFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                val color = parent.getItemAtPosition(position)
+
+                color = parent.getItemAtPosition(position) as Int
+
                 Toast.makeText(
                     requireContext(),
                     "$color selected",
@@ -111,9 +177,11 @@ class UpdateFragment : Fragment() {
         return colors
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onDateSelected(date: Date) {
+        args.plan.date = date
+        val mDate = DateFormat.format("EEE, MMM, dd", args.plan.date).toString()
+        binding.dateText.text = mDate
     }
+
 
 }
