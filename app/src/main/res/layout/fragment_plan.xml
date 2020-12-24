@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="40dp"
-            android:paddingLeft="30dp"
+
             android:text="THANA ALSADOUN"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -43,41 +43,22 @@
             android:id="@+id/email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
-            android:paddingLeft="30dp"
+
             android:text="Thana@gmail.com"
             android:textColor="@color/white"
             app:layout_constraintStart_toEndOf="@+id/profileImage"
             app:layout_constraintTop_toBottomOf="@+id/username" />
 
-        <!--        <Button-->
-        <!--            android:id="@+id/add_button"-->
 
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="@string/add_plan"-->
-        <!--            tools:layout_editor_absoluteX="293dp"-->
-        <!--            tools:layout_editor_absoluteY="65dp" />-->
-        <at.markushi.ui.CircleButton
-            android:id="@+id/add_button"
-            android:layout_width="64dip"
-            android:layout_height="64dip"
-            android:layout_marginTop="84dp"
-            android:layout_marginEnd="32dp"
-            android:src="@drawable/ic_add"
-            app:cb_color="#99CC00"
-            app:cb_pressedRingWidth="8dip"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="411dp"
-        android:layout_height="583dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="409dp"
+        android:layout_height="461dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -87,5 +68,17 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/plan_row" />
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/add_button"
+        android:layout_width="64dip"
+        android:layout_height="64dip"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="32dp"
+        android:src="@drawable/ic_add"
+        app:cb_color="#99CC00"
+        app:cb_pressedRingWidth="8dip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

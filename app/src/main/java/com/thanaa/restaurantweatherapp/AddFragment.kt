@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.thanaa.restaurantweatherapp.databinding.FragmentAddBinding
 import com.thanaa.restaurantweatherapp.model.CountryItem
 import com.thanaa.restaurantweatherapp.model.Plan
+import com.thanaa.restaurantweatherapp.ui.MainActivity
 import com.thanaa.restaurantweatherapp.viewmodel.PlanViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.SharedViewModel
 import java.util.*
@@ -30,7 +31,7 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
     private val sharedViewModel: SharedViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.add_plan)
         val initDate = Calendar.getInstance().time
 
         plan = Plan(0, "", "", initDate, null, "", null)

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.thanaa.restaurantweatherapp.ui.HomeFragment"
-        android:label="fragment_home"
+        android:label="Restaurants"
         tools:layout="@layout/fragment_home">
         <argument
             android:name="food"
@@ -36,7 +36,7 @@
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.thanaa.restaurantweatherapp.ui.MapsFragment"
-        android:label="fragment_maps"
+        android:label="Food Travel"
         tools:layout="@layout/fragment_maps">
         <action
             android:id="@+id/action_mapsFragment_to_homeFragment"
@@ -84,7 +84,7 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.thanaa.restaurantweatherapp.ui.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/planFragment"
@@ -100,7 +100,7 @@
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
-        android:name="com.thanaa.restaurantweatherapp.UpdateFragment"
+        android:name="com.thanaa.restaurantweatherapp.ui.UpdateFragment"
         android:label="fragment_update"
         tools:layout="@layout/fragment_update">
         <action

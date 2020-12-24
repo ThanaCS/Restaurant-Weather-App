@@ -48,6 +48,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).supportActionBar?.title = "Login"
         hideNavigation()
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 

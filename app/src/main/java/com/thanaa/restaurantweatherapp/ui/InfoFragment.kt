@@ -23,6 +23,7 @@ import com.google.firebase.FirebaseApp
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
+import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.databinding.FragmentInfoBinding
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import java.io.BufferedInputStream
@@ -51,6 +52,7 @@ class InfoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.details)
         _binding = FragmentInfoBinding.inflate(inflater, container, false)
         setData()
         return binding.root

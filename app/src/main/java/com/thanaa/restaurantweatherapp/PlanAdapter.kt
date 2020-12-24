@@ -16,7 +16,7 @@ class PlanAdapter : RecyclerView.Adapter<PlanAdapter.MyViewHolder>() {
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val title: TextView = view.findViewById(R.id.title_tv)
         private val description: TextView = view.findViewById(R.id.description_tv)
-        private val date: TextView = view.findViewById(R.id.date)
+        private val date: TextView = view.findViewById(R.id.date_tv)
         private val location: TextView = view.findViewById(R.id.location)
         private val flag: ImageView = view.findViewById(R.id.flag)
         private val color: ImageView = view.findViewById(R.id.image_view_color)

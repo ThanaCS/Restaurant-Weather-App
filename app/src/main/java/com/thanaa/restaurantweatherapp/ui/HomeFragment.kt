@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.databinding.FragmentHomeBinding
 import com.thanaa.restaurantweatherapp.viewmodel.DatabaseViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
@@ -27,12 +27,13 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.restaurants)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         yelpViewModel = ViewModelProvider(this).get(YelpViewModel::class.java)
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         setData()
         //check if the Businesses is empty to show empty view
-        yelpViewModel.emptyBusinesses.observe(viewLifecycleOwner, Observer {
+        yelpViewModel.emptyBusinesses.observe(viewLifecycleOwner, {
             showEmptyView(it)
         })
         return binding.root
