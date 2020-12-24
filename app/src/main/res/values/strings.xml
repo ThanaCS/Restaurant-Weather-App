@@ -55,4 +55,11 @@
     <string name="history">History</string>
     <string name="restaurants">Restaurants</string>
     <string name="details">Restaurant\'s Details</string>
+    <string name="search">Search</string>
+    <string name="newest">Newest Plan</string>
+    <string name="oldest">Oldest Plan</string>
+    <string name="has_been_deleted">Has been deleted</string>
+    <string name="delete_all_plans">Delete Plans</string>
+    <string name="are_you_sure_plans">Are you sure you want to delete all plans?</string>
+    <string name="plans_successfully_deleted">Plans are successfully deleted</string>
 </resources>

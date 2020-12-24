@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.thanaa.restaurantweatherapp.model.Plan
 
@@ -20,13 +21,13 @@ class PlanAdapter : RecyclerView.Adapter<PlanAdapter.MyViewHolder>() {
         private val location: TextView = view.findViewById(R.id.location)
         private val flag: ImageView = view.findViewById(R.id.flag)
         private val color: ImageView = view.findViewById(R.id.image_view_color)
-        fun bind(plan: Plan) {
+        fun bind(plan: Plan, holder: MyViewHolder) {
 
             title.text = plan.title
             description.text = plan.description
             location.text = plan.location
-//        flag.setImageDrawable(ResourcesCompat.getDrawable(plan.icon))
-//        color.setImageDrawable(ResourcesCompat.getDrawable(plan.color))
+            flag.setImageDrawable(ContextCompat.getDrawable(holder.flag.context, plan.icon!!))
+            color.setImageDrawable(ContextCompat.getDrawable(holder.color.context, plan.color!!))
             val dateFormat = DateFormat.format("EEE, MMM, dd", plan.date).toString()
             date.text = dateFormat
 
@@ -45,7 +46,7 @@ class PlanAdapter : RecyclerView.Adapter<PlanAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(dataList[position])
+        holder.bind(dataList[position], holder)
 
 
     }

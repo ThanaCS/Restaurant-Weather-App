@@ -30,4 +30,6 @@ fun ImageView.loadImage(image: ImageView, progressDrawable: CircularProgressDraw
         .centerCrop()
         .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(10)))
         .into(this)
+
+
 }
