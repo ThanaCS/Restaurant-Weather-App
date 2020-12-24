@@ -58,6 +58,8 @@ class MapsFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
+        (activity as MainActivity).supportActionBar?.title = "Food&Travel"
+
         getUserLocation()
         showNavigation()
         autoCompleteSearch()

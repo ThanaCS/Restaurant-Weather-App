@@ -16,14 +16,13 @@ class PlanViewModel(application: Application) : AndroidViewModel(application) {
     val getAllData: LiveData<List<Plan>>
     val sortByNewDate: LiveData<List<Plan>>
     val sortByOldDate: LiveData<List<Plan>>
-    val sortByTitle: LiveData<List<Plan>>
+
 
     init {
         repository = PlanRepository(todoDao)
         getAllData = repository.getAllData
         sortByNewDate = repository.sortByNewDate
         sortByOldDate = repository.sortByOldDate
-        sortByTitle = repository.sortByTitle
     }
 
     fun insertData(plan: Plan) {

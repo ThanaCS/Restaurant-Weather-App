@@ -3,6 +3,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="yes">yes</string>
     <string name="no">No</string>
+    <string name="profile">Profile</string>
     <string name="clear_history">Clear History</string>
     <string name="are_you_sure">Are you sure you want to clear history?</string>
     <string name="history_successfully_deleted">History Successfully Deleted</string>
@@ -48,5 +49,21 @@
     <string name="welcome">WELCOME</string>
     <string name="login_with_google">Login with Google</string>
     <string name="double_tap_to_read_the_label_photo">Double tap to read the label photo</string>
+    <string name="add">Add</string>
+    <string name="plans">Plans</string>
     <string name="add_plan">Add Plan</string>
+    <string name="history">History</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="details">Restaurant\'s Details</string>
+    <string name="search">Search</string>
+    <string name="newest">Newest Plan</string>
+    <string name="oldest">Oldest Plan</string>
+    <string name="has_been_deleted">Has been deleted</string>
+    <string name="delete_all_plans">Delete Plans</string>
+    <string name="are_you_sure_plans">Are you sure you want to delete all plans?</string>
+    <string name="plans_successfully_deleted">Plans are successfully deleted</string>
+    <string name="what_is_your_plan">What is your plan ?</string>
+    <string name="Plan_Description">Plan Description...</string>
+    <string name="save">Save</string>
+    <string name="delete">delete</string>
 </resources>

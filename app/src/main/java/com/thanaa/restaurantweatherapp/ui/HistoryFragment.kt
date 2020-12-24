@@ -26,6 +26,7 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.history)
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         viewModelDB.getAllData.observe(viewLifecycleOwner, {
 

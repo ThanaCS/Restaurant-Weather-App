@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="5dp"
     android:backgroundTint="@color/backgroundLight">
 
@@ -23,13 +23,13 @@
             android:id="@+id/title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
             android:maxLength="20"
             android:text="Go to Moscow"
             android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/RandomCardView"
+            app:layout_constraintStart_toEndOf="@+id/image_view_color"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -71,12 +71,12 @@
 
         <ImageView
             android:id="@+id/image_view_color"
-            android:layout_width="40dp"
-            android:layout_height="25dp"
+            android:layout_width="35dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
             android:src="@drawable/red"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -93,7 +93,7 @@
             android:id="@+id/flag"
             android:layout_width="40dp"
             android:layout_height="20dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="72dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
