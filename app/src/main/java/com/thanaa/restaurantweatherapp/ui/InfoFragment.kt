@@ -1,8 +1,10 @@
 package com.thanaa.restaurantweatherapp.ui
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
@@ -82,7 +84,8 @@ class InfoFragment : Fragment() {
             name.text = args.business.name
             distance.text = String.format("%.0f", args.business.distance.hours.inDays) + " hours"
             category.text = args.business.categories[0].title
-            //TODO:user can call the number
+
+
             phoneNumber.text = args.business.phone
             region.text = "${args.business.location.city}, ${args.business.location.country}"
             price.text = args.business.price
@@ -140,7 +143,24 @@ class InfoFragment : Fragment() {
             binding.imageView.setOnClickListener {
                 firebaseLabelPhotos()
             }
+            //calling
+            callPhone.setOnClickListener {
+                callNumber(args.business.phone)
+            }
 
+        }
+
+
+    }
+
+    private fun callNumber(phoneNumber: String) {
+        if (phoneNumber.isNotEmpty()) {
+            val intent =
+                Intent(
+                    Intent.ACTION_DIAL,
+                    Uri.fromParts("tel", phoneNumber, null)
+                )
+            startActivity(intent)
         }
 
     }

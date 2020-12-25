@@ -17,4 +17,5 @@
     <color name="App_Secondary_light">#39796b</color>
     <color name="App_Secondary_dark">#00251a</color>
     <color name="backgroundLight">#F5F9FD</color>
+    <color name="green">#99CC00</color>
 </resources>

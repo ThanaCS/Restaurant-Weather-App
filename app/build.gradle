@@ -130,6 +130,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     //button library
     implementation 'com.github.markushi:circlebutton:1.1'
+    //Anko
+    implementation "org.jetbrains.anko:anko:0.10.8"
 
 
 }

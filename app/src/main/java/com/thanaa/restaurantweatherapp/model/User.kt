@@ -5,5 +5,6 @@ data class User(
     val username: String = "",
     val email: String = "",
     val image: String = "",
-    var score: Int = 0
+    val score: Int = 0,
+    val level: String
 )

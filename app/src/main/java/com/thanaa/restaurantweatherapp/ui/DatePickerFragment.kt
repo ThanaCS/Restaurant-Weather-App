@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp.model
+package com.thanaa.restaurantweatherapp.ui
 
 import android.app.DatePickerDialog
 import android.app.Dialog

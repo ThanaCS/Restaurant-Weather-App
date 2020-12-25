@@ -11,7 +11,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,15 +26,12 @@ import com.thanaa.restaurantweatherapp.databinding.FragmentPlanBinding
 import com.thanaa.restaurantweatherapp.model.Plan
 import com.thanaa.restaurantweatherapp.utils.SwipeToDelete
 import com.thanaa.restaurantweatherapp.viewmodel.PlanViewModel
-import com.thanaa.restaurantweatherapp.viewmodel.SharedViewModel
 
 
 class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
     private var _binding: FragmentPlanBinding? = null
     private val binding get() = _binding!!
     private val planViewModel: PlanViewModel by viewModels()
-    lateinit var sharedViewModel: SharedViewModel
-
     lateinit var recyclerView: RecyclerView
     private lateinit var auth: FirebaseAuth
     private val adapter: PlanAdapter by lazy { PlanAdapter() }
@@ -47,8 +43,6 @@ class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.plans)
         _binding = FragmentPlanBinding.inflate(inflater, container, false)
         firebaseProfile()
-        sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
-
         setData()
 
         //Menu of Deletion and Sorting
@@ -98,12 +92,12 @@ class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         swipeToDelete(recyclerView)
         planViewModel.getAllData.observe(viewLifecycleOwner, {
-            sharedViewModel.checkIfDatabaseEmpty(it)
+            planViewModel.checkIfDatabaseEmpty(it)
             adapter.setData(it)
 
         })
         //check if the database is empty to show empty view
-        sharedViewModel.emptyDatabase.observe(viewLifecycleOwner, Observer {
+        planViewModel.emptyDatabase.observe(viewLifecycleOwner, Observer {
             showEmptyView(it)
         })
 
