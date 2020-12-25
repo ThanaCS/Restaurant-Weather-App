@@ -1,8 +1,10 @@
 package com.thanaa.restaurantweatherapp.ui
 
+import android.animation.Animator
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -20,10 +22,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.adapter.PlanAdapter
 import com.thanaa.restaurantweatherapp.databinding.FragmentPlanBinding
 import com.thanaa.restaurantweatherapp.model.Plan
+import com.thanaa.restaurantweatherapp.utils.SwipeToComplete
 import com.thanaa.restaurantweatherapp.utils.SwipeToDelete
 import com.thanaa.restaurantweatherapp.viewmodel.PlanViewModel
 
@@ -34,6 +39,8 @@ class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
     private val planViewModel: PlanViewModel by viewModels()
     lateinit var recyclerView: RecyclerView
     private lateinit var auth: FirebaseAuth
+    private val fireStoreDB = FirebaseFirestore.getInstance()
+    private lateinit var mediaPlayer: MediaPlayer
     private val adapter: PlanAdapter by lazy { PlanAdapter() }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +56,8 @@ class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
         setHasOptionsMenu(true)
 
         binding.addButton.setOnClickListener {
-            findNavController().navigate((R.id.addFragment))
+            val action = PlanFragmentDirections.actionPlanFragmentToAddFragment()
+            findNavController().navigate((action))
         }
         return binding.root
     }
@@ -91,6 +99,7 @@ class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         swipeToDelete(recyclerView)
+        swipeToComplete(recyclerView)
         planViewModel.getAllData.observe(viewLifecycleOwner, {
             planViewModel.checkIfDatabaseEmpty(it)
             adapter.setData(it)
@@ -199,6 +208,20 @@ class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
         itemTouchHelper.attachToRecyclerView(recycleView)
     }
 
+
+    private fun swipeToComplete(recycleView: RecyclerView) {
+        val swipeToDeleteCallBack = object : SwipeToComplete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val deletedItem = adapter.dataList[viewHolder.adapterPosition]
+                planViewModel.deleteItem(deletedItem)
+                adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                increaseScore()
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
+        itemTouchHelper.attachToRecyclerView(recycleView)
+    }
+
     private fun restoreDeletedData(view: View, deleteItem: Plan, position: Int) {
         val snackBar = Snackbar.make(
             view,
@@ -211,4 +234,63 @@ class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
         }
         snackBar.show()
     }
+
+    fun increaseScore() {
+        //increase score
+        setUserScore()
+        //Congrats snackbar
+        val snackbar = TSnackbar.make(
+            requireView(),
+            getString(R.string.congrats),
+            TSnackbar.LENGTH_LONG
+        )
+        val snackbarView = snackbar.view
+        snackbarView.setBackgroundColor(Color.parseColor("#99CC00"))
+        val textView =
+            snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
+        textView.setTextColor(Color.WHITE)
+        snackbar.show()
+
+        //show coin
+        binding.coin.visibility = View.VISIBLE
+
+        binding.coin.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(animation: Animator?) {
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                binding.coin.visibility = View.GONE
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+            }
+
+            override fun onAnimationStart(animation: Animator?) {
+
+            }
+
+        })
+        //play sound
+        playSound()
+
+    }
+
+    private fun playSound() {
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.ching)
+        mediaPlayer.setOnPreparedListener {
+            mediaPlayer.start()
+        }
+
+
+    }
+
+    private fun setUserScore() {
+        val docRef = fireStoreDB.collection("users").document(auth.currentUser?.uid!!)
+        val updates = hashMapOf<String, Any>(
+            "score" to FieldValue.increment(10)
+        )
+        docRef.update(updates).addOnCompleteListener { }
+    }
+
+
 }

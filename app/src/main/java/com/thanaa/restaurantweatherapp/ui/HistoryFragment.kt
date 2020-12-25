@@ -14,12 +14,12 @@ import com.androidadvance.topsnackbar.TSnackbar
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.adapter.RestaurantAdapter
 import com.thanaa.restaurantweatherapp.databinding.FragmentHistoryBinding
-import com.thanaa.restaurantweatherapp.viewmodel.DatabaseViewModel
+import com.thanaa.restaurantweatherapp.viewmodel.BusinessViewModel
 
 class HistoryFragment : Fragment() {
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
-    private val viewModelDB: DatabaseViewModel by viewModels()
+    private val viewModelDB: BusinessViewModel by viewModels()
     lateinit var adapter: RestaurantAdapter
     private val args by navArgs<HistoryFragmentArgs>()
     override fun onCreateView(
@@ -29,6 +29,15 @@ class HistoryFragment : Fragment() {
     ): View? {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.history)
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+
+        setData()
+
+        //Menu of Deletion and Sorting
+        setHasOptionsMenu(true)
+        return binding.root
+    }
+
+    private fun setData() {
         viewModelDB.getAllData.observe(viewLifecycleOwner, {
 
             binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
@@ -41,10 +50,16 @@ class HistoryFragment : Fragment() {
         viewModelDB.emptyDatabase.observe(viewLifecycleOwner, Observer {
             showEmptyView(it)
         })
+    }
 
-        //Menu of Deletion and Sorting
-        setHasOptionsMenu(true)
-        return binding.root
+    private fun showEmptyView(emptyBusinesses: Boolean) {
+        if (emptyBusinesses) {
+            binding.sadCatEmpty.visibility = View.VISIBLE
+            binding.emptyText.visibility = View.VISIBLE
+        } else {
+            binding.sadCatEmpty.visibility = View.INVISIBLE
+            binding.emptyText.visibility = View.INVISIBLE
+        }
     }
 
     private fun confirmRemoval() {
@@ -81,16 +96,6 @@ class HistoryFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.options_menu, menu)
-    }
-
-    private fun showEmptyView(emptyBusinesses: Boolean) {
-        if (emptyBusinesses) {
-            binding.sadCatEmpty.visibility = View.VISIBLE
-            binding.emptyText.visibility = View.VISIBLE
-        } else {
-            binding.sadCatEmpty.visibility = View.INVISIBLE
-            binding.emptyText.visibility = View.INVISIBLE
-        }
     }
 
 

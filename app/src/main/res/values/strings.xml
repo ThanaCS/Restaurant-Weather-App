@@ -68,4 +68,5 @@
     <string name="delete">delete</string>
     <string name="update_plan">Update Plan</string>
     <string name="login">Login</string>
+    <string name="congrats">CONGRATS YOU MADE IT !!</string>
 </resources>

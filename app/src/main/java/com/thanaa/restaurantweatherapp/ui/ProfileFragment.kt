@@ -47,7 +47,6 @@ class ProfileFragment : Fragment() {
         }
         binding.addButton.setOnClickListener {
             val docRef = fireStoreDB.collection("users").document(auth.currentUser?.uid!!)
-// Update the timestamp field with the value from the server
             val updates = hashMapOf<String, Any>(
                 "score" to FieldValue.increment(10)
             )
