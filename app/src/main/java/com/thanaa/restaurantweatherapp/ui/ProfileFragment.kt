@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.databinding.FragmentProfileBinding
-import org.jetbrains.anko.support.v4.toast
 
 
 class ProfileFragment : Fragment() {
@@ -56,7 +55,7 @@ class ProfileFragment : Fragment() {
         docRef.addSnapshotListener { snapshot, e ->
             if (snapshot != null) {
                 binding.score.text = snapshot.get("score").toString()
-                binding.level.text = snapshot.get("level").toString()
+                binding.level.text = "${snapshot.get("level")} FOODIE"
             }
 
         }
@@ -70,7 +69,7 @@ class ProfileFragment : Fragment() {
         docRef.addSnapshotListener { snapshot, e ->
             if (snapshot != null) {
 
-                var score = snapshot.get("score").toString().toInt()
+                val score = snapshot.get("score").toString().toInt()
                 if (score < 1000) {
                     val updates = hashMapOf<String, Any>(
                         "level" to "ROOKIE"
@@ -91,7 +90,6 @@ class ProfileFragment : Fragment() {
                     docRef.update(updates).addOnCompleteListener { }
                 }
 
-                toast("$score")
             }
 
 

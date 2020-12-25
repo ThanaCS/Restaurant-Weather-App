@@ -92,10 +92,21 @@
             android:id="@+id/level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="16dp"
             android:text="Newbie Foodie"
             android:textColor="@color/green"
+            app:layout_constraintStart_toEndOf="@+id/foodIcon"
+            app:layout_constraintTop_toBottomOf="@+id/coin" />
+
+        <ImageView
+            android:id="@+id/foodIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_restaurant"
+            app:tint="@android:color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/coin" />
 
