@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundLight"
     android:fillViewport="false"
-    tools:context=".AddFragment">
+    tools:context=".ui.AddFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="24dp">
+
         <EditText
             android:id="@+id/title"
             android:layout_width="0dp"

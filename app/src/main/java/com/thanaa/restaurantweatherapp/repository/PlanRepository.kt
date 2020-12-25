@@ -8,7 +8,6 @@ class PlanRepository(private val planDao: PlanDao) {
     val getAllData: LiveData<List<Plan>> = planDao.getAllData()
     val sortByNewDate: LiveData<List<Plan>> = planDao.sortByNewDate()
     val sortByOldDate: LiveData<List<Plan>> = planDao.sortByOldDate()
-    val sortByTitle: LiveData<List<Plan>> = planDao.sortByTitle()
 
     suspend fun insertData(plan: Plan) {
         planDao.insertPlan(plan)

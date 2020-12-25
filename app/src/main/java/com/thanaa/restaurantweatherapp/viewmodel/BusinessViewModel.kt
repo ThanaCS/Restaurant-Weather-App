@@ -11,7 +11,7 @@ import com.thanaa.restaurantweatherapp.repository.BusinessRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DatabaseViewModel(application: Application) : AndroidViewModel(application) {
+class BusinessViewModel(application: Application) : AndroidViewModel(application) {
 
     private val businessDao = AppDatabase.getDatabase(application).BusinessDao()
     private val repository: BusinessRepository
@@ -23,7 +23,6 @@ class DatabaseViewModel(application: Application) : AndroidViewModel(application
         repository = BusinessRepository(businessDao)
         getAllData = repository.getAllData
         sortByPrice = repository.sortByPrice
-
     }
 
     fun insertBusiness(businesses: Businesses) {

@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.thanaa.restaurantweatherapp.*
+import com.thanaa.restaurantweatherapp.adapter.ColorAdapter
+import com.thanaa.restaurantweatherapp.adapter.CountryAdapter
 import com.thanaa.restaurantweatherapp.databinding.FragmentUpdateBinding
 import com.thanaa.restaurantweatherapp.model.CountryItem
 import com.thanaa.restaurantweatherapp.model.Plan
@@ -31,7 +33,7 @@ class UpdateFragment : Fragment(), DatePickerFragment.Callbacks {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
-
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.update_plan)
         setCountries()
         setColors()
         binding.date.setOnClickListener {

@@ -10,8 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thanaa.restaurantweatherapp.R
+import com.thanaa.restaurantweatherapp.adapter.RestaurantAdapter
 import com.thanaa.restaurantweatherapp.databinding.FragmentHomeBinding
-import com.thanaa.restaurantweatherapp.viewmodel.DatabaseViewModel
+import com.thanaa.restaurantweatherapp.viewmodel.BusinessViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.YelpViewModel
 
@@ -20,7 +21,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var yelpViewModel: YelpViewModel
     private lateinit var weatherViewModel: WeatherViewModel
-    private val viewModelDB: DatabaseViewModel by viewModels()
+    private val viewModelDB: BusinessViewModel by viewModels()
     private val args by navArgs<HomeFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater,

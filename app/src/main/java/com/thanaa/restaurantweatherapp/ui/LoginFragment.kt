@@ -25,7 +25,6 @@ import com.thanaa.restaurantweatherapp.databinding.FragmentLoginBinding
 import com.thanaa.restaurantweatherapp.model.User
 import com.thanaa.restaurantweatherapp.utils.Constants
 
-
 class LoginFragment : Fragment() {
     private val TAG = "LoginFragment"
     lateinit var bottomNavigationView: BottomNavigationView
@@ -42,13 +41,12 @@ class LoginFragment : Fragment() {
     companion object {
         private const val RC_SIGN_IN = 111
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as MainActivity).supportActionBar?.title = "Login"
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.login)
         hideNavigation()
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
@@ -97,7 +95,6 @@ class LoginFragment : Fragment() {
                     print(e)
                 }
             }
-
         }
         binding.progressBar.visibility = View.GONE
     }
@@ -109,28 +106,31 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     val firebaseUser: FirebaseUser = task.result!!.user!!
                     auth = FirebaseAuth.getInstance()
-
-                    if (auth.currentUser != null) {
-                        val user = User(
-                            firebaseUser.uid,
-                            firebaseUser.displayName.toString(),
-                            firebaseUser.email.toString(),
-                            auth.currentUser!!.photoUrl.toString()
-                        )
-
-                        fireStoreDB.collection(Constants.USERS)
-                            .document(user.id)
-                            .set(user, SetOptions.merge())
-                            .addOnSuccessListener {
+                    val docRef = fireStoreDB.collection("users").document(auth.currentUser?.uid!!)
+                    docRef.addSnapshotListener { snapshot, e ->
 
 
-                            }.addOnFailureListener {
+                        if (auth.currentUser != null) {
+                            val user = User(
+                                firebaseUser.uid,
+                                firebaseUser.displayName.toString(),
+                                firebaseUser.email.toString(),
+                                auth.currentUser!!.photoUrl.toString(),
+                                snapshot!!.get("score").toString().toInt(),
+                                snapshot.get("level").toString()
+                            )
 
-                            }
+                            fireStoreDB.collection(Constants.USERS)
+                                .document(user.id)
+                                .set(user, SetOptions.merge())
+                                .addOnSuccessListener {
+
+                                }.addOnFailureListener {
+
+                                }
+                        }
                     }
                     findNavController().navigate(R.id.mapsFragment)
-                } else {
-
                 }
 
             }
@@ -149,6 +149,7 @@ class LoginFragment : Fragment() {
             }
     }
 
+    //hide navigation button
     private fun hideNavigation() {
         bottomNavigationView = (activity as MainActivity).bottomNavigationView
         fab = (activity as MainActivity).fab
