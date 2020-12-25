@@ -9,10 +9,10 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.databinding.FragmentProfileBinding
+import org.jetbrains.anko.support.v4.toast
 
 
 class ProfileFragment : Fragment() {
@@ -45,24 +45,55 @@ class ProfileFragment : Fragment() {
         if (auth.currentUser == null) {
             findNavController().navigate(R.id.loginFragment)
         }
-        binding.addButton.setOnClickListener {
-            val docRef = fireStoreDB.collection("users").document(auth.currentUser?.uid!!)
-            val updates = hashMapOf<String, Any>(
-                "score" to FieldValue.increment(10)
-            )
-            docRef.update(updates).addOnCompleteListener { }
-        }
+
 
         return binding.root
     }
 
     private fun getUserDetails() {
+        levelStatus()
         val docRef = fireStoreDB.collection("users").document(auth.currentUser?.uid!!)
         docRef.addSnapshotListener { snapshot, e ->
             if (snapshot != null) {
                 binding.score.text = snapshot.get("score").toString()
                 binding.level.text = snapshot.get("level").toString()
             }
+
+        }
+
+
+    }
+
+    private fun levelStatus() {
+
+        val docRef = fireStoreDB.collection("users").document(auth.currentUser?.uid!!)
+        docRef.addSnapshotListener { snapshot, e ->
+            if (snapshot != null) {
+
+                var score = snapshot.get("score").toString().toInt()
+                if (score < 1000) {
+                    val updates = hashMapOf<String, Any>(
+                        "level" to "ROOKIE"
+                    )
+                    docRef.update(updates).addOnCompleteListener { }
+                }
+
+                if (score >= 1000) {
+                    val updates = hashMapOf<String, Any>(
+                        "level" to "INTERMEDIATE"
+                    )
+                    docRef.update(updates).addOnCompleteListener { }
+                }
+                if (score >= 50000) {
+                    val updates = hashMapOf<String, Any>(
+                        "level" to "EXPERT"
+                    )
+                    docRef.update(updates).addOnCompleteListener { }
+                }
+
+                toast("$score")
+            }
+
 
         }
 

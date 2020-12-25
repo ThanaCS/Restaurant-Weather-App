@@ -6,5 +6,5 @@ data class User(
     val email: String = "",
     val image: String = "",
     val score: Int = 0,
-    val level: String
+    val level: String = ""
 )
