@@ -173,7 +173,7 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
 
     override fun onDateSelected(date: Date) {
         plan.date = date
-        val dateFormat = DateFormat.format("EEE, MMM, dd", plan.date).toString()
+        val dateFormat = DateFormat.format("EEEE, MMM, dd", plan.date).toString()
         binding.dateText.text = dateFormat
     }
 

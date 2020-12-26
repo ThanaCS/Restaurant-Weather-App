@@ -60,7 +60,6 @@ class ProfileFragment : Fragment() {
 
         }
 
-
     }
 
     private fun levelStatus() {
@@ -69,27 +68,28 @@ class ProfileFragment : Fragment() {
         docRef.addSnapshotListener { snapshot, e ->
             if (snapshot != null) {
 
-                val score = snapshot.get("score").toString().toInt()
-                if (score < 1000) {
-                    val updates = hashMapOf<String, Any>(
-                        "level" to "ROOKIE"
-                    )
-                    docRef.update(updates).addOnCompleteListener { }
-                }
+                if (snapshot.get("score") != null) {
+                    val score = snapshot.get("score").toString().toInt()
+                    if (score < 1000) {
+                        val updates = hashMapOf<String, Any>(
+                            "level" to "ROOKIE"
+                        )
+                        docRef.update(updates).addOnCompleteListener { }
+                    }
 
-                if (score >= 1000) {
-                    val updates = hashMapOf<String, Any>(
-                        "level" to "INTERMEDIATE"
-                    )
-                    docRef.update(updates).addOnCompleteListener { }
+                    if (score >= 1000) {
+                        val updates = hashMapOf<String, Any>(
+                            "level" to "INTERMEDIATE"
+                        )
+                        docRef.update(updates).addOnCompleteListener { }
+                    }
+                    if (score >= 50000) {
+                        val updates = hashMapOf<String, Any>(
+                            "level" to "EXPERT"
+                        )
+                        docRef.update(updates).addOnCompleteListener { }
+                    }
                 }
-                if (score >= 50000) {
-                    val updates = hashMapOf<String, Any>(
-                        "level" to "EXPERT"
-                    )
-                    docRef.update(updates).addOnCompleteListener { }
-                }
-
             }
 
 
@@ -97,5 +97,6 @@ class ProfileFragment : Fragment() {
 
 
     }
+
 
 }

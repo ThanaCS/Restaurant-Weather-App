@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thanaa.restaurantweatherapp.repository.ApiRepository
 import com.thanaa.restaurantweatherapp.weatherModel.WeatherResponse
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class WeatherViewModel : ViewModel() {
@@ -14,7 +13,7 @@ class WeatherViewModel : ViewModel() {
 
     fun getWeather(latlon: String) {
         try {
-            viewModelScope.launch(Dispatchers.IO) {
+            viewModelScope.launch {
                 val response = repository.getWeather(latlon)
                 if (response.isSuccessful)
                     weatherLiveData.postValue(response.body())
