@@ -37,7 +37,6 @@ import java.net.URLConnection
 import kotlin.time.ExperimentalTime
 import kotlin.time.hours
 
-
 class InfoFragment : Fragment() {
     private var _binding: FragmentInfoBinding? = null
     private val binding get() = _binding!!
@@ -84,8 +83,6 @@ class InfoFragment : Fragment() {
             name.text = args.business.name
             distance.text = String.format("%.0f", args.business.distance.hours.inDays) + " hours"
             category.text = args.business.categories[0].title
-
-
             phoneNumber.text = args.business.phone
             region.text = "${args.business.location.city}, ${args.business.location.country}"
             price.text = args.business.price
@@ -102,27 +99,12 @@ class InfoFragment : Fragment() {
             weatherViewModel.getWeather("$lat,$lon")
             weatherViewModel.weatherLiveData.observe(viewLifecycleOwner, {
                 binding.apply {
-                    weatherRecyclerView1.layoutManager = LinearLayoutManager(
-                        requireActivity(),
-                        LinearLayoutManager.HORIZONTAL,
-                        false
-                    )
+
                     weatherRecyclerView1.adapter =
                         WeatherAdapter(it.forecast.forecastday[0].hour)
 
-                    weatherRecyclerView2.layoutManager = LinearLayoutManager(
-                        requireActivity(),
-                        LinearLayoutManager.HORIZONTAL,
-                        false
-                    )
                     weatherRecyclerView2.adapter =
                         WeatherAdapter(it.forecast.forecastday[1].hour)
-
-                    weatherRecyclerView3.layoutManager = LinearLayoutManager(
-                        requireActivity(),
-                        LinearLayoutManager.HORIZONTAL,
-                        false
-                    )
 
                     weatherRecyclerView3.adapter =
                         WeatherAdapter(it.forecast.forecastday[2].hour)

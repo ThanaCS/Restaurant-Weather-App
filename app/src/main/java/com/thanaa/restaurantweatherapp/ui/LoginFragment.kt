@@ -25,12 +25,12 @@ import com.thanaa.restaurantweatherapp.databinding.FragmentLoginBinding
 import com.thanaa.restaurantweatherapp.model.User
 import com.thanaa.restaurantweatherapp.utils.Constants
 
+
 class LoginFragment : Fragment() {
     private val TAG = "LoginFragment"
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var bottomAppBar: BottomAppBar
     lateinit var fab: FloatingActionButton
-
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 

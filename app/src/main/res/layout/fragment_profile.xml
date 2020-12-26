@@ -81,7 +81,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="45dp"
-            android:text="100"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/coin"
@@ -94,7 +93,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="16dp"
-            android:text="Newbie Foodie"
             android:textColor="@color/green"
             app:layout_constraintStart_toEndOf="@+id/foodIcon"
             app:layout_constraintTop_toBottomOf="@+id/coin" />
