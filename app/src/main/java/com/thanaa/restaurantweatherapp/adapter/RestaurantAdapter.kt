@@ -35,7 +35,7 @@ class RestaurantAdapter(private var food: List<Businesses>, private val Fragment
         private val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
         private val progressDrawable = getProgressDrawable(view.context)
         private val restaurant_row: ConstraintLayout = view.findViewById(R.id.restaurant_row)
-        fun bind(foodItem: Businesses, holder: ViewHolder, FragmentID: Int) {
+        fun bind(foodItem: Businesses, FragmentID: Int) {
 
             restaurant_row.visibility = View.GONE
             nameText.text = foodItem.name
@@ -45,7 +45,7 @@ class RestaurantAdapter(private var food: List<Businesses>, private val Fragment
             categoryText.text = foodItem.categories[0].title
             ratingBar.rating = foodItem.rating.toFloat()
             reviewsText.text = "${foodItem.review_count} reviews"
-            imageView.loadImage(imageView, progressDrawable, foodItem.image_url)
+            imageView.loadImage(progressDrawable, foodItem.image_url)
             progressBar.visibility = View.GONE
             restaurant_row.visibility = View.VISIBLE
 
@@ -66,8 +66,6 @@ class RestaurantAdapter(private var food: List<Businesses>, private val Fragment
 
                 }
 
-
-
         }
     }
 
@@ -82,7 +80,7 @@ class RestaurantAdapter(private var food: List<Businesses>, private val Fragment
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val foodItem: Businesses = food[position]
-        holder.bind(foodItem, holder, FragmentID)
+        holder.bind(foodItem, FragmentID)
 
     }
 

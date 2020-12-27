@@ -98,13 +98,8 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
                 val country = parent.getItemAtPosition(position) as CountryItem
                 flag = country.flagImage
                 location = country.countryName
-                Toast.makeText(
-                    requireContext(),
-                    "selected, ${country.flagImage} ${country.countryName}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
 
+            }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
         }
@@ -123,11 +118,6 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
 
                 color = parent.getItemAtPosition(position) as Int
 
-                Toast.makeText(
-                    requireContext(),
-                    "$color selected",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}

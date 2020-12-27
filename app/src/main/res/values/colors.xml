@@ -21,4 +21,5 @@
     <string name="green_app">#BA134939</string>
     <string name="purple_light">#AD9787DC</string>
     <color name="purple_703">#AD9787DC</color>
+    <color name="pink">#EF1660</color>
 </resources>

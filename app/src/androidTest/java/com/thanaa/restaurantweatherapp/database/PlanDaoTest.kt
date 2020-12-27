@@ -21,7 +21,6 @@ import java.util.*
 class PlanDaoTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
-
     private lateinit var database: AppDatabase
     private lateinit var dao: PlanDao
 
@@ -34,10 +33,6 @@ class PlanDaoTest {
         dao = database.PlanDao()
     }
 
-    @After
-    fun tearDown() {
-        database.close()
-    }
 
     @Test
     fun insertPlan() = runBlocking {
@@ -55,5 +50,8 @@ class PlanDaoTest {
         assert(data.isEmpty())
     }
 
-
+    @After
+    fun tearDown() {
+        database.close()
+    }
 }

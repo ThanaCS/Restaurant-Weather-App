@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundLight"
     android:fillViewport="false"
-    tools:context=".ui.AddFragment">
+    tools:context=".AddFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -90,6 +90,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.096"
             app:layout_constraintStart_toEndOf="@+id/date" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="388dp"
+            android:layout_height="181dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/row_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

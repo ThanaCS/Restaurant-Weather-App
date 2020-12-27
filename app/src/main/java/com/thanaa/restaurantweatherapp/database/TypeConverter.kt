@@ -3,6 +3,7 @@ package com.thanaa.restaurantweatherapp.database
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.thanaa.restaurantweatherapp.model.Bookmark
 import com.thanaa.restaurantweatherapp.model.Category
 import com.thanaa.restaurantweatherapp.model.Coordinates
 import com.thanaa.restaurantweatherapp.model.Location
@@ -67,6 +68,16 @@ class TypeConverter {
         }
     }
 
+    @TypeConverter
+    fun bookmarkToString(bookmark: Bookmark): String {
+        return gson.toJson(bookmark)
+    }
+
+    @TypeConverter
+    fun stringToBookmark(data: String): Bookmark {
+        val listType = object : TypeToken<Bookmark>() {}.type //token
+        return gson.fromJson(data, listType)
+    }
 
 
 }

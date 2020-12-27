@@ -23,5 +23,4 @@ interface BusinessDao {
 
     @Query("SELECT * FROM businesses_table ORDER BY price ASC")
     fun sortByLowestPrice(): LiveData<List<Businesses>>
-
 }

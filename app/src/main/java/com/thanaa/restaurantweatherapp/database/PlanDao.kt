@@ -27,9 +27,6 @@ interface PlanDao {
     @Query("SELECT * FROM  plan_table ORDER BY date ASC")
     fun sortByOldDate(): LiveData<List<Plan>>
 
-    @Query("SELECT * FROM plan_table ORDER BY title ASC")
-    fun sortByTitle(): LiveData<List<Plan>>
-
     @Query("SELECT * FROM plan_table WHERE title LIKE :searchQuery")
     fun searchTitle(searchQuery: String): LiveData<List<Plan>>
 
