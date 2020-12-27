@@ -7,20 +7,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.model.Businesses
-import com.thanaa.restaurantweatherapp.repository.BusinessRepository
-import kotlinx.coroutines.Dispatchers
+import com.thanaa.restaurantweatherapp.repository.HistoryRepository
 import kotlinx.coroutines.launch
 
-class BusinessViewModel(application: Application) : AndroidViewModel(application) {
+class HistoryViewModel(application: Application) : AndroidViewModel(application) {
 
     private val businessDao = AppDatabase.getDatabase(application).BusinessDao()
-    private val repository: BusinessRepository
+    private val repository: HistoryRepository
     val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(true)
     val getAllData: LiveData<List<Businesses>>
     val sortByPrice: LiveData<List<Businesses>>
 
     init {
-        repository = BusinessRepository(businessDao)
+        repository = HistoryRepository(businessDao)
         getAllData = repository.getAllData
         sortByPrice = repository.sortByPrice
     }
@@ -32,7 +31,7 @@ class BusinessViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun deleteAll() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.deleteAll()
         }
     }

@@ -94,6 +94,7 @@ class InfoFragment : Fragment() {
                 .centerCrop()
                 .into(binding.imageView)
 
+
             val lat = args.business.coordinates.latitude
             val lon = args.business.coordinates.longitude
             weatherViewModel.getWeather("$lat,$lon")
@@ -174,7 +175,7 @@ class InfoFragment : Fragment() {
                             )
                             snackbar.setActionTextColor(Color.WHITE)
                             val snackbarView = snackbar.view
-                            snackbarView.setBackgroundColor(Color.parseColor("#BA134939"))
+                            snackbarView.setBackgroundColor(Color.parseColor(getString(R.string.green_app)))
                             val textView =
                                 snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
                             textView.setTextColor(Color.WHITE)

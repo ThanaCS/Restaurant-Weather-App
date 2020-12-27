@@ -4,15 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thanaa.restaurantweatherapp.model.Businesses
-import com.thanaa.restaurantweatherapp.repository.ApiRepository
+import com.thanaa.restaurantweatherapp.repository.YelpRepository
 import kotlinx.coroutines.launch
 
 class YelpViewModel : ViewModel() {
-    private val repository = ApiRepository()
+    private val repository = YelpRepository()
     val businessesLiveData: MutableLiveData<List<Businesses>> = MutableLiveData()
     var emptyBusinesses: MutableLiveData<Boolean> = MutableLiveData(false)
-
-
 
     fun getBusinesses(term: String, location: String) {
         try {
@@ -24,12 +22,10 @@ class YelpViewModel : ViewModel() {
                     emptyBusinesses.postValue(true)
                 }
 
-
             }
         } catch (exception: Exception) {
             exception.printStackTrace()
         }
-
     }
 
 

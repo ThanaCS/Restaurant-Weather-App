@@ -153,7 +153,7 @@ class MapsFragment : Fragment(), View.OnClickListener {
                     )
                     snackbar.setActionTextColor(Color.WHITE)
                     val snackbarView = snackbar.view
-                    snackbarView.setBackgroundColor(Color.parseColor("#5B9787DC"))
+                    snackbarView.setBackgroundColor(Color.parseColor(getString(R.string.purple_light)))
                     snackbar.setIconLeft(R.drawable.weathericon, 23F)
                     val textView =
                         snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
@@ -168,6 +168,7 @@ class MapsFragment : Fragment(), View.OnClickListener {
                             ), 7.0f
                         )
                     )
+
                     weather = it
                 })
 

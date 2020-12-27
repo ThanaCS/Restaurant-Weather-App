@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.model.Plan
 import com.thanaa.restaurantweatherapp.repository.PlanRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PlanViewModel(application: Application) : AndroidViewModel(application) {
@@ -27,25 +26,25 @@ class PlanViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun insertData(plan: Plan) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.insertData(plan)
         }
     }
 
     fun deleteItem(plan: Plan) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.deleteItem(plan)
         }
     }
 
     fun updateData(plan: Plan) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.updateData(plan)
         }
     }
 
     fun deleteAll() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.deleteAll()
         }
     }
