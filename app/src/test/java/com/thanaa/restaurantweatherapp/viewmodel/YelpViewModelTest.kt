@@ -1,46 +1,46 @@
 package com.thanaa.restaurantweatherapp.viewmodel
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.google.common.truth.Truth.assertThat
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 class YelpViewModelTest {
-    lateinit var viewModel: YelpViewModel
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+    private lateinit var viewModel: YelpViewModel
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+
+    @get:Rule
+    var rule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
-        Dispatchers.setMain(mainThreadSurrogate)
         viewModel = YelpViewModel()
     }
 
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        mainThreadSurrogate.close()
+    @Test
+    fun `insert a valid term and a valid location , should return a result`() {
+        viewModel.getBusinesses("Pizza", "London")
+        val value = viewModel.businessesLiveData.getOrAwaitValue()
+        print(value)
+        assert(value[0].name.isNotBlank())
     }
 
     @Test
-    fun testFooWithLaunch() = runBlockingTest {
-        foo()
-
+    fun `insert a valid term and an empty location , should return a null`() {
+        viewModel.getBusinesses("Pizza", "")
+        val value = viewModel.businessesLiveData.getOrAwaitVal()
+        assertThat(value).isEqualTo(null)
     }
 
-    fun CoroutineScope.foo() {
-        viewModel.getBusinesses("CAKE", "UK")
-        launch {
-            val value = viewModel.businessesLiveData.getOrAwaitValue()
-            print(value)
-
-
-        }
+    @Test
+    fun `insert a empty term and an empty location , should return a null`() {
+        viewModel.getBusinesses("", "")
+        val value = viewModel.businessesLiveData.getOrAwaitVal()
+        assertThat(value).isEqualTo(null)
     }
 
 }

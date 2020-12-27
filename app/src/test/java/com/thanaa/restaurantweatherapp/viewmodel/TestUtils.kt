@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
 fun <T> LiveData<T>.getOrAwaitValue(
-    time: Long = 2,
+    time: Long = 5,
     timeUnit: TimeUnit = TimeUnit.SECONDS
 ): T {
     var data: T? = null
@@ -31,3 +31,23 @@ fun <T> LiveData<T>.getOrAwaitValue(
     return data as T
 }
 
+fun <T> LiveData<T>.getOrAwaitVal(
+    time: Long = 5,
+    timeUnit: TimeUnit = TimeUnit.SECONDS
+): T {
+    var data: T? = null
+    val latch = CountDownLatch(1)
+    val observer = object : Observer<T> {
+        override fun onChanged(o: T?) {
+            data = o
+            latch.countDown()
+            this@getOrAwaitVal.removeObserver(this)
+        }
+    }
+
+    this.observeForever(observer)
+
+
+    @Suppress("UNCHECKED_CAST")
+    return data as T
+}

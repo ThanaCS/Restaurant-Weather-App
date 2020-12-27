@@ -14,12 +14,12 @@ import com.androidadvance.topsnackbar.TSnackbar
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.adapter.RestaurantAdapter
 import com.thanaa.restaurantweatherapp.databinding.FragmentHistoryBinding
-import com.thanaa.restaurantweatherapp.viewmodel.BusinessViewModel
+import com.thanaa.restaurantweatherapp.viewmodel.HistoryViewModel
 
 class HistoryFragment : Fragment() {
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
-    private val viewModelDB: BusinessViewModel by viewModels()
+    private val viewModelDB: HistoryViewModel by viewModels()
     lateinit var adapter: RestaurantAdapter
     private val args by navArgs<HistoryFragmentArgs>()
     override fun onCreateView(
