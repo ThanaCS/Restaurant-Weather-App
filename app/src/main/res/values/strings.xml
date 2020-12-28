@@ -5,7 +5,9 @@
     <string name="no">No</string>
     <string name="profile">Profile</string>
     <string name="clear_history">Clear History</string>
+    <string name="clear_bookmark">Clear Bookmark</string>
     <string name="are_you_sure">Are you sure you want to clear history?</string>
+    <string name="are_you_sure_bookmark">Are you sure you want to clear bookmark?</string>
     <string name="history_successfully_deleted">History Successfully Deleted</string>
     <string name="search_for_food_restaurant">Search for Food, Restaurant...</string>
 
@@ -44,7 +46,8 @@
     <string name="sort_by">Sort By</string>
     <string name="highest_price">Highest Price</string>
     <string name="price">Price</string>
-    <string name="no_search_history_available">No search history available</string>
+    <string name="no_search_history_available">No search history available..</string>
+    <string name="no_bookmark">You did not save anything..</string>
     <string name="nothing_here_to_eat">Nothing here to eat..</string>
     <string name="welcome">WELCOME</string>
     <string name="login_with_google">Login with Google</string>
@@ -69,4 +72,6 @@
     <string name="update_plan">Update Plan</string>
     <string name="login">Login</string>
     <string name="congrats">CONGRATS YOU MADE IT !!</string>
+    <string name="Bookmark">Bookmark</string>
+    <string name="log_out">Log out</string>
 </resources>

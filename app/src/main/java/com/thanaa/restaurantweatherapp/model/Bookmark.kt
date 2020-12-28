@@ -8,12 +8,12 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "bookmark_table")
 @Parcelize
 data class Bookmark(
-    @PrimaryKey(autoGenerate = true)
-    var id: Int,
+    @PrimaryKey var id: String,
     val name: String,
     val phone: String,
     val latitude: Double,
     val longitude: Double,
     val image_url: String,
+    val category: String
 ) : Parcelable
 

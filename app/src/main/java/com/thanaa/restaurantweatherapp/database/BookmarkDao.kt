@@ -12,7 +12,7 @@ interface BookmarkDao {
     @Update
     suspend fun updatePlan(bookmark: Bookmark)
 
-    @Query("SELECT * FROM bookmark_table ORDER BY id ASC")
+    @Query("SELECT * FROM bookmark_table ")
     fun getAllBookmark(): LiveData<List<Bookmark>>
 
     @Delete

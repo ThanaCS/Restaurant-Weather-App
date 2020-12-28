@@ -34,8 +34,8 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
         super.onCreate(savedInstanceState)
         (activity as MainActivity).supportActionBar?.title = getString(R.string.add_plan)
         val initDate = Calendar.getInstance().time
-
         plan = Plan(0, "", "", initDate, null, "", null)
+
 
     }
 
@@ -45,6 +45,8 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
+
+
         setCountries()
         setColors()
         setHasOptionsMenu(true)

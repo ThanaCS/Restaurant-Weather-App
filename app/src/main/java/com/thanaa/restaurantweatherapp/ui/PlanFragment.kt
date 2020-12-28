@@ -253,7 +253,7 @@ class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
 
         //show coin
         binding.coin.visibility = View.VISIBLE
-
+        binding.coin.playAnimation()
         binding.coin.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {
             }

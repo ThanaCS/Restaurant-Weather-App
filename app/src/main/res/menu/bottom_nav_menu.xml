@@ -19,7 +19,8 @@
         android:title="History" />
 
     <item
-        android:icon="@drawable/ic_settings"
-        android:title="Settings" />
+        android:id="@+id/bookmarkFragment"
+        android:icon="@drawable/ic_bookmark"
+        android:title="Bookmark" />
 
 </menu>

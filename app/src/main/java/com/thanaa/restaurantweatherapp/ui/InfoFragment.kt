@@ -1,5 +1,7 @@
 package com.thanaa.restaurantweatherapp.ui
 
+import android.animation.Animator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -15,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +31,9 @@ import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.adapter.WeatherAdapter
 import com.thanaa.restaurantweatherapp.databinding.FragmentInfoBinding
+import com.thanaa.restaurantweatherapp.model.Bookmark
+import com.thanaa.restaurantweatherapp.utils.DoubleClickListener
+import com.thanaa.restaurantweatherapp.viewmodel.BookmarkViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import java.io.BufferedInputStream
 import java.io.IOException
@@ -37,17 +43,20 @@ import java.net.URLConnection
 import kotlin.time.ExperimentalTime
 import kotlin.time.hours
 
+
 class InfoFragment : Fragment() {
     private var _binding: FragmentInfoBinding? = null
     private val binding get() = _binding!!
     private val args by navArgs<InfoFragmentArgs>()
     private lateinit var weatherViewModel: WeatherViewModel
+    private val bookmarkViewModel: BookmarkViewModel by viewModels()
     private var TAG = "InfoFragment"
     override fun onCreate(savedInstanceState: Bundle?) {
         FirebaseApp.initializeApp(requireContext())
         super.onCreate(savedInstanceState)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @ExperimentalTime
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,8 +66,11 @@ class InfoFragment : Fragment() {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.details)
         _binding = FragmentInfoBinding.inflate(inflater, container, false)
         setData()
+        doubleClickToBookmark()
+        binding.heart.visibility = View.INVISIBLE
         return binding.root
     }
+
 
     @ExperimentalTime
     private fun setData() {
@@ -134,6 +146,46 @@ class InfoFragment : Fragment() {
         }
 
 
+    }
+
+    private fun doubleClickToBookmark() {
+        binding.imageView.setOnClickListener(object : DoubleClickListener() {
+            override fun onDoubleClick(v: View?) {
+                binding.heart.visibility = View.VISIBLE
+                binding.heart.playAnimation()
+                binding.heart.addAnimatorListener(object : Animator.AnimatorListener {
+                    override fun onAnimationRepeat(animation: Animator?) {
+                    }
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        binding.heart.visibility = View.GONE
+                    }
+
+                    override fun onAnimationCancel(animation: Animator?) {
+                    }
+
+                    override fun onAnimationStart(animation: Animator?) {
+
+                    }
+
+                })
+                val bookmark = Bookmark(
+                    args.business.id,
+                    args.business.name,
+                    args.business.phone,
+                    args.business.coordinates.latitude,
+                    args.business.coordinates.longitude,
+                    args.business.image_url, args.business.categories[0].title
+                )
+                bookmarkViewModel.insertData(bookmark)
+            }
+
+            override fun onSingleClick(v: View?) {
+                firebaseLabelPhotos()
+            }
+
+
+        })
     }
 
     private fun callNumber(phoneNumber: String) {
@@ -214,9 +266,5 @@ class InfoFragment : Fragment() {
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }
+

@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.thanaa.restaurantweatherapp.model.Bookmark
+
 import com.thanaa.restaurantweatherapp.model.Category
 import com.thanaa.restaurantweatherapp.model.Coordinates
 import com.thanaa.restaurantweatherapp.model.Location

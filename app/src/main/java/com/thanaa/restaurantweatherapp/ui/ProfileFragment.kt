@@ -26,6 +26,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         (activity as MainActivity).supportActionBar?.title = getString(R.string.profile)
+
         //Firebase auth instance
         auth = FirebaseAuth.getInstance()
         getUserDetails()
