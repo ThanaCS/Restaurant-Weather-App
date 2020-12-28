@@ -18,7 +18,6 @@ class LocationFragment : Fragment() {
     private val callback = OnMapReadyCallback { googleMap ->
 
         val place = LatLng(args.lat.toDouble(), args.lon.toDouble())
-
         googleMap.addMarker(
             MarkerOptions().position(place)
                 .title(args.name)
@@ -29,7 +28,7 @@ class LocationFragment : Fragment() {
                 LatLng(
                     args.lat.toDouble(),
                     args.lon.toDouble()
-                ), 25.0f
+                ), 16.0f
             )
         )
     }
