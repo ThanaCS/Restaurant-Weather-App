@@ -84,13 +84,9 @@ class UpdateFragment : Fragment(), DatePickerFragment.Callbacks {
                 flag
             )
             planViewModel.updateData(updatedItem)
-            Toast.makeText(requireContext(), "Successfully Added", Toast.LENGTH_SHORT).show()
+
             findNavController().navigate((R.id.planFragment))
-        } else {
-            Toast.makeText(requireContext(), "Empty Fields", Toast.LENGTH_SHORT).show()
         }
-
-
     }
 
     private fun setCountries() {
@@ -106,11 +102,6 @@ class UpdateFragment : Fragment(), DatePickerFragment.Callbacks {
                 val country = parent.getItemAtPosition(position) as CountryItem
                 flag = country.flagImage
                 location = country.countryName
-                Toast.makeText(
-                    requireContext(),
-                    "selected, ${country.flagImage} ${country.countryName}",
-                    Toast.LENGTH_LONG
-                ).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -131,11 +122,6 @@ class UpdateFragment : Fragment(), DatePickerFragment.Callbacks {
 
                 color = parent.getItemAtPosition(position) as Int
 
-                Toast.makeText(
-                    requireContext(),
-                    "$color selected",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}

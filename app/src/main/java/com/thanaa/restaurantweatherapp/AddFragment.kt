@@ -34,8 +34,8 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
         super.onCreate(savedInstanceState)
         (activity as MainActivity).supportActionBar?.title = getString(R.string.add_plan)
         val initDate = Calendar.getInstance().time
-
         plan = Plan(0, "", "", initDate, null, "", null)
+
 
     }
 
@@ -45,6 +45,8 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
+
+
         setCountries()
         setColors()
         setHasOptionsMenu(true)
@@ -98,13 +100,8 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
                 val country = parent.getItemAtPosition(position) as CountryItem
                 flag = country.flagImage
                 location = country.countryName
-                Toast.makeText(
-                    requireContext(),
-                    "selected, ${country.flagImage} ${country.countryName}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
 
+            }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
         }
@@ -123,11 +120,6 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
 
                 color = parent.getItemAtPosition(position) as Int
 
-                Toast.makeText(
-                    requireContext(),
-                    "$color selected",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}

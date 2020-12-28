@@ -11,7 +11,6 @@ import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.weatherModel.Hour
 
 class WeatherAdapter(private val hours: List<Hour>) :
-
     RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
 

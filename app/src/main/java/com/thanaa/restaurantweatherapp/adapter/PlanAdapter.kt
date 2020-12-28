@@ -27,8 +27,8 @@ class PlanAdapter : RecyclerView.Adapter<PlanAdapter.MyViewHolder>() {
         private val flag: ImageView = view.findViewById(R.id.flag)
         private val color: ImageView = view.findViewById(R.id.image_view_color)
         private val rowBackground: ConstraintLayout = view.findViewById(R.id.row_background)
-        fun bind(plan: Plan, holder: MyViewHolder) {
 
+        fun bind(plan: Plan, holder: MyViewHolder) {
             title.text = plan.title
             description.text = plan.description
             location.text = plan.location

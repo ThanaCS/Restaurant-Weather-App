@@ -57,6 +57,9 @@
         <argument
             android:name="business"
             app:argType="com.thanaa.restaurantweatherapp.model.Businesses" />
+        <action
+            android:id="@+id/action_infoFragment_to_bookmarkFragment"
+            app:destination="@id/bookmarkFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
@@ -119,4 +122,9 @@
             android:id="@+id/action_addFragment_to_planFragment"
             app:destination="@id/planFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.thanaa.restaurantweatherapp.BookmarkFragment"
+        android:label="fragment_bookmark"
+        tools:layout="@layout/fragment_bookmark" />
 </navigation>

@@ -5,15 +5,20 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.thanaa.restaurantweatherapp.model.Bookmark
 import com.thanaa.restaurantweatherapp.model.Businesses
 import com.thanaa.restaurantweatherapp.model.Plan
 
-@Database(entities = [Businesses::class, Plan::class], version = 1)
+@Database(
+    entities = [Businesses::class, Plan::class, Bookmark::class],
+    version = 1,
+    exportSchema = false
+)
 @TypeConverters(TypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun BusinessDao(): BusinessDao
     abstract fun PlanDao(): PlanDao
-
+    abstract fun BookmarkDao(): BookmarkDao
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
