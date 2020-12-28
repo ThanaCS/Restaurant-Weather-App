@@ -1,4 +1,4 @@
-package com.thanaa.restaurantweatherapp
+package com.thanaa.restaurantweatherapp.ui
 
 import android.app.AlertDialog
 import android.graphics.Color
@@ -12,9 +12,9 @@ import com.androidadvance.topsnackbar.TSnackbar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.adapter.BookmarkAdapter
 import com.thanaa.restaurantweatherapp.databinding.FragmentBookmarkBinding
-import com.thanaa.restaurantweatherapp.ui.MainActivity
 import com.thanaa.restaurantweatherapp.viewmodel.BookmarkViewModel
 
 class BookmarkFragment : Fragment() {
