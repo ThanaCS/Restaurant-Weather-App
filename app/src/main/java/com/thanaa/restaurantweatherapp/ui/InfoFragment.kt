@@ -87,6 +87,7 @@ class InfoFragment : Fragment() {
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL, false
             )
+
             weatherRecyclerView2.layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL, false
@@ -177,10 +178,10 @@ class InfoFragment : Fragment() {
                 val bookmark = Bookmark(
                     args.business.id,
                     args.business.name,
-                    args.business.phone,
                     args.business.coordinates.latitude,
                     args.business.coordinates.longitude,
-                    args.business.image_url, args.business.categories[0].title
+                    args.business.image_url,
+                    args.business.categories[0].title
                 )
                 bookmarkViewModel.insertData(bookmark)
             }

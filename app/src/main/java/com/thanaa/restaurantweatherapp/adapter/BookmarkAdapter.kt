@@ -13,14 +13,14 @@ import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.model.Bookmark
 import com.thanaa.restaurantweatherapp.ui.BookmarkFragmentDirections
 
-class BookmarkAdapter(private val bookmark: List<Bookmark>) :
+class BookmarkAdapter(private val bookmark: List<Bookmark>, private val fragmentID: Int) :
     RecyclerView.Adapter<BookmarkAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val name: TextView = view.findViewById(R.id.restaurantName)
         private val category: TextView = view.findViewById(R.id.category)
         private val imageView: ImageView = view.findViewById(R.id.imageView)
-        fun bind(bookmark: Bookmark, holder: ViewHolder) {
+        fun bind(bookmark: Bookmark, holder: ViewHolder, fragmentID: Int) {
 
             name.text = bookmark.name
             category.text = bookmark.category
@@ -35,9 +35,11 @@ class BookmarkAdapter(private val bookmark: List<Bookmark>) :
                 val action = BookmarkFragmentDirections.actionBookmarkFragmentToLocationFragment(
                     bookmark.latitude.toString(),
                     bookmark.longitude.toString(),
-                    bookmark.name.toString()
+                    bookmark.name
                 )
-                holder.itemView.findNavController().navigate(action)
+                if (fragmentID == 1) {
+                    holder.itemView.findNavController().navigate(action)
+                }
             }
         }
     }
@@ -52,7 +54,7 @@ class BookmarkAdapter(private val bookmark: List<Bookmark>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val bookmarkItem = bookmark[position]
-        holder.bind(bookmarkItem, holder)
+        holder.bind(bookmarkItem, holder, fragmentID)
 
     }
 

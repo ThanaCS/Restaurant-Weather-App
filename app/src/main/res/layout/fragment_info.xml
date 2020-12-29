@@ -156,7 +156,7 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLength="30"
+        android:maxLength="15"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="StarBucks"

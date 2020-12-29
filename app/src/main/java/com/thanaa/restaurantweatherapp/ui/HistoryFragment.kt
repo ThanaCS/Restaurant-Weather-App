@@ -92,7 +92,6 @@ class HistoryFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delete_all -> confirmRemoval()
-            R.id.price -> historyViewModel.sortByPrice.observe(this, { adapter.setData(it) })
 
         }
         return super.onOptionsItemSelected(item)

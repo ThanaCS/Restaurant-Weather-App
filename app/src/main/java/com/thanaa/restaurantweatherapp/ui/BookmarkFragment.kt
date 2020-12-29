@@ -34,9 +34,7 @@ class BookmarkFragment : Fragment() {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.Bookmark)
         setData()
         getUserInfo()
-
         setHasOptionsMenu(true)
-
         return binding.root
     }
 
@@ -48,7 +46,7 @@ class BookmarkFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         bookmarkViewModel.getAllData.observe(viewLifecycleOwner, {
             bookmarkViewModel.checkIfDatabaseEmpty(it)
-            binding.recyclerView.adapter = BookmarkAdapter(it)
+            binding.recyclerView.adapter = BookmarkAdapter(it, 1)
 
         })
         //check if the database is empty to show empty view
