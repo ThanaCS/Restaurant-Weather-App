@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidadvance.topsnackbar.TSnackbar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.github.matteobattilana.weather.PrecipType
 import com.google.firebase.FirebaseApp
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeling
@@ -76,11 +77,13 @@ class InfoFragment : Fragment() {
 
     @ExperimentalTime
     private fun setData() {
+
         val repository = BookmarkRepository(AppDatabase.getDatabase(requireContext()))
         val factory = BookmarkProviderFactory(repository)
         bookmarkViewModel = ViewModelProvider(this, factory).get(BookmarkViewModel::class.java)
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         binding.apply {
+
             progressBar.visibility = View.VISIBLE
             infoGroup.visibility = View.GONE
             weatherRecyclerView1.layoutManager = LinearLayoutManager(
@@ -118,7 +121,7 @@ class InfoFragment : Fragment() {
             weatherViewModel.getWeather("$lat,$lon")
             weatherViewModel.weatherLiveData.observe(viewLifecycleOwner, {
                 binding.apply {
-
+                    setWeatherAnimation(it.current.condition.text)
                     weatherRecyclerView1.adapter =
                         WeatherAdapter(it.forecast.forecastday[0].hour)
 
@@ -269,6 +272,35 @@ class InfoFragment : Fragment() {
             Log.e(TAG, "Error getting bitmap", e)
         }
         return bm
+    }
+
+    private fun setWeatherAnimation(weather: String) {
+        val rainRegex = Regex(pattern = "Rain")
+        val rain = rainRegex.containsMatchIn(weather)
+        val snowRegex = Regex(pattern = "Snow")
+        val snow = snowRegex.containsMatchIn(weather)
+
+        val currentWeather: PrecipType
+        currentWeather = when {
+            rain -> {
+                PrecipType.RAIN
+            }
+            snow -> {
+                PrecipType.SNOW
+            }
+            else -> {
+                PrecipType.CLEAR
+            }
+        }
+
+        binding.weatherAnimation.apply {
+            setWeatherData(PrecipType.RAIN)
+            speed = 300
+            angle = 45
+            emissionRate = 120f
+
+
+        }
     }
 
 
