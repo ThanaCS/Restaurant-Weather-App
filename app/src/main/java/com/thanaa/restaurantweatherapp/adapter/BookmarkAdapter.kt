@@ -30,14 +30,16 @@ class BookmarkAdapter(private val bookmark: List<Bookmark>, private val fragment
                 .centerCrop()
                 .into(imageView)
 
-            //when user clicks on item it navigate to the map
-            imageView.setOnClickListener {
-                val action = BookmarkFragmentDirections.actionBookmarkFragmentToLocationFragment(
-                    bookmark.latitude.toString(),
-                    bookmark.longitude.toString(),
-                    bookmark.name
-                )
-                if (fragmentID == 1) {
+
+            if (fragmentID == 1) {
+                //when user clicks on item it navigate to the map
+                imageView.setOnClickListener {
+                    val action =
+                        BookmarkFragmentDirections.actionBookmarkFragmentToLocationFragment(
+                            bookmark.latitude.toString(),
+                            bookmark.longitude.toString(),
+                            bookmark.name
+                        )
                     holder.itemView.findNavController().navigate(action)
                 }
             }

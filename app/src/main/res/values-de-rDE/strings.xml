@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name"> Travel Food </string>
+    <string name="yes"> yes </string>
+    <string name="no"> Nein </string>
+    <string name="profile"> Profil </string>
+    <string name="clear_history"> Verlauf löschen </string>
+    <string name="clear_bookmark"> Lesezeichen löschen </string>
+    <string name="are_you_sure"> Möchten Sie den Suchverlauf wirklich löschen? </string>
+    <string name="are_you_sure_bookmark"> Möchten Sie das Suchlesezeichen wirklich löschen? </string>
+    <string name="history_successfully_deleted"> Verlauf erfolgreich gelöscht </string>
+    <string name="search_for_food_restaurant"> Suche nach Essen, Restaurant ... </string>
+    <string-array name="food">
+        <item> Pizza </item>
+        <item> Kuchen </item>
+        <item> Starbucks </item>
+        <item> Burger </item>
+        <item> Fleisch </item>
+        <item> Huhn </item>
+        <item> Dessert </item>
+        <item> Reis </item>
+    </string-array>
+
+    <string-array name="country">
+        <item> UK </item>
+        <item> US </item>
+        <item> Deutschland </item>
+    </string-array>
+
+    <string name="messages_header"> Nachrichten </string>
+    <string name="sync_header"> Synchronisieren </string>
+
+
+    <string name="signature_title"> Ihre Signatur </string>
+    <string name="reply_title"> Standardantwortaktion </string>
+
+    <string name="sync_title"> Synchronisieren Sie E-Mails regelmäßig </string>
+    <string name="attachment_title"> Eingehende Anhänge herunterladen </string>
+    <string name="attachment_summary_on"> Laden Sie automatisch Anhänge für eingehende E-Mails herunter
+    </string>
+    <string name="attachment_summary_off"> Laden Sie Anhänge nur herunter, wenn Sie manuell dazu aufgefordert werden </string>
+    <string name="delete_all"> Alle löschen </string>
+    <string name="sort_by"> Sortieren nach </string>
+    <string name="highest_price">Höchster Preis </string>
+    <string name="price"> Preis </string>
+    <string name="no_search_history_available"> Kein Suchverlauf verfügbar. </string>
+    <string name="no_bookmark"> Sie haben nichts gespeichert. </string>
+    <string name="nothing_here_to_eat"> Hier gibt es nichts zu essen .. </string>
+    <string name="welcome"> WILLKOMMEN </string>
+    <string name="login_with_google"> Mit Google anmelden </string>
+    <string name="double_tap_to_read_the_label_photo"> Doppeltippen, um das Etikettenfoto </string>
+    zu lesen
+    <string name="add"> Hinzufügen </string>
+    <string name="plans"> Pläne </string>
+    <string name="add_plan"> Plan hinzufügen </string>
+    <string name="history"> Verlauf </string>
+    <string name="restaurants"> Restaurants </string>
+    <string name="details"> Details zum Restaurant </string>
+    <string name="search"> Suche </string>
+    <string name="newest"> Neuester Plan </string>
+    <string name="oldest"> Ältester Plan </string>
+    <string name="has_been_deleted"> Wurde gelöscht </string>
+    <string name="delete_all_plans"> Pläne löschen </string>
+    <string name="are_you_sure_plans"> Möchten Sie wirklich alle Pläne löschen? </string>
+    <string name="plans_successfully_deleted"> Pläne wurden erfolgreich gelöscht </string>
+    <string name="what_is_your_plan"> Was ist Ihr Plan? </string>
+    <string name="Plan_Description"> Planbeschreibung ... </string>
+    <string name="save"> Speichern </string>
+    <string name="delete"> delete </string>
+    <string name="update_plan"> Update Plan </string>
+    <string name="login"> Login </string>
+    <string name="congrats"> GLÜCKWÜNSCHE, DASS SIE ES GEMACHT HABEN !! </string>
+    <string name="Bookmark"> Lesezeichen </string>
+    <string name="log_out"> Abmelden </string>
+</resources>

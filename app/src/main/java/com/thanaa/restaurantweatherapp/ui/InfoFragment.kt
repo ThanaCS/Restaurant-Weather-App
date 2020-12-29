@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidadvance.topsnackbar.TSnackbar
@@ -151,6 +152,7 @@ class InfoFragment : Fragment() {
             callPhone.setOnClickListener {
                 callNumber(args.business.phone)
             }
+            goLocation()
 
         }
 
@@ -232,11 +234,11 @@ class InfoFragment : Fragment() {
                             val snackbar = TSnackbar.make(
                                 requireView(),
                                 " $text",
-                                TSnackbar.LENGTH_LONG
+                                TSnackbar.LENGTH_SHORT
                             )
                             snackbar.setActionTextColor(Color.WHITE)
                             val snackbarView = snackbar.view
-                            snackbarView.setBackgroundColor(Color.parseColor(getString(R.string.green_app)))
+                            snackbarView.setBackgroundColor(Color.parseColor(getString(R.string.purple_light)))
                             val textView =
                                 snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
                             textView.setTextColor(Color.WHITE)
@@ -300,6 +302,18 @@ class InfoFragment : Fragment() {
             emissionRate = 120f
 
 
+        }
+    }
+
+    fun goLocation() {
+        binding.locationButton.setOnClickListener {
+            //when user clicks on item it navigate to the map
+            val action = InfoFragmentDirections.actionInfoFragmentToLocationFragment(
+                args.business.coordinates.latitude.toString(),
+                args.business.coordinates.longitude.toString(),
+                args.business.name
+            )
+            findNavController().navigate(action)
         }
     }
 
