@@ -11,8 +11,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,17 +26,20 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.adapter.PlanAdapter
+import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.databinding.FragmentPlanBinding
 import com.thanaa.restaurantweatherapp.model.Plan
+import com.thanaa.restaurantweatherapp.repository.PlanRepository
 import com.thanaa.restaurantweatherapp.utils.SwipeToComplete
 import com.thanaa.restaurantweatherapp.utils.SwipeToDelete
 import com.thanaa.restaurantweatherapp.viewmodel.PlanViewModel
+import com.thanaa.restaurantweatherapp.viewmodel.providerfactory.PlanProviderFactory
 
 
 class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
     private var _binding: FragmentPlanBinding? = null
     private val binding get() = _binding!!
-    private val planViewModel: PlanViewModel by viewModels()
+    private lateinit var planViewModel: PlanViewModel
     lateinit var recyclerView: RecyclerView
     private lateinit var auth: FirebaseAuth
     private val fireStoreDB = FirebaseFirestore.getInstance()
@@ -49,6 +52,9 @@ class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
     ): View? {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.plans)
         _binding = FragmentPlanBinding.inflate(inflater, container, false)
+        val repository = PlanRepository(AppDatabase.getDatabase(requireContext()))
+        val factory = PlanProviderFactory(repository)
+        planViewModel = ViewModelProvider(this, factory).get(PlanViewModel::class.java)
         firebaseProfile()
         setData()
 

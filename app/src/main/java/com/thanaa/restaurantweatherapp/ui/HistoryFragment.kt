@@ -6,19 +6,22 @@ import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidadvance.topsnackbar.TSnackbar
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.adapter.RestaurantAdapter
+import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.databinding.FragmentHistoryBinding
+import com.thanaa.restaurantweatherapp.repository.HistoryRepository
 import com.thanaa.restaurantweatherapp.viewmodel.HistoryViewModel
+import com.thanaa.restaurantweatherapp.viewmodel.providerfactory.HistoryProviderFactory
 
 class HistoryFragment : Fragment() {
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
-    private val viewModelDB: HistoryViewModel by viewModels()
+    private lateinit var historyViewModel: HistoryViewModel
     lateinit var adapter: RestaurantAdapter
     private val args by navArgs<HistoryFragmentArgs>()
     override fun onCreateView(
@@ -37,16 +40,18 @@ class HistoryFragment : Fragment() {
     }
 
     private fun setData() {
-        viewModelDB.getAllData.observe(viewLifecycleOwner, {
-
+        val repository = HistoryRepository(AppDatabase.getDatabase(requireContext()))
+        val factory = HistoryProviderFactory(repository)
+        historyViewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
+        historyViewModel.getAllData.observe(viewLifecycleOwner, {
             binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
             adapter = RestaurantAdapter(it, 2)
             binding.recyclerview.adapter = adapter
-            viewModelDB.checkIfDatabaseEmpty(it)
+            historyViewModel.checkIfDatabaseEmpty(it)
 
         })
         //check if the database is empty to show empty view
-        viewModelDB.emptyDatabase.observe(viewLifecycleOwner, {
+        historyViewModel.emptyDatabase.observe(viewLifecycleOwner, {
             showEmptyView(it)
         })
     }
@@ -64,7 +69,7 @@ class HistoryFragment : Fragment() {
     private fun confirmRemoval() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
-            viewModelDB.deleteAll()
+            historyViewModel.deleteAll()
             val snackbar = TSnackbar.make(
                 requireView(),
                 getString(R.string.history_successfully_deleted),
@@ -87,7 +92,7 @@ class HistoryFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delete_all -> confirmRemoval()
-            R.id.price -> viewModelDB.sortByPrice.observe(this, { adapter.setData(it) })
+            R.id.price -> historyViewModel.sortByPrice.observe(this, { adapter.setData(it) })
 
         }
         return super.onOptionsItemSelected(item)

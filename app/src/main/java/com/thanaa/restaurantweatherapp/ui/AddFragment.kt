@@ -7,15 +7,18 @@ import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.adapter.ColorAdapter
 import com.thanaa.restaurantweatherapp.adapter.CountryAdapter
+import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.databinding.FragmentAddBinding
 import com.thanaa.restaurantweatherapp.model.CountryItem
 import com.thanaa.restaurantweatherapp.model.Plan
+import com.thanaa.restaurantweatherapp.repository.PlanRepository
 import com.thanaa.restaurantweatherapp.viewmodel.PlanViewModel
+import com.thanaa.restaurantweatherapp.viewmodel.providerfactory.PlanProviderFactory
 import java.util.*
 
 const val REQUEST_DATE = 0
@@ -28,7 +31,7 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
     private var flag: Int = 0
     private var color: Int = 0
     private var location = ""
-    private val planViewModel: PlanViewModel by viewModels()
+    private lateinit var planViewModel: PlanViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as MainActivity).supportActionBar?.title = getString(R.string.add_plan)
@@ -44,7 +47,9 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
-
+        val repository = PlanRepository(AppDatabase.getDatabase(requireContext()))
+        val factory = PlanProviderFactory(repository)
+        planViewModel = ViewModelProvider(this, factory).get(PlanViewModel::class.java)
 
         setCountries()
         setColors()

@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidadvance.topsnackbar.TSnackbar
 import com.bumptech.glide.Glide
@@ -14,14 +14,17 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.adapter.BookmarkAdapter
+import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.databinding.FragmentBookmarkBinding
+import com.thanaa.restaurantweatherapp.repository.BookmarkRepository
 import com.thanaa.restaurantweatherapp.viewmodel.BookmarkViewModel
+import com.thanaa.restaurantweatherapp.viewmodel.providerfactory.BookmarkProviderFactory
 
 class BookmarkFragment : Fragment() {
     private var _binding: FragmentBookmarkBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-    private val bookmarkViewModel: BookmarkViewModel by viewModels()
+    private lateinit var bookmarkViewModel: BookmarkViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,19 +40,11 @@ class BookmarkFragment : Fragment() {
         return binding.root
     }
 
-    private fun getUserInfo() {
-        //Firebase auth instance
-        auth = FirebaseAuth.getInstance()
-        //set up auth image to image view
-        Glide.with(this).load(auth.currentUser?.photoUrl)
-            .apply(RequestOptions.circleCropTransform())
-            .into(binding.profileImage)
-        //set up profile info
-        binding.username.text = auth.currentUser?.displayName
-        binding.email.text = auth.currentUser?.email
-    }
 
     private fun setData() {
+        val repository = BookmarkRepository(AppDatabase.getDatabase(requireContext()))
+        val factory = BookmarkProviderFactory(repository)
+        bookmarkViewModel = ViewModelProvider(this, factory).get(BookmarkViewModel::class.java)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         bookmarkViewModel.getAllData.observe(viewLifecycleOwner, {
             bookmarkViewModel.checkIfDatabaseEmpty(it)
@@ -62,6 +57,17 @@ class BookmarkFragment : Fragment() {
         })
     }
 
+    private fun getUserInfo() {
+        //Firebase auth instance
+        auth = FirebaseAuth.getInstance()
+        //set up auth image to image view
+        Glide.with(this).load(auth.currentUser?.photoUrl)
+            .apply(RequestOptions.circleCropTransform())
+            .into(binding.profileImage)
+        //set up profile info
+        binding.username.text = auth.currentUser?.displayName
+        binding.email.text = auth.currentUser?.email
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delete_all -> confirmRemoval()

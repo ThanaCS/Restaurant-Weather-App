@@ -36,7 +36,10 @@ class PlanDaoTest {
 
     @Test
     fun insertPlan() = runBlocking {
-        val plan = Plan(0, "title", "description", Date(), 2, "london", 2)
+        val plan = Plan(
+            0, "title", "description", Date(),
+            2, "london", 2
+        )
         dao.insertPlan(plan)
         val data = dao.getAllData().getOrAwaitValue()
         assert(data.isNotEmpty())
@@ -44,7 +47,10 @@ class PlanDaoTest {
 
     @Test
     fun deletePlan() = runBlocking {
-        val plan = Plan(0, "title", "description", Date(), 2, "london", 2)
+        val plan = Plan(
+            0, "title", "description", Date(), 2,
+            "london", 2
+        )
         dao.deleteItem(plan)
         val data = dao.getAllData().getOrAwaitValue()
         assert(data.isEmpty())

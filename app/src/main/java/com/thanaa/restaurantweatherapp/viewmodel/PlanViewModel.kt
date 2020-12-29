@@ -1,29 +1,20 @@
 package com.thanaa.restaurantweatherapp.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.model.Plan
 import com.thanaa.restaurantweatherapp.repository.PlanRepository
 import kotlinx.coroutines.launch
 
-class PlanViewModel(application: Application) : AndroidViewModel(application) {
-    private val planDao = AppDatabase.getDatabase(application).PlanDao()
-    private val repository: PlanRepository
-    val getAllData: LiveData<List<Plan>>
-    val sortByNewDate: LiveData<List<Plan>>
-    val sortByOldDate: LiveData<List<Plan>>
-    val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(true)
+class PlanViewModel(val repository: PlanRepository) : ViewModel() {
 
-    init {
-        repository = PlanRepository(planDao)
-        getAllData = repository.getAllData
-        sortByNewDate = repository.sortByNewDate
-        sortByOldDate = repository.sortByOldDate
-    }
+    val getAllData: LiveData<List<Plan>> = repository.getAllData
+    val sortByNewDate: LiveData<List<Plan>> = repository.sortByNewDate
+    val sortByOldDate: LiveData<List<Plan>> = repository.sortByOldDate
+
+    val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(true)
 
     fun insertData(plan: Plan) {
         viewModelScope.launch {
@@ -58,3 +49,4 @@ class PlanViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 }
+

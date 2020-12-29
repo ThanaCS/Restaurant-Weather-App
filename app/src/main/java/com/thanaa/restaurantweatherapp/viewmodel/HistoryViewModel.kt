@@ -1,28 +1,18 @@
 package com.thanaa.restaurantweatherapp.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.model.Businesses
 import com.thanaa.restaurantweatherapp.repository.HistoryRepository
 import kotlinx.coroutines.launch
 
-class HistoryViewModel(application: Application) : AndroidViewModel(application) {
+class HistoryViewModel(val repository: HistoryRepository) : ViewModel() {
 
-    private val businessDao = AppDatabase.getDatabase(application).BusinessDao()
-    private val repository: HistoryRepository
     val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(true)
-    val getAllData: LiveData<List<Businesses>>
-    val sortByPrice: LiveData<List<Businesses>>
-
-    init {
-        repository = HistoryRepository(businessDao)
-        getAllData = repository.getAllData
-        sortByPrice = repository.sortByPrice
-    }
+    val getAllData: LiveData<List<Businesses>> = repository.getAllData
+    val sortByPrice: LiveData<List<Businesses>> = repository.sortByPrice
 
     fun insertBusiness(businesses: Businesses) {
         viewModelScope.launch {
