@@ -38,7 +38,6 @@ class BookmarkFragment : Fragment() {
         return binding.root
     }
 
-
     private fun setData() {
         val repository = BookmarkRepository(AppDatabase.getDatabase(requireContext()))
         val factory = BookmarkProviderFactory(repository)
