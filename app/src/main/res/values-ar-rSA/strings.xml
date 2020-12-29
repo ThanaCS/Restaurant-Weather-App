@@ -1,0 +1,75 @@
+<resources>
+    <string name="app_name">طعام وسفر</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="profile">شخصي</string>
+    <string name="clear_history">امسح تاريخ البحث</string>
+    <string name="clear_bookmark">امس المحفوظات</string>
+    <string name="are_you_sure">هل انت متأكد من حذف تاريخ البحث؟</string>
+    <string name="are_you_sure_bookmark">هل انت متأكد من حذف المحفوظات؟</string>
+    <string name="history_successfully_deleted">تاريخ البحث تم حذفه بنجاح</string>
+    <string name="search_for_food_restaurant">ابحث عن طعام او مطاعم</string>
+    <string-array name="food">
+        <item>بيتزا</item>
+        <item>كيك</item>
+        <item>ستاربكس</item>
+        <item>برقر</item>
+        <item>لحم</item>
+        <item>دجاج</item>
+        <item>حلا</item>
+        <item>رز</item>
+    </string-array>
+
+    <string-array name="country">
+        <item>UK</item>
+        <item>US</item>
+        <item>Germany</item>
+    </string-array>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">رسائل</string>
+    <string name="sync_header">حمل</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">توقيعك</string>
+    <string name="reply_title">ديفولت</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">حمل الرسائل</string>
+    <string name="attachment_title">حمل الملحقات</string>
+    <string name="attachment_summary_on">تم تحميل الملحقات
+    </string>
+    <string name="attachment_summary_off">فقط تحميل الملحقات</string>
+    <string name="delete_all">حذف الكل</string>
+    <string name="sort_by">تدتيب حسب</string>
+    <string name="highest_price">اعلى سعر</string>
+    <string name="price">سعر</string>
+    <string name="no_search_history_available">لا يوجد بحث متوفر..</string>
+    <string name="no_bookmark">لم تقم بحفظ اي شيء</string>
+    <string name="nothing_here_to_eat">لا يوجد شيء لتأكله</string>
+    <string name="welcome">مرحبا</string>
+    <string name="login_with_google">سجل دخولك مع قوقل</string>
+    <string name="double_tap_to_read_the_label_photo">اضغط مرتين على الصورة</string>
+    <string name="add">اضافة</string>
+    <string name="plans">خطط</string>
+    <string name="add_plan">اضف خطة</string>
+    <string name="history">التاريخ</string>
+    <string name="restaurants">مطاعم</string>
+    <string name="details">معلومات المطعم</string>
+    <string name="search">بحث</string>
+    <string name="newest">اجدد خطة</string>
+    <string name="oldest">اقدم خطة</string>
+    <string name="has_been_deleted">قمت بإزالته</string>
+    <string name="delete_all_plans">ازل الخطط</string>
+    <string name="are_you_sure_plans">هل انت متأكد من حذف جميع الخطط؟</string>
+    <string name="plans_successfully_deleted">الخطط تم ازالتها</string>
+    <string name="what_is_your_plan">ماهي خططك؟</string>
+    <string name="Plan_Description">معلومات عن الخطة</string>
+    <string name="save">احفظ</string>
+    <string name="delete">احذف</string>
+    <string name="update_plan">تجديد الخطة</string>
+    <string name="login">تسجيل دخول</string>
+    <string name="congrats">تهانينا لقد قمت بها !!</string>
+    <string name="Bookmark">محفوظات</string>
+    <string name="log_out">تسجيل خروج</string>
+</resources>

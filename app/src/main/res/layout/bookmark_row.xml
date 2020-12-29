@@ -13,6 +13,14 @@
         android:layout_gravity="top"
         android:src="@color/purple_500" />
 
+    <ImageView
+        android:id="@+id/bookmarked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_bookmark" />
 
     <TextView
         android:id="@+id/category"

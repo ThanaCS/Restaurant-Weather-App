@@ -45,7 +45,6 @@ class MapsFragment : Fragment(), View.OnClickListener {
     private var weather: WeatherResponse? = null
     private lateinit var weatherViewModel: WeatherViewModel
     lateinit var fusedLocationClient: FusedLocationProviderClient
-    private val TAG = "MapsFragment"
     private var _binding: FragmentMapsBinding? = null
     lateinit var fab: FloatingActionButton
     lateinit var bottomNavigationView: BottomNavigationView
@@ -128,10 +127,7 @@ class MapsFragment : Fragment(), View.OnClickListener {
         googleMap.addMarker(
             MarkerOptions().position(LatLng(lan, lon))
                 .draggable(true)
-                .icon(
-                    BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
-                )
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
         )
 
         googleMap.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
