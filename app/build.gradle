@@ -139,6 +139,9 @@ dependencies {
     testImplementation "android.arch.core:core-testing:1.1.0"
     androidTestImplementation "android.arch.core:core-testing:1.1.0"
     implementation 'com.google.firebase:firebase-core:18.0.0'
+    //weather animation
+    implementation 'com.github.MatteoBattilana:WeatherView:3.0.0'
+
 
 
 }

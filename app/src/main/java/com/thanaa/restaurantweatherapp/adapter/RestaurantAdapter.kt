@@ -20,7 +20,7 @@ import com.thanaa.restaurantweatherapp.utils.loadImage
 
 const val TAG = "RestaurantAdapter"
 
-class RestaurantAdapter(private var food: List<Businesses>, private val FragmentID: Int) :
+class RestaurantAdapter(private var food: List<Businesses>, private val fragmentID: Int) :
     RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -80,7 +80,7 @@ class RestaurantAdapter(private var food: List<Businesses>, private val Fragment
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val foodItem: Businesses = food[position]
-        holder.bind(foodItem, FragmentID)
+        holder.bind(foodItem, fragmentID)
 
     }
 

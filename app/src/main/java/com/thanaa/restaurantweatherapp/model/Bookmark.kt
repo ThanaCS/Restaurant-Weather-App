@@ -10,10 +10,9 @@ import kotlinx.android.parcel.Parcelize
 data class Bookmark(
     @PrimaryKey var id: String,
     val name: String,
-    val phone: String,
     val latitude: Double,
     val longitude: Double,
     val image_url: String,
-    val category: String
+    val category: String?
 ) : Parcelable
 
