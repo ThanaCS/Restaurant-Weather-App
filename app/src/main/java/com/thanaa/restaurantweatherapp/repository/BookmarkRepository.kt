@@ -1,26 +1,26 @@
 package com.thanaa.restaurantweatherapp.repository
 
 import androidx.lifecycle.LiveData
-import com.thanaa.restaurantweatherapp.database.BookmarkDao
+import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.model.Bookmark
 
 
-class BookmarkRepository(private val bookmarkDao: BookmarkDao) {
-    val getAllData: LiveData<List<Bookmark>> = bookmarkDao.getAllBookmark()
+class BookmarkRepository(private val database: AppDatabase) {
+    val getAllData: LiveData<List<Bookmark>> = database.BookmarkDao().getAllBookmark()
 
     suspend fun insertData(bookmark: Bookmark) {
-        bookmarkDao.insertBookmark(bookmark)
+        database.BookmarkDao().insertBookmark(bookmark)
     }
 
     suspend fun updateData(plan: Bookmark) {
-        bookmarkDao.updatePlan(plan)
+        database.BookmarkDao().updatePlan(plan)
     }
 
     suspend fun deleteItem(bookmark: Bookmark) {
-        bookmarkDao.deleteBookmark(bookmark)
+        database.BookmarkDao().deleteBookmark(bookmark)
     }
 
     suspend fun deleteAll() {
-        bookmarkDao.deleteAllBookmark()
+        database.BookmarkDao().deleteAllBookmark()
     }
 }

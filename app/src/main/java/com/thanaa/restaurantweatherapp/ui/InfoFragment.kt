@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,11 +29,14 @@ import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.adapter.WeatherAdapter
+import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.databinding.FragmentInfoBinding
 import com.thanaa.restaurantweatherapp.model.Bookmark
+import com.thanaa.restaurantweatherapp.repository.BookmarkRepository
 import com.thanaa.restaurantweatherapp.utils.DoubleClickListener
 import com.thanaa.restaurantweatherapp.viewmodel.BookmarkViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
+import com.thanaa.restaurantweatherapp.viewmodel.providerfactory.BookmarkProviderFactory
 import java.io.BufferedInputStream
 import java.io.IOException
 import java.io.InputStream
@@ -49,7 +51,7 @@ class InfoFragment : Fragment() {
     private val binding get() = _binding!!
     private val args by navArgs<InfoFragmentArgs>()
     private lateinit var weatherViewModel: WeatherViewModel
-    private val bookmarkViewModel: BookmarkViewModel by viewModels()
+    private lateinit var bookmarkViewModel: BookmarkViewModel
     private var TAG = "InfoFragment"
     override fun onCreate(savedInstanceState: Bundle?) {
         FirebaseApp.initializeApp(requireContext())
@@ -74,6 +76,9 @@ class InfoFragment : Fragment() {
 
     @ExperimentalTime
     private fun setData() {
+        val repository = BookmarkRepository(AppDatabase.getDatabase(requireContext()))
+        val factory = BookmarkProviderFactory(repository)
+        bookmarkViewModel = ViewModelProvider(this, factory).get(BookmarkViewModel::class.java)
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         binding.apply {
             progressBar.visibility = View.VISIBLE

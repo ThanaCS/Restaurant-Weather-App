@@ -5,23 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.adapter.RestaurantAdapter
+import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.databinding.FragmentHomeBinding
+import com.thanaa.restaurantweatherapp.repository.HistoryRepository
 import com.thanaa.restaurantweatherapp.viewmodel.HistoryViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.YelpViewModel
+import com.thanaa.restaurantweatherapp.viewmodel.providerfactory.HistoryProviderFactory
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var yelpViewModel: YelpViewModel
     private lateinit var weatherViewModel: WeatherViewModel
-    private val viewModelDB: HistoryViewModel by viewModels()
+    private lateinit var historyViewModel: HistoryViewModel
     private val args by navArgs<HomeFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +44,9 @@ class HomeFragment : Fragment() {
 
 
     private fun setData() {
-
+        val repository = HistoryRepository(AppDatabase.getDatabase(requireContext()))
+        val factory = HistoryProviderFactory(repository)
+        historyViewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
         binding.progressbar.visibility = View.VISIBLE
         yelpViewModel.getBusinesses(term = args.food, location = args.weather.location.country)
 
@@ -50,7 +54,7 @@ class HomeFragment : Fragment() {
             binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
             binding.recyclerview.adapter = RestaurantAdapter(it, 1)
             it.forEach { businesses ->
-                viewModelDB.insertBusiness(businesses)
+                historyViewModel.insertBusiness(businesses)
             }
             binding.progressbar.visibility = View.GONE
 

@@ -133,7 +133,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
-        android:name="com.thanaa.restaurantweatherapp.LocationFragment"
+        android:name="com.thanaa.restaurantweatherapp.ui.LocationFragment"
         android:label="fragment_location"
         tools:layout="@layout/fragment_location">
         <argument

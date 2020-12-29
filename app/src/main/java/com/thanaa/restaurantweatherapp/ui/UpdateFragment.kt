@@ -6,22 +6,25 @@ import android.text.format.DateFormat
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.thanaa.restaurantweatherapp.*
 import com.thanaa.restaurantweatherapp.adapter.ColorAdapter
 import com.thanaa.restaurantweatherapp.adapter.CountryAdapter
+import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.databinding.FragmentUpdateBinding
 import com.thanaa.restaurantweatherapp.model.CountryItem
 import com.thanaa.restaurantweatherapp.model.Plan
+import com.thanaa.restaurantweatherapp.repository.PlanRepository
 import com.thanaa.restaurantweatherapp.viewmodel.PlanViewModel
+import com.thanaa.restaurantweatherapp.viewmodel.providerfactory.PlanProviderFactory
 import java.util.*
 
 
 class UpdateFragment : Fragment(), DatePickerFragment.Callbacks {
     private val args by navArgs<UpdateFragmentArgs>()
-    private val planViewModel: PlanViewModel by viewModels()
+    private lateinit var planViewModel: PlanViewModel
     private var _binding: FragmentUpdateBinding? = null
     private val binding get() = _binding!!
     private var flag: Int = 0
@@ -34,6 +37,9 @@ class UpdateFragment : Fragment(), DatePickerFragment.Callbacks {
     ): View? {
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
         (activity as MainActivity).supportActionBar?.title = getString(R.string.update_plan)
+        val repository = PlanRepository(AppDatabase.getDatabase(requireContext()))
+        val factory = PlanProviderFactory(repository)
+        planViewModel = ViewModelProvider(this, factory).get(PlanViewModel::class.java)
         setCountries()
         setColors()
         binding.date.setOnClickListener {

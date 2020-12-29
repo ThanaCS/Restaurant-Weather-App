@@ -1,20 +1,20 @@
 package com.thanaa.restaurantweatherapp.repository
 
 import androidx.lifecycle.LiveData
-import com.thanaa.restaurantweatherapp.database.BusinessDao
+import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.model.Businesses
 
-class HistoryRepository(private val businessDao: BusinessDao) {
+class HistoryRepository(private val database: AppDatabase) {
 
-    val getAllData: LiveData<List<Businesses>> = businessDao.getBusiness()
-    val sortByPrice: LiveData<List<Businesses>> = businessDao.sortByHighestPrice()
+    val getAllData: LiveData<List<Businesses>> = database.BusinessDao().getBusiness()
+    val sortByPrice: LiveData<List<Businesses>> = database.BusinessDao().sortByHighestPrice()
+
     suspend fun insertData(businesses: Businesses) {
-        businessDao.insertBusiness(businesses)
+        database.BusinessDao().insertBusiness(businesses)
     }
 
     suspend fun deleteAll() {
-        businessDao.deleteAll()
+        database.BusinessDao().deleteAll()
     }
-
 
 }
