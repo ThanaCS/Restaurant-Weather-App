@@ -71,4 +71,6 @@
     <string name="congrats"> GLÜCKWÜNSCHE, DASS SIE ES GEMACHT HABEN !! </string>
     <string name="Bookmark"> Lesezeichen </string>
     <string name="log_out"> Abmelden </string>
+    <string name="no_connection">Keine Verbindung</string>
+
 </resources>

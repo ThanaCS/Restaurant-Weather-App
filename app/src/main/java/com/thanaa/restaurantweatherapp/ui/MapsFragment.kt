@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.thanaa.restaurantweatherapp.R
 import com.thanaa.restaurantweatherapp.databinding.FragmentMapsBinding
 import com.thanaa.restaurantweatherapp.viewmodel.WeatherViewModel
@@ -57,14 +59,37 @@ class MapsFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMapsBinding.inflate(inflater, container, false)
-        (activity as MainActivity).supportActionBar?.title = "Food&Travel"
-
-        getUserLocation()
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.app_name)
         showNavigation()
-        autoCompleteSearch()
-        setData()
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        checkConnection()
+    }
+
+    private fun checkConnection() {
+        val connectionManager =
+            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectionManager.activeNetworkInfo
+        val isConnected = activeNetwork?.isConnectedOrConnecting == true
+        if (isConnected) {
+            // if connected
+            getUserLocation()
+            autoCompleteSearch()
+            setData()
+
+        } else {
+            // if not connected
+            val snackbar = Snackbar.make(
+                requireView(),
+                getString(R.string.no_connection),
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.show()
+        }
     }
 
     private fun setData() {
@@ -189,13 +214,16 @@ class MapsFragment : Fragment(), View.OnClickListener {
         if (query != "") {
             food = query
             //Pass data to home fragment
-            val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment(
-                food!!,
-                latValue.toString(),
-                lonValue.toString(),
-                weather!!
-            )
-            findNavController().navigate(action)
+            if (weather != null && food != null) {
+                val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment(
+                    food!!,
+                    latValue.toString(),
+                    lonValue.toString(),
+                    weather!!
+                )
+                findNavController().navigate(action)
+            }
+
             //Hide soft keys
             hideKeyBoard()
         }
