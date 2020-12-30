@@ -3,9 +3,7 @@ package com.thanaa.restaurantweatherapp.ui
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -88,6 +86,7 @@ class HomeFragment : Fragment() {
         })
 
 
+
     }
 
     private fun showEmptyView(emptyBusinesses: Boolean) {
@@ -98,6 +97,11 @@ class HomeFragment : Fragment() {
             binding.emptyFood.visibility = View.INVISIBLE
             binding.emptyText.visibility = View.INVISIBLE
         }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.history_menu, menu)
     }
 
 

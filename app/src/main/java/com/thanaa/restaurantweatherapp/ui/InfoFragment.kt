@@ -80,6 +80,8 @@ class InfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkConnection()
+
+
     }
 
     @ExperimentalTime
@@ -91,6 +93,7 @@ class InfoFragment : Fragment() {
         if (isConnected) {
             // if connected
             setData()
+
             doubleClickToBookmark()
 
 
@@ -108,14 +111,13 @@ class InfoFragment : Fragment() {
 
     @ExperimentalTime
     private fun setData() {
-
+        binding.progressBar.visibility = View.VISIBLE
         val repository = BookmarkRepository(AppDatabase.getDatabase(requireContext()))
         val factory = BookmarkProviderFactory(repository)
         bookmarkViewModel = ViewModelProvider(this, factory).get(BookmarkViewModel::class.java)
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         binding.apply {
 
-            progressBar.visibility = View.VISIBLE
             infoGroup.visibility = View.GONE
             weatherRecyclerView1.layoutManager = LinearLayoutManager(
                 requireContext(),
@@ -130,7 +132,6 @@ class InfoFragment : Fragment() {
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL, false
             )
-            progressBar.visibility = View.VISIBLE
             isOpen.text = if (args.business.is_closed) "Closed" else "Open"
             name.text = args.business.name
             distance.text = String.format("%.0f", args.business.distance.hours.inDays) + " hours"
@@ -171,8 +172,9 @@ class InfoFragment : Fragment() {
                 }
 
             })
-            progressBar.visibility = View.GONE
-            infoGroup.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
+            binding.infoGroup.visibility = View.VISIBLE
+
 
 
             binding.imageView.setOnClickListener {

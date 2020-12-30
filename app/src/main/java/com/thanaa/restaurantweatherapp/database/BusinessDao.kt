@@ -19,8 +19,7 @@ interface BusinessDao {
     suspend fun deleteAll()
 
     @Query("SELECT * FROM businesses_table ORDER BY price DESC")
-    fun sortByHighestPrice(): LiveData<List<Businesses>>
+    fun sortByPrice(): LiveData<List<Businesses>>
 
-    @Query("SELECT * FROM businesses_table ORDER BY price ASC")
-    fun sortByLowestPrice(): LiveData<List<Businesses>>
+
 }
