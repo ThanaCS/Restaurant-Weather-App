@@ -15,6 +15,7 @@ import com.thanaa.restaurantweatherapp.adapter.BookmarkAdapter
 import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.databinding.FragmentProfileBinding
 import com.thanaa.restaurantweatherapp.repository.BookmarkRepository
+import com.thanaa.restaurantweatherapp.utils.Levels
 import com.thanaa.restaurantweatherapp.viewmodel.BookmarkViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.providerfactory.BookmarkProviderFactory
 
@@ -99,20 +100,20 @@ class ProfileFragment : Fragment() {
                     val score = snapshot.get("score").toString().toInt()
                     if (score < 1000) {
                         val updates = hashMapOf<String, Any>(
-                            "level" to "ROOKIE"
+                            "level" to "${Levels.level1}"
                         )
                         docRef.update(updates).addOnCompleteListener { }
                     }
 
                     if (score >= 1000) {
                         val updates = hashMapOf<String, Any>(
-                            "level" to "INTERMEDIATE"
+                            "level" to "${Levels.level2}"
                         )
                         docRef.update(updates).addOnCompleteListener { }
                     }
                     if (score >= 50000) {
                         val updates = hashMapOf<String, Any>(
-                            "level" to "EXPERT"
+                            "level" to "${Levels.level3}"
                         )
                         docRef.update(updates).addOnCompleteListener { }
                     }

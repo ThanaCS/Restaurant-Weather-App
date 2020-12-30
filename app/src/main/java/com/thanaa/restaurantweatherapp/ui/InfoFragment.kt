@@ -2,10 +2,12 @@ package com.thanaa.restaurantweatherapp.ui
 
 import android.animation.Animator
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -25,6 +27,7 @@ import com.androidadvance.topsnackbar.TSnackbar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.matteobattilana.weather.PrecipType
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeling
@@ -61,7 +64,7 @@ class InfoFragment : Fragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    @ExperimentalTime
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -69,10 +72,37 @@ class InfoFragment : Fragment() {
     ): View {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.details)
         _binding = FragmentInfoBinding.inflate(inflater, container, false)
-        setData()
-        doubleClickToBookmark()
         binding.heart.visibility = View.INVISIBLE
         return binding.root
+    }
+
+    @ExperimentalTime
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        checkConnection()
+    }
+
+    @ExperimentalTime
+    private fun checkConnection() {
+        val connectionManager =
+            requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectionManager.activeNetworkInfo
+        val isConnected = activeNetwork?.isConnectedOrConnecting == true
+        if (isConnected) {
+            // if connected
+            setData()
+            doubleClickToBookmark()
+
+
+        } else {
+            // if not connected
+            val snackbar = Snackbar.make(
+                requireView(),
+                getString(R.string.no_connection),
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.show()
+        }
     }
 
 
