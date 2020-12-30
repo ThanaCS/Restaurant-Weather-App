@@ -62,7 +62,6 @@ class InfoFragment : Fragment() {
         FirebaseApp.initializeApp(requireContext())
         super.onCreate(savedInstanceState)
     }
-
     @SuppressLint("ClickableViewAccessibility")
 
     override fun onCreateView(
@@ -72,7 +71,7 @@ class InfoFragment : Fragment() {
     ): View {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.details)
         _binding = FragmentInfoBinding.inflate(inflater, container, false)
-        binding.heart.visibility = View.INVISIBLE
+
         return binding.root
     }
 
@@ -80,8 +79,6 @@ class InfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkConnection()
-
-
     }
 
     @ExperimentalTime
@@ -93,10 +90,7 @@ class InfoFragment : Fragment() {
         if (isConnected) {
             // if connected
             setData()
-
             doubleClickToBookmark()
-
-
         } else {
             // if not connected
             val snackbar = Snackbar.make(
@@ -112,13 +106,13 @@ class InfoFragment : Fragment() {
     @ExperimentalTime
     private fun setData() {
         binding.progressBar.visibility = View.VISIBLE
+        binding.groupInfo.visibility = View.GONE
         val repository = BookmarkRepository(AppDatabase.getDatabase(requireContext()))
         val factory = BookmarkProviderFactory(repository)
         bookmarkViewModel = ViewModelProvider(this, factory).get(BookmarkViewModel::class.java)
         weatherViewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
         binding.apply {
 
-            infoGroup.visibility = View.GONE
             weatherRecyclerView1.layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL, false
@@ -168,14 +162,11 @@ class InfoFragment : Fragment() {
                     binding.date1.text = date1
                     binding.date2.text = date2
                     binding.date3.text = date3
-
+                    progressBar.visibility = View.GONE
+                    groupInfo.visibility = View.VISIBLE
                 }
 
             })
-            binding.progressBar.visibility = View.GONE
-            binding.infoGroup.visibility = View.VISIBLE
-
-
 
             binding.imageView.setOnClickListener {
                 firebaseLabelPhotos()
@@ -337,7 +328,7 @@ class InfoFragment : Fragment() {
         }
     }
 
-    fun goLocation() {
+    private fun goLocation() {
         binding.locationButton.setOnClickListener {
             //when user clicks on item it navigate to the map
             val action = InfoFragmentDirections.actionInfoFragmentToLocationFragment(
