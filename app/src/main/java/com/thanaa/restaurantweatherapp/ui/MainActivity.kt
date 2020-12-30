@@ -13,7 +13,6 @@ import com.thanaa.restaurantweatherapp.R
 
 
 class MainActivity : AppCompatActivity() {
-    private val TAG = "MainActivity"
     lateinit var fab: FloatingActionButton
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var bottomAppBar: BottomAppBar

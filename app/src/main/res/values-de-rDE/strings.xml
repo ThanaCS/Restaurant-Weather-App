@@ -72,5 +72,13 @@
     <string name="Bookmark"> Lesezeichen </string>
     <string name="log_out"> Abmelden </string>
     <string name="no_connection">Keine Verbindung</string>
-
+    <string name="reviews">Bewertungen</string>
+    <string name="closed">Geschlossen</string>
+    <string name="open">Öffnen Sie</string>
+    <string name="hours"> Stunden</string>
+    <string name="no_search_found">Kein Ergebnis gefunden</string>
+    <string name="successfully_aded">Erfolgreich hinzugefügt</string>
+    <string name="empty_fields">Leere Felder</string>
+    <string name="bookmark_successfully_deleted">Lesezeichen erfolgreich gelöscht</string>
+    <string name="foodie">FOODIE</string>
 </resources>

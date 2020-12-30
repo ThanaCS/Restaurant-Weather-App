@@ -1,7 +1,6 @@
 package com.thanaa.restaurantweatherapp.ui
 
 import android.animation.Animator
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -12,7 +11,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,12 +55,10 @@ class InfoFragment : Fragment() {
     private val args by navArgs<InfoFragmentArgs>()
     private lateinit var weatherViewModel: WeatherViewModel
     private lateinit var bookmarkViewModel: BookmarkViewModel
-    private var TAG = "InfoFragment"
     override fun onCreate(savedInstanceState: Bundle?) {
         FirebaseApp.initializeApp(requireContext())
         super.onCreate(savedInstanceState)
     }
-    @SuppressLint("ClickableViewAccessibility")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -126,9 +122,13 @@ class InfoFragment : Fragment() {
                 requireContext(),
                 LinearLayoutManager.HORIZONTAL, false
             )
-            isOpen.text = if (args.business.is_closed) "Closed" else "Open"
+            isOpen.text =
+                if (args.business.is_closed) getString(R.string.closed) else getString(R.string.open)
             name.text = args.business.name
-            distance.text = String.format("%.0f", args.business.distance.hours.inDays) + " hours"
+            distance.text = String.format(
+                "%.0f",
+                args.business.distance.hours.inDays
+            ) + getString(R.string.hours)
             category.text = args.business.categories[0].title
             phoneNumber.text = args.business.phone
             region.text = "${args.business.location.city}, ${args.business.location.country}"
@@ -270,7 +270,11 @@ class InfoFragment : Fragment() {
 
                     }
                     .addOnFailureListener { e ->
-                        Toast.makeText(context, "No result found", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            context,
+                            getString(R.string.no_search_found),
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                         print(e)
 
@@ -294,7 +298,7 @@ class InfoFragment : Fragment() {
             bis.close()
             `is`.close()
         } catch (e: IOException) {
-            Log.e(TAG, "Error getting bitmap", e)
+
         }
         return bm
     }

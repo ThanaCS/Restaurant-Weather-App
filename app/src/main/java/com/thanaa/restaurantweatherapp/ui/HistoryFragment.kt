@@ -7,7 +7,6 @@ import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidadvance.topsnackbar.TSnackbar
 import com.thanaa.restaurantweatherapp.R
@@ -23,7 +22,6 @@ class HistoryFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var historyViewModel: HistoryViewModel
     lateinit var adapter: RestaurantAdapter
-    private val args by navArgs<HistoryFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,7 +75,7 @@ class HistoryFragment : Fragment() {
             )
             snackbar.setActionTextColor(Color.WHITE)
             val snackbarView = snackbar.view
-            snackbarView.setBackgroundColor(Color.parseColor("#5B9787DC"))
+            snackbarView.setBackgroundColor(Color.parseColor(getString(R.string.light_pink)))
             val textView =
                 snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
             textView.setTextColor(Color.WHITE)

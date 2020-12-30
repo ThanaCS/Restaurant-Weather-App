@@ -73,4 +73,13 @@
     <string name="Bookmark">محفوظات</string>
     <string name="log_out">تسجيل خروج</string>
     <string name="no_connection">لا يوجد اتصال</string>
+    <string name="reviews">مراجعات</string>
+    <string name="closed">مغلق</string>
+    <string name="open">مفتوح</string>
+    <string name="hours"> ساعات</string>
+    <string name="no_search_found">لا يوجد بحث</string>
+    <string name="successfully_aded">تمت الاضافة بنجاح</string>
+    <string name="empty_fields">حقول فارغة</string>
+    <string name="bookmark_successfully_deleted">تم الحفظ</string>
+    <string name="foodie">عاشق للطعام</string>
 </resources>

@@ -2,7 +2,6 @@ package com.thanaa.restaurantweatherapp.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,7 @@ import com.thanaa.restaurantweatherapp.utils.Constants
 
 
 class LoginFragment : Fragment() {
-    private val TAG = "LoginFragment"
+
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var bottomAppBar: BottomAppBar
     lateinit var fab: FloatingActionButton
@@ -90,7 +89,6 @@ class LoginFragment : Fragment() {
                     val account = task.getResult(ApiException::class.java)!!
 
                     firebaseAuthWithGoogle(account.idToken!!)
-                    getUserDetails()
                 } catch (e: ApiException) {
                     print(e)
                 }
@@ -106,7 +104,8 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     val firebaseUser: FirebaseUser = task.result!!.user!!
                     auth = FirebaseAuth.getInstance()
-                    val docRef = fireStoreDB.collection("users").document(auth.currentUser?.uid!!)
+                    val docRef =
+                        fireStoreDB.collection(Constants.USERS).document(auth.currentUser?.uid!!)
                     docRef.addSnapshotListener { snapshot, e ->
 
 
@@ -136,18 +135,6 @@ class LoginFragment : Fragment() {
             }
     }
 
-    private fun getUserDetails() {
-        fireStoreDB.collection("users")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
-            }
-    }
 
     //hide navigation button
     private fun hideNavigation() {

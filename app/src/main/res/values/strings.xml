@@ -74,4 +74,12 @@
     <string name="log_out">Log out</string>
     <string name="no_connection">No connection</string>
     <string name="reviews">Reviews</string>
+    <string name="closed">Closed</string>
+    <string name="open">Open</string>
+    <string name="hours"> hours</string>
+    <string name="no_search_found">No result found</string>
+    <string name="successfully_aded">Successfully Added</string>
+    <string name="empty_fields">Empty Fields</string>
+    <string name="bookmark_successfully_deleted">Bookmark Successfully Deleted</string>
+    <string name="foodie">FOODIE</string>
 </resources>

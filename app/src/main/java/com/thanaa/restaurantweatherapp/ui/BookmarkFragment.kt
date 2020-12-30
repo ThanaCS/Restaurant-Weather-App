@@ -84,12 +84,12 @@ class BookmarkFragment : Fragment() {
             bookmarkViewModel.deleteAll()
             val snackbar = TSnackbar.make(
                 requireView(),
-                "Bookmark Successfully Deleted",
+                getString(R.string.bookmark_successfully_deleted),
                 TSnackbar.LENGTH_LONG
             )
             snackbar.setActionTextColor(Color.WHITE)
             val snackbarView = snackbar.view
-            snackbarView.setBackgroundColor(Color.parseColor("#5B9787DC"))
+            snackbarView.setBackgroundColor(Color.parseColor(getString(R.string.light_pink)))
             val textView =
                 snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
             textView.setTextColor(Color.WHITE)

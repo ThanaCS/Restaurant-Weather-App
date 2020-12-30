@@ -15,6 +15,7 @@ import com.thanaa.restaurantweatherapp.adapter.BookmarkAdapter
 import com.thanaa.restaurantweatherapp.database.AppDatabase
 import com.thanaa.restaurantweatherapp.databinding.FragmentProfileBinding
 import com.thanaa.restaurantweatherapp.repository.BookmarkRepository
+import com.thanaa.restaurantweatherapp.utils.Constants
 import com.thanaa.restaurantweatherapp.utils.Levels
 import com.thanaa.restaurantweatherapp.viewmodel.BookmarkViewModel
 import com.thanaa.restaurantweatherapp.viewmodel.providerfactory.BookmarkProviderFactory
@@ -79,11 +80,11 @@ class ProfileFragment : Fragment() {
 
     private fun getUserDetails() {
         levelStatus()
-        val docRef = fireStoreDB.collection("users").document(auth.currentUser?.uid!!)
+        val docRef = fireStoreDB.collection(Constants.USERS).document(auth.currentUser?.uid!!)
         docRef.addSnapshotListener { snapshot, e ->
             if (snapshot != null) {
                 binding.score.text = snapshot.get("score").toString()
-                binding.level.text = "${snapshot.get("level")} FOODIE"
+                binding.level.text = "${snapshot.get("level")}" + getString(R.string.foodie)
             }
 
         }
@@ -92,7 +93,7 @@ class ProfileFragment : Fragment() {
 
     private fun levelStatus() {
 
-        val docRef = fireStoreDB.collection("users").document(auth.currentUser?.uid!!)
+        val docRef = fireStoreDB.collection(Constants.USERS).document(auth.currentUser?.uid!!)
         docRef.addSnapshotListener { snapshot, e ->
             if (snapshot != null) {
 

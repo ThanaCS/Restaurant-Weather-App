@@ -251,7 +251,7 @@ class PlanFragment : Fragment(), SearchView.OnQueryTextListener {
             TSnackbar.LENGTH_LONG
         )
         val snackbarView = snackbar.view
-        snackbarView.setBackgroundColor(Color.parseColor("#99CC00"))
+        snackbarView.setBackgroundColor(Color.parseColor(getString(R.string.green_app)))
         val textView =
             snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
         textView.setTextColor(Color.WHITE)

@@ -82,10 +82,15 @@ class AddFragment : Fragment(), DatePickerFragment.Callbacks {
         if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(description)) {
             val newData = Plan(0, title, description, plan.date, color, location, flag)
             planViewModel.insertData(newData)
-            Toast.makeText(requireContext(), "Successfully Added", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.successfully_aded),
+                Toast.LENGTH_SHORT
+            ).show()
             findNavController().navigate((R.id.planFragment))
         } else {
-            Toast.makeText(requireContext(), "Empty Fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.empty_fields), Toast.LENGTH_SHORT)
+                .show()
         }
 
     }

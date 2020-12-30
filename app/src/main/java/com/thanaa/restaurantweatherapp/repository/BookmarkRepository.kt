@@ -8,6 +8,7 @@ import com.thanaa.restaurantweatherapp.model.Bookmark
 class BookmarkRepository(private val database: AppDatabase) {
     val getAllData: LiveData<List<Bookmark>> = database.BookmarkDao().getAllBookmark()
 
+
     suspend fun insertData(bookmark: Bookmark) {
         database.BookmarkDao().insertBookmark(bookmark)
     }
